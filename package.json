@@ -2,10 +2,10 @@
   "name": "p-kit",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "build:dev": "webpack --config build-util/webpack/webpack.config.js --env.env=dev",
     "build:prod": "webpack --config build-util/webpack/webpack.config.js --env.env=prod",
+    "server": "nodemon --config \"./build-util/Nodemon/nodemon.json\"",
     "test": "jest"
   },
   "repository": {
@@ -19,11 +19,17 @@
   },
   "homepage": "https://github.com/tjamesmac/p-kit#readme",
   "devDependencies": {
+    "@types/enzyme": "^3.10.2",
+    "@types/enzyme-adapter-react-16": "^1.0.5",
+    "@types/graphql": "^14.2.2",
     "@types/jest": "^24.0.15",
     "@types/react": "^16.8.23",
     "@types/react-dom": "^16.8.4",
     "css-loader": "^3.0.0",
     "dotenv-webpack": "^1.7.0",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.14.0",
+    "enzyme-to-json": "^3.3.5",
     "jest": "^24.8.0",
     "node-sass": "^4.12.0",
     "nodemon": "^1.19.1",
