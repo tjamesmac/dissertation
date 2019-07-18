@@ -1,6 +1,6 @@
 import { shallow } from 'enzyme';
 import * as React from 'react';
-import { App } from './index';
+import { App } from './App/App';
 
 it('renders the heading with a name', () => {
   const result = shallow(<App/>).contains(
