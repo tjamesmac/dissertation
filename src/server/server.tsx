@@ -2,6 +2,11 @@ import bodyParser from 'body-parser';
 import express from 'express';
 import * as path from 'path';
 
+import React from 'react';
+import { renderToString } from 'react-dom/server';
+import { App } from '../public/Typescript/App/App';
+import { htmlTemplate } from './htmlTemplate';
+
 class Server {
   public app: express.Application;
   constructor() {
@@ -15,6 +20,15 @@ class Server {
       res.sendFile(path.join(__dirname, '../../dist/index.html'));
     });
     // routes go here when I get them
+  }
+  private serverSideRender(): void {
+    this.app.get('/', (req, res) => {
+      const jsx = ( <App />);
+      const reactDom = renderToString( jsx );
+      
+      res.writeHead( 200, { 'Content-Type': 'text/html' } );
+      res.end( htmlTemplate( reactDom ) );
+    });
   }
 }
 
