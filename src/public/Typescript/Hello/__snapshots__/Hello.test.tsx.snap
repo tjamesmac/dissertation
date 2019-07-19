@@ -11,15 +11,3 @@ exports[`Hello component it renders correctly 1`] = `
   </h1>
 </div>
 `;
-
-exports[`Test Hello component it renders correctly 1`] = `
-<div>
-  <h1
-    className="header"
-  >
-    Hello, 
-    Test
-    . Welcome back!
-  </h1>
-</div>
-`;
