@@ -3,8 +3,10 @@ import request from 'supertest';
 import Server from './server';
 
 import React from 'react';
+import { renderToString } from 'react-dom/server';
 import { Hello } from '../public/Typescript/Hello/Hello';
 import { htmlTemplate } from './htmlTemplate';
+
 
 describe('my server', () => {
   const app = new Server().app;
@@ -31,7 +33,8 @@ describe('server template', () => {
   it('should match template', () => {
     const name = 'Test';
     const hello = <Hello name={name}/>;
-    const html = htmlTemplate(hello);
-    expect(html).toMatch(htmlTemplate(hello));
+    const reactDom = renderToString(hello);
+    const html = htmlTemplate(reactDom);
+    expect(html).toMatch(htmlTemplate(reactDom));
   });
 });
