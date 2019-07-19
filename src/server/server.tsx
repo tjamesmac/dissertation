@@ -9,11 +9,6 @@ class Server {
     this.app = express();
     this.config();
   }
-  // public getApp() {
-  //   this.getIndex();
-  //   this.getDist();
-  //   return this.app;
-  // }
   private config(): void {
     this.app.use(bodyParser.json());
     this.app.use('/', express.static(path.join(__dirname, '../../dist')));
