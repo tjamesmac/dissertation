@@ -1,5 +1,5 @@
 import * as React from 'react';
-import '../../Scss/home.scss';
+// this now works like this?
 
 export interface IHelloProps { name: string; }
 
