@@ -16,16 +16,14 @@ class Server {
   private config(): void {
     this.app.use(bodyParser.json());
     this.app.use('/', express.static(path.join(__dirname, '../../dist')));
-    this.app.get('/', (req: express.Request, res: express.Response) => {
-      res.sendFile(path.join(__dirname, '../../dist/index.html'));
-    });
+    this.serverSideRender();
     // routes go here when I get them
   }
   private serverSideRender(): void {
-    this.app.get('/', (req, res) => {
+    this.app.get('/', (req: express.Request, res: express.Response) => {
       const jsx = ( <App />);
       const reactDom = renderToString( jsx );
-      
+
       res.writeHead( 200, { 'Content-Type': 'text/html' } );
       res.end( htmlTemplate( reactDom ) );
     });
