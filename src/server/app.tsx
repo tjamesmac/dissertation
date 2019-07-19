@@ -1,10 +1,9 @@
 
-import path from 'path';
 import Server from './server';
 
-const server: any = new Server(3000);
-const app = server.getApp();
+const app = new Server().app;
+const PORT: number = 3000;
 
-app.listen(server.PORT, () => {
-  console.log(server.serverMSG());
+app.listen(PORT, () => {
+  console.log(`Express server listening on port ${PORT}`);
 });
