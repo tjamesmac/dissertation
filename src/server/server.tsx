@@ -14,14 +14,14 @@ class Server {
     this.config();
   }
   private config(): void {
-    this.app.use(bodyParser.json());
-    this.app.use('/', express.static(path.join(__dirname, '../../dist')));
+    this.app.use( bodyParser.json() );
+    this.app.use( '/', express.static( path.join(__dirname, '../../dist' ) ) );
     this.serverSideRender();
     // routes go here when I get them
   }
   private serverSideRender(): void {
-    this.app.get('/', (req: express.Request, res: express.Response) => {
-      const jsx = ( <App />);
+    this.app.get('/', ( req: express.Request, res: express.Response ) => {
+      const jsx = ( <App /> );
       const reactDom = renderToString( jsx );
 
       res.writeHead( 200, { 'Content-Type': 'text/html' } );
