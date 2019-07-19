@@ -3,7 +3,6 @@ import express from 'express';
 import * as path from 'path';
 
 class Server {
-  private MSG: string = 'THIS IS MY SERVER RUNNING';
   public app: express.Application;
   constructor() {
     this.app = express();
@@ -15,7 +14,8 @@ class Server {
     this.app.get('/', (req: express.Request, res: express.Response) => {
       res.sendFile(path.join(__dirname, '../../dist/index.html'));
     });
+    // routes go here when I get them
   }
 }
 
-export default new Server().app;
+export default Server;
