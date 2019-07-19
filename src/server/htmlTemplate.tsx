@@ -1,4 +1,4 @@
-export const htmlTemplate = (reactDom?: JSX.Element) => {
+export const htmlTemplate = (reactDom?: string): string => {
   return `
   <html lang="en">
   <head>
