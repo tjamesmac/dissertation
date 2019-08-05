@@ -1,13 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`App component renders correctly matches snapshot 1`] = `
-<div>
-  <h1
-    className="header"
+<div
+  className="container"
+>
+  <div
+    className="row"
   >
-    Hello, 
-    Thomas
-    . Welcome back!
-  </h1>
+    <div
+      className="col-12"
+    >
+      <h1
+        className="header"
+      >
+        Hello, 
+        Thomas
+        . Welcome back!
+      </h1>
+    </div>
+  </div>
 </div>
 `;
