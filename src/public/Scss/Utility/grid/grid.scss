@@ -1,0 +1,130 @@
+// IDEA: Break all the css down into separate files. I.E. all the mixins belong in a separate file 
+// all the functions, variables etc
+// then import them into a grid file
+// then export all that
+
+// Variables
+$base: 15px;
+$col: col;
+
+$xsmall: 576px;
+$small: 576px;
+$medium: 768px;
+$large: 992px;
+$xlarge: 1200px;
+
+$breakpoints:
+  xs $xsmall,
+  'sm' $small,
+  'md' $medium,
+  'lg' $large,
+  'xl' $xlarge;
+
+@function width() {
+  @return 100/12;
+}
+
+// Mixins
+@mixin loop($break) {
+  @if $break != "" {
+    @for $value from 1 through 12 {
+      .#{$col}-#{$break}-#{$value} {
+        max-width: width() * $value + unquote('%');
+        flex: 1 0 width() * $value + unquote('%');
+      }
+    }
+  }
+  @else {
+    @for $value from 1 through 12 {
+      .#{$col}-#{$value} {
+        max-width: width() * $value + unquote('%');
+        flex: 1 0 width() * $value + unquote('%');
+      }
+    }
+  }
+
+}
+
+@mixin mediaQuery($widthLimit, $breakpointValue) {
+  @media ($widthLimit: #{nth($breakpointValue, 2)}) {
+    @include loop(#{nth($breakpointValue, 1)});
+  }
+}
+
+@mixin make-col-breakpoints () {
+
+  @each $tuple in $breakpoints {
+    @if nth($tuple, 1) == xs {
+      @include mediaQuery( 'max-width', $tuple );
+    }
+    @else {
+      @include mediaQuery( 'min-width', $tuple );
+    }
+  }
+
+}
+
+@include make-col-breakpoints();
+@include loop("");
+
+
+@mixin marginLR($value) {
+  margin-right: $value;
+  margin-left: $value;
+}
+
+// Grid styles
+body {
+  margin: 0;
+  color: white;
+}
+*, ::after, ::before {
+  box-sizing: border-box;
+}
+.container {
+  width: 100%;
+  padding-right: $base;
+  padding-left: $base;
+  @include marginLR(auto);
+}
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  @include marginLR((-$base));
+}
+
+// need to apply to all cols of all breakpoint and width
+
+[class^='col'] {
+  padding-right: $base;
+  padding-left: $base;
+}
+
+// < 576
+@media (max-width: $xsmall) {
+//  empty ruleset for the time being
+}
+// > 576 - 540
+@media (min-width: $small) {
+  .container {
+    max-width: 540px;
+  }
+}
+// 768 - 720
+@media (min-width: $medium) {
+  .container {
+    max-width: 720px;
+  }
+}
+// > 992 - 960
+@media (min-width: $large) {
+  .container {
+    max-width: 960px;
+  }
+}
+// 1200 - 1140
+@media (min-width: $xlarge) {
+  .container {
+    max-width: 1140px;
+  }
+}
