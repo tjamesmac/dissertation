@@ -11,16 +11,6 @@ module.exports = {
         use: 'ts-loader',
         exclude: /node_modules/
       },
-      {
-        test: /\.scss$/,
-        use: [
-          {
-            loader: MiniCssExtractPlugin.loader,
-          },
-          'css-loader',
-          'sass-loader',
-        ]
-      }
     ]
   },
   resolve: {
