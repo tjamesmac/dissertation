@@ -21,7 +21,9 @@ class Server {
 
     // this will temporarily hold the post route
     this.app.post('/', ( req: express.Request, res: express.Response ) => {
-      return res.status(200);
+      const words = req.body;
+      console.log(words);
+      return res.send(words);
     });
   }
   private serverSideRender(): void {
