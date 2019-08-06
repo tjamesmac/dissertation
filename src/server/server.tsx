@@ -18,6 +18,11 @@ class Server {
     this.app.use( '/', express.static( path.join(__dirname, '../../dist' ) ) );
     this.serverSideRender();
     // routes go here when I get them
+
+    // this will temporarily hold the post route
+    this.app.post('/', ( req: express.Request, res: express.Response ) => {
+      return res.status(200);
+    });
   }
   private serverSideRender(): void {
     this.app.get('/', ( req: express.Request, res: express.Response ) => {
