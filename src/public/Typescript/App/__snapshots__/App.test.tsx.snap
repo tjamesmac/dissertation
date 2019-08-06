@@ -10,13 +10,48 @@ exports[`App component renders correctly matches snapshot 1`] = `
     <div
       className="col-12"
     >
-      <h1
-        className="header"
+      <form
+        onSubmit={[Function]}
       >
-        Hello, 
-        Thomas
-        . Welcome back!
-      </h1>
+        <div
+          className="row"
+        >
+          <div
+            className="col-12"
+          >
+            <label>
+              Please enter a gender
+            </label>
+            <input />
+          </div>
+        </div>
+        <div
+          className="row"
+        >
+          <div
+            className="col-12"
+          >
+            <label>
+              Please enter an advert
+            </label>
+            <textarea
+              id="textarea"
+              onChange={[Function]}
+            />
+          </div>
+        </div>
+        <div
+          className="row"
+        >
+          <div
+            className="col-4"
+          >
+            <button>
+              Click me
+            </button>
+          </div>
+        </div>
+      </form>
     </div>
   </div>
 </div>
