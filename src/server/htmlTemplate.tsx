@@ -10,22 +10,6 @@ export const htmlTemplate = ( reactDom?: string ): string => {
   </head>
   <body>
     <div id="app">${ reactDom }</div>
-      <div class="container">
-        <div class="row">
-          <div class="col-3">1 of 3</div>
-          <div class="col-3">2 of 3</div>
-          <div class="col-3">3 of 3</div>
-          <div class="col-3">3 of 3</div>
-        </div>
-        <div class="row">
-          <div class="col-sm-2 col-md-5 col-lg-4">1 of 3</div>
-          <div class="col-sm-2 col-md-5 col-lg-4">1 of 3</div>
-          <div class="col-sm-2 col-md-5 col-lg-4">1 of 3</div>
-          <div class="col-sm-2 col-md-5 col-lg-4">1 of 3</div>
-          <div class="col-sm-2 col-md-5 col-lg-4">1 of 3</div>
-        </div>
-      </div>
-    </div>
     <script src="index.bundle.js"></script>
   </body>
   </html>
