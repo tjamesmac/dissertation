@@ -1,0 +1,58 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Main page component it renders correctly 1`] = `
+<div
+  className="container"
+>
+  <div
+    className="row"
+  >
+    <div
+      className="col-12"
+    >
+      <form
+        onSubmit={[Function]}
+      >
+        <div
+          className="row"
+        >
+          <div
+            className="col-12"
+          >
+            <label>
+              Please enter a gender
+            </label>
+            <input />
+          </div>
+        </div>
+        <div
+          className="row"
+        >
+          <div
+            className="col-12"
+          >
+            <label>
+              Please enter an advert
+            </label>
+            <textarea
+              id="textarea"
+              onChange={[Function]}
+            />
+          </div>
+        </div>
+        <div
+          className="row"
+        >
+          <div
+            className="col-4"
+          >
+            <button>
+              Click me
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+`;
