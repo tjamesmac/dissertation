@@ -4,7 +4,7 @@ export const submission = async (event: React.FormEvent) => {
   event.preventDefault();
 
   const textAreaValue: string =
-  (document.getElementById('textarea') as HTMLTextAreaElement)
+  (document.getElementById('textarea') as HTMLDivElement)
   .innerHTML;
 
   const bodyText: object = {value: textAreaValue};
@@ -31,8 +31,6 @@ export const submission = async (event: React.FormEvent) => {
 };
 
 export const validateWords = (response: any, checkString: string) => {
-  // now this just needs to loop around for each one
-  console.log(response);
   let toChange = checkString;
   for (let key of response) {
     console.log(key);
@@ -50,22 +48,7 @@ export const validateWords = (response: any, checkString: string) => {
     }
   }
   console.log(toChange);
-  (document.getElementById('textarea') as HTMLTextAreaElement)
+  (document.getElementById('textarea') as HTMLDivElement)
   .innerHTML = toChange;
 
-
-
-
-
-  // if (checkString.includes(response.word)) {
-  //   const toChange =
-  //     checkString
-  //     .replace(response.word, `<span style='color: green'>${response.word}</span>`);
-
-  //   (document.getElementById('textarea') as HTMLTextAreaElement)
-  //     .innerHTML = toChange;
-  //   // now I need to create a dropdown menu and populate the synonyms
-  // } else {
-  //   console.log('oh bother');
-  // }
 };
