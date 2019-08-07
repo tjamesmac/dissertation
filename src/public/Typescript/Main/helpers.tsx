@@ -23,20 +23,49 @@ export const submission = async (event: React.FormEvent) => {
     if (response.status === 200) {
       const responseJson = await response.json();
       console.log(responseJson, 'response');
-      validateWords(responseJson[0], textAreaValue);
+      validateWords(responseJson, textAreaValue);
     }
   } catch (error) {
     console.error('uh oh error', error);
   }
 };
 
-export const validateWords = (response: IWord, checkString: string) => {
-  console.log(checkString);
-  console.log(response.word);
-  if (checkString.includes(response.word)) {
-    console.log('i found the target');
-
-  } else {
-    console.log('oh bother');
+export const validateWords = (response: any, checkString: string) => {
+  // now this just needs to loop around for each one
+  console.log(response);
+  let toChange = checkString;
+  for (let key of response) {
+    console.log(key);
+    if (checkString.includes(key.word)) {
+      console.log('i am in here');
+      const find = key.word;
+      const regex = new RegExp(find, 'g');
+      // string doesn't replace unless assigned to variable
+      const newString = toChange.replace(regex, `<span style='color: green'>${key.word}</span>`);
+      // assign changes to the og string
+      toChange = newString;
+      // now I need to create a dropdown menu and populate the synonyms
+    } else {
+      console.log('oh bother');
+    }
   }
+  console.log(toChange);
+  (document.getElementById('textarea') as HTMLTextAreaElement)
+  .innerHTML = toChange;
+
+
+
+
+
+  // if (checkString.includes(response.word)) {
+  //   const toChange =
+  //     checkString
+  //     .replace(response.word, `<span style='color: green'>${response.word}</span>`);
+
+  //   (document.getElementById('textarea') as HTMLTextAreaElement)
+  //     .innerHTML = toChange;
+  //   // now I need to create a dropdown menu and populate the synonyms
+  // } else {
+  //   console.log('oh bother');
+  // }
 };
