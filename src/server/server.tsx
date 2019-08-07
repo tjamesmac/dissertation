@@ -6,6 +6,7 @@ import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { App } from '../public/Typescript/App/App';
 import { htmlTemplate } from './htmlTemplate';
+import { getWordData, isString  } from './helpers/wordProcessing';
 
 class Server {
   public app: express.Application;
@@ -23,7 +24,12 @@ class Server {
     this.app.post('/', ( req: express.Request, res: express.Response ) => {
       const words = req.body;
       console.log(words);
-      return res.send(words);
+      console.log(words.value);
+
+      const split = isString(words.value);
+      const getWords = getWordData(split);
+
+      return res.send(getWords);
     });
   }
   private serverSideRender(): void {
