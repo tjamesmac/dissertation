@@ -21,22 +21,65 @@ export const removeDoubles = (splitWords: string[]): string[] => {
 };
 
 export const getWordData = (splitWords: string[]) => {
+  console.log(splitWords);
   const arrayOfAdjectivesMetadata: object[] = [];
   const arrayOfAdjectives: string[] = [];
   const arrayOfOther: string[] = [];
 
-  const fakeWordObject: IWord = {
-    word: 'hello',
-    type: 'adjective',
-    synonyms: ['hi', 'hiya'],
-  };
-  const word: string = splitWords[0];
-  if (!arrayOfAdjectives.includes(word)) {
-    arrayOfAdjectivesMetadata.push(fakeWordObject);
-    return arrayOfAdjectivesMetadata;
-  } else {
-    return null;
+  const fakeWordObjectPositive: any = [
+    {
+      word: 'hello',
+      type: 'adjective',
+      synonyms: ['hi', 'hiya'],
+    },
+    {
+      word: 'world',
+      type: 'noun',
+      synonyms: ['globe', 'the earth'],
+    },
+    {
+      word: 'test',
+      type: 'adjective',
+      synonyms: ['exam'],
+    },
+  ];
+  // const fakeWordObjectNegative: IWord = {
+  //   word: 'world',
+  //   type: 'adjective',
+  //   synonyms: ['globe', 'the earth'],
+  // };
+  // // const word: string = splitWords[0];
+  // if (!arrayOfAdjectives.includes(word)) {
+  //   arrayOfAdjectivesMetadata.push(fakeWordObject);
+  //   return arrayOfAdjectivesMetadata;
+  // } else {
+  //   return null;
+  // }
+
+  for (let key of splitWords) {
+    const word = key;
+    console.log(word, 'top of loop');
+    if (!arrayOfAdjectives.includes(word) && !arrayOfOther.includes(word)) {
+      // search for the word here
+
+
+      for (let key of fakeWordObjectPositive) {
+        const fakeWord = key.word;
+        const fakeType = key.type;
+        console.log(fakeWord, 'bottom of loop');
+        if (fakeWord === word) {
+          console.log(word, fakeWord);
+          if (fakeType === 'adjective') {
+            arrayOfAdjectivesMetadata.push(key);
+            arrayOfAdjectives.push(key.word);
+          }
+        }
+      }
+    } else {
+      console.log('i am already in the array');
+    }
   }
+  return arrayOfAdjectivesMetadata;
 
   // for (let i = 0; i < splitWords.length; i++) {
   //   const word: string = splitWords[i];
