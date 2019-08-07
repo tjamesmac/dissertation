@@ -10,9 +10,11 @@ export const Main: React.FunctionComponent = () => {
   const getWords = () => {
     const textArea = (document.getElementById('textarea') as HTMLTextAreaElement);
     if (textArea !== null) {
-      const value = textArea.value;
+      const value = textArea.innerHTML;
       setWords(value);
       console.log(words);
+    } else {
+      console.log('i am not working');
     }
   };
 
@@ -30,7 +32,7 @@ export const Main: React.FunctionComponent = () => {
             <div className='row'>
               <div className='col-12'>
               <label>Please enter an advert</label>
-              <textarea id='textarea' onChange={() => getWords()}></textarea>
+              <div id='textarea' onChange={() => getWords()} contentEditable></div>
               </div>
             </div>
             <div className='row'>
