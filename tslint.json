@@ -4,6 +4,7 @@
     "max-line-length": {
       "options": [100]
     },
+    "no-console": false,
     "member-ordering": false,
     "no-consecutive-blank-lines": true,
     "object-literal-sort-keys": false,
