@@ -1,5 +1,7 @@
 import { IWord } from '../../../server/helpers/wordProcessing';
 
+// types need to be added to the response when the wordnet stuff is added in
+
 export const submission = async (event: React.FormEvent) => {
   event.preventDefault();
 
@@ -47,7 +49,6 @@ export const validateWords = (response: any, checkString: string) => {
       console.log('oh bother');
     }
   }
-  console.log(toChange);
   (document.getElementById('textarea') as HTMLDivElement)
   .innerHTML = toChange;
 
