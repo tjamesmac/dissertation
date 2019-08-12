@@ -34,7 +34,8 @@ exports[`Main page component it renders correctly 1`] = `
             <label>
               Please enter an advert
             </label>
-            <textarea
+            <div
+              contentEditable={true}
               id="textarea"
               onChange={[Function]}
             />
