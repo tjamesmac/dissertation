@@ -21,9 +21,10 @@ describe('testing', () => {
       {
         word: 'testing',
         type: 'adjective',
-        synonynms: ['examining'],
+        synonyms: ['examining'],
       },
     ];
-    expect(validateWords(dummyData, validationString)).toEqual(`this is my <span style='color: green'>testing</span> string`)
+    expect(validateWords(dummyData, validationString))
+      .toEqual(`this is my <span style='color: green'>testing</span> string`);
   });
 });
