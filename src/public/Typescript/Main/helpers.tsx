@@ -2,41 +2,13 @@ import { IWord } from '../../../server/helpers/wordProcessing';
 
 // types need to be added to the response when the wordnet stuff is added in
 
-export const submission = async (event: React.FormEvent) => {
-  event.preventDefault();
+export interface IResponse {
+  word: string;
+  type: string;
+  synonyms: string[];
+}
 
-  const textAreaValue: string =
-  (document.getElementById('textarea') as HTMLDivElement)
-  .innerHTML;
-
-  const bodyText: object = {value: textAreaValue};
-
-  try {
-    const URL = 'http://localhost:3000/';
-    const data = await fetch(URL, {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(bodyText),
-    });
-    const response = await data;
-    if (response.status === 200) {
-      const responseJson = await response.json();
-      console.log(response.status);
-      console.log(responseJson, 'response');
-      const textChange = validateWords(responseJson, textAreaValue);
-      (document.getElementById('textarea') as HTMLDivElement)
-      .innerHTML = textChange;
-      showSynonyms(responseJson);
-    }
-  } catch (error) {
-    console.error('uh oh error', error);
-  }
-};
-
-export const validateWords = (response: any, checkString: string) => {
+export const validateWords = (response: IResponse[], checkString: string) => {
   let toChange = checkString;
   for (let key of response) {
     console.log(key);
@@ -70,21 +42,6 @@ export const showSynonyms = (response: any) => {
           console.log(key.synonyms);
         }
       }
-      // const div = document.createElement('div');
-      // item.addEventListener('mouseenter', ( event: any ) => {
-      //   // conditionally render the component
-      //   // when I get the match
-      //   console.log('hello i am in the text area');
-      //   console.log(item);
-      //   const body = document.getElementsByTagName('body')[0];
-      //   div.classList.add('synonym');
-      //   body.append(div);
-
-      // });
-      // item.addEventListener('mouseleave', ( event: any ) => {
-      //   console.log('hello i am going now');
-      //   div.classList.remove('synonym');
-      // });
     }
   }
   console.log(text);
