@@ -33,11 +33,8 @@ export const Main: React.FunctionComponent = () => {
         element.addEventListener( 'mouseleave', () => {
           // set timeout here
           setTimeout(() => {
-
-            console.log('hello')
             setModalState(false);
-
-          }, 3000);
+          }, 2000);
 
           console.log('goodbye');
         } );
