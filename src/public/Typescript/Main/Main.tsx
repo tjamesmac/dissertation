@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Modal from '../Modal/Modal';
-import { IResponse, validateWords  } from './helpers';
+import { IResponse, validateWords } from './helpers';
 
 export const Main: React.FunctionComponent = () => {
   // hooks
@@ -23,7 +23,6 @@ export const Main: React.FunctionComponent = () => {
           if (words) {
             for (let word of words) {
               if (word.word === element.innerHTML) {
-                console.log('am i here?');
                 setSynonyms(word.synonyms);
               }
             }
@@ -31,12 +30,7 @@ export const Main: React.FunctionComponent = () => {
           setModalState(true);
         } );
         element.addEventListener( 'mouseleave', () => {
-          // set timeout here
-          setTimeout(() => {
-            setModalState(false);
-          }, 2000);
-
-          console.log('goodbye');
+          setModalState(false);
         } );
       }
     }
@@ -47,9 +41,14 @@ export const Main: React.FunctionComponent = () => {
   const submission = async ( event: React.FormEvent ) => {
     event.preventDefault();
 
+    /**
+     * 
+     * This has been changed to innerText - innerHTML security issue
+     * Seems to be cleaner to use text
+     */
     const textAreaValue: string =
     (document.getElementById('textarea') as HTMLDivElement)
-    .innerHTML;
+    .innerText;
 
     const bodyText: object = {value: textAreaValue};
 
