@@ -41,10 +41,7 @@ export const getWordData = (splitWords: string[]) => {
       synonyms: ['exam'],
     },
   ];
-  // @ts-ignore
   for (let word of splitWords) {
-    console.log(!arrayOfAdjectives.includes(word))
-    console.log(!arrayOfOther.includes(word))
     if (!arrayOfAdjectives.includes(word) && !arrayOfOther.includes(word)) {
       // search for the word here
       for (let key of fakeWordObjectPositive) {
