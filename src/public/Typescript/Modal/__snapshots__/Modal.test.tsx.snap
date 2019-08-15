@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Main page component it renders correctly 1`] = `
+<ul
+  className="synonym"
+>
+  <li>
+    one
+  </li>
+  <li>
+    two
+  </li>
+</ul>
+`;

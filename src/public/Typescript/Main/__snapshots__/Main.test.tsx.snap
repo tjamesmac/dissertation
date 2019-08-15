@@ -37,7 +37,6 @@ exports[`Main page component it renders correctly 1`] = `
             <div
               contentEditable={true}
               id="textarea"
-              onChange={[Function]}
             />
           </div>
         </div>

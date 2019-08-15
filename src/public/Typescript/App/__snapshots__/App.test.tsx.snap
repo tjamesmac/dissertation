@@ -37,7 +37,6 @@ exports[`App component renders correctly matches snapshot 1`] = `
             <div
               contentEditable={true}
               id="textarea"
-              onChange={[Function]}
             />
           </div>
         </div>
