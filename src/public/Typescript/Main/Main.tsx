@@ -4,13 +4,14 @@ import { IResponse, validateWords } from './helpers';
 
 export const Main: React.FunctionComponent = () => {
   // hooks
-  const [ words, setWords ] = React.useState< null | IResponse[] >( null );
+  const [ wordsResponse, setWordsResponse ] = React.useState< null | IResponse[] >( null );
 
-  const [ synonyms, setSynonyms ] = React.useState<string[] >([]);
+  const [ synonyms, setSynonyms ] = React.useState< string[] >([]);
 
   const [ modalState, setModalState ] = React.useState< false | true >( false );
 
-  const [ modalPosition, setModalPosition ] = React.useState< IModalPosition >( {top: 0, left: 0} );
+  const [ modalPosition, setModalPosition ] =
+    React.useState< IModalPosition >( { top: 0, left: 0 } );
 
   React.useEffect(() => {
 
@@ -40,8 +41,8 @@ export const Main: React.FunctionComponent = () => {
               console.log(rect.top, modalPosition.top, 'bottom');
             }
           }
-          if (words) {
-            for (let word of words) {
+          if (wordsResponse) {
+            for (let word of wordsResponse) {
               if (word.word === element.innerHTML) {
                 setSynonyms(word.synonyms);
 
@@ -106,7 +107,7 @@ export const Main: React.FunctionComponent = () => {
         (document.getElementById('textarea') as HTMLDivElement)
         .innerHTML = textChange;
 
-        setWords(responseJSON);
+        setWordsResponse(responseJSON);
 
       }
     } catch (error) {
@@ -116,17 +117,26 @@ export const Main: React.FunctionComponent = () => {
     }
   };
 
+  const getSynonym = (event: any) => {
+    const value = event.target.innerText;
+    console.log(value);
+    console.log('hello');
+  };
+
   let showModal;
 // This is what made the modal work
-
   if (modalState) {
     if (synonyms) {
-      showModal = <Modal words={synonyms} position={modalPosition} />;
+      showModal =
+      <Modal
+        words={synonyms}
+        position={modalPosition}
+        onWordClick={(e) => getSynonym(e)}
+      />;
     }
   }
 
   console.log('please');
-  console.log(words);
   return (
     <div className='container'>
       <div className='row'>
