@@ -1,5 +1,17 @@
+$background: #FAE3BA;
+$text-color: #025952;
+
+$colour-one: #124673;
+$colour-two: #0477BF;
+$colour-three: #F2A444;
+$colour-four: #F2DFCE;
+$colour-five: #F24C27;
+
+
+
+
 body {
-  background-color: #40011E;
+  background-color: $colour-one;
   font-family: Arial, Helvetica, sans-serif;
 }
 .header {
