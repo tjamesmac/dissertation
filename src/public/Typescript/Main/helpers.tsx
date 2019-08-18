@@ -13,10 +13,10 @@ export const validateWords = (response: IResponse[], checkString: string): strin
   for (let key of response) {
     if (checkString.includes(key.word)) {
 
-      const find = key.word;
-      const regex = new RegExp(find, 'g');
+      const word = key.word;
+      const regex = new RegExp(word, 'g');
       // string doesn't replace unless assigned to variable
-      const newString = toChange.replace(regex, `<span style='color: green'>${key.word}</span>`);
+      const newString = toChange.replace(regex, `<span style='color: green'>${word}</span>`);
       // assign changes to the original string
       toChange = newString;
 
