@@ -1,0 +1,49 @@
+/**
+* Variables
+*/
+$padding: 15px;
+$modalSizing: 150px;
+
+/**
+* Mixins
+*/
+@mixin border {
+  border: 1px solid rgba(0, 0, 0, 1);
+}
+@mixin boxShadow {
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+}
+
+/**
+* Style
+*/
+
+.synonyms {
+  position: absolute;
+  height: $modalSizing;
+  width: $modalSizing;
+  background-color: #124673;
+  @include border;
+  @include boxShadow;
+
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding: $padding;
+  
+
+  .synonyms-item {
+
+    padding: $padding - 10;
+    flex: 1 1 auto;
+    background-color: #F2A444;
+
+    &:hover {
+      background-color: #F2DFCE;
+    }
+  }
+
+  &:hover {
+    // background-color: #F24C27;
+  }
+}
