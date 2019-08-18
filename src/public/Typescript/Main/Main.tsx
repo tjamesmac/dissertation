@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Modal from '../Modal/Modal';
+import Modal, { IModalPosition } from '../Modal/Modal';
 import { IResponse, validateWords } from './helpers';
 
 export const Main: React.FunctionComponent = () => {
@@ -10,6 +10,8 @@ export const Main: React.FunctionComponent = () => {
 
   const [ modalState, setModalState ] = React.useState< false | true >( false );
 
+  const [ modalPosition, setModalPosition ] = React.useState< IModalPosition >( {top: 0, left: 0} );
+
   React.useEffect(() => {
 
     const textArea = document.querySelector('#textarea');
@@ -17,20 +19,47 @@ export const Main: React.FunctionComponent = () => {
     if (textArea) {
 
       const children: any = textArea.children;
+      const modalElement: any = document.querySelector('.synonym') as null | HTMLElement;
 
       for (let element of children) {
-        element.addEventListener( 'mouseenter', () => {
+
+        /**
+         * the event has been replaced from mouseenter
+         * Apparently mouseenter doesn't bubble but I am having issues with it firing too many times
+         */
+        const rect = element.getBoundingClientRect();
+        element.addEventListener( 'mouseover', (event: Event) => {
+          
+          
+          console.log(modalPosition.top, modalPosition.left);
+          if (modalPosition.top === 0 && modalPosition.left === 0) {
+            console.log(rect.top, modalPosition.top, 'top');
+            if (rect.top + 20 !== modalPosition.top) {
+              console.log('im updating');
+              setModalPosition({ top: rect.top + 20, left: rect.left });
+              console.log(rect.top, modalPosition.top, 'bottom');
+            }
+          }
           if (words) {
             for (let word of words) {
               if (word.word === element.innerHTML) {
                 setSynonyms(word.synonyms);
+
               }
             }
           }
-          setModalState(true);
+          if (!modalState) {
+            setModalState(true);
+          }
+          // event.stopPropagation();
         } );
-        element.addEventListener( 'mouseleave', () => {
-          setModalState(false);
+        /**
+         * the event has been replaced from mouseleave
+         */
+        element.addEventListener( 'mouseout', () => {
+          if (modalState) {
+            // setModalState(false);
+          }
         } );
       }
     }
@@ -42,7 +71,7 @@ export const Main: React.FunctionComponent = () => {
     event.preventDefault();
 
     /**
-     * 
+     *
      * This has been changed to innerText - innerHTML security issue
      * Seems to be cleaner to use text
      */
@@ -92,7 +121,7 @@ export const Main: React.FunctionComponent = () => {
 
   if (modalState) {
     if (synonyms) {
-      showModal = <Modal words={synonyms} />;
+      showModal = <Modal words={synonyms} position={modalPosition} />;
     }
   }
 
