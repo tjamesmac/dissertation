@@ -12,12 +12,6 @@ interface IModalProps {
 
 const Modal = (prop: IModalProps): JSX.Element => {
 
-  // const getSynonym = (event: any) => {
-  //   const value = event.target.innerText;
-  //   console.log(value);
-  //   console.log('hello');
-  // };
-
   const words: string[] = prop.words;
   const position = prop.position;
   const positionCSS = {
