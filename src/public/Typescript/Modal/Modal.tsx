@@ -7,21 +7,32 @@ export interface IModalPosition {
 interface IModalProps {
   words: string[];
   position: IModalPosition;
+  onWordClick: (event: any) => void;
 }
 
 const Modal = (prop: IModalProps): JSX.Element => {
 
+  // const getSynonym = (event: any) => {
+  //   const value = event.target.innerText;
+  //   console.log(value);
+  //   console.log('hello');
+  // };
+
   const words: string[] = prop.words;
   const position = prop.position;
   const positionCSS = {
-    top: prop.position.top,
-    left: prop.position.left,
+    top: position.top,
+    left: position.left,
   };
   const wordMap = words.map((word: string, index: number) => {
-    return <li key={index}>{word}</li>;
+    return <li
+              className='synonyms-item'
+              onClick={(e) => prop.onWordClick(e)}
+              key={index}>{word}
+            </li>;
   });
   return (
-    <ul className='synonym' style={positionCSS}>
+    <ul className='synonyms' style={positionCSS}>
       {wordMap}
     </ul>
   );
