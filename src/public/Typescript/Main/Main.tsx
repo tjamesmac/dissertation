@@ -20,7 +20,6 @@ export const Main: React.FunctionComponent = () => {
     if (textArea) {
 
       const children: any = textArea.children;
-      const modalElement: any = document.querySelector('.synonym') as null | HTMLElement;
 
       for (let element of children) {
 
@@ -52,7 +51,6 @@ export const Main: React.FunctionComponent = () => {
           if (!modalState) {
             setModalState(true);
           }
-          // event.stopPropagation();
         } );
         /**
          * the event has been replaced from mouseleave
@@ -151,8 +149,8 @@ export const Main: React.FunctionComponent = () => {
             </div>
             <div className='row'>
               <div className='col-12'>
-              <label>Please enter an advert</label>
-              <div id='textarea' contentEditable></div>
+                <label>Please enter an advert</label>
+                <div id='textarea' contentEditable></div>
               </div>
             </div>
             <div className='row'>
