@@ -7,7 +7,12 @@ describe('Main page component', () => {
   it('it renders correctly', () => {
     const modalPosition = {top: 1, left: 2};
     const tree = renderer
-      .create(<Modal words={['one', 'two']} position={modalPosition} />)
+      .create(<Modal
+                words={['one', 'two']}
+                position={modalPosition}
+                onWordClick={() => console.log('hello')}
+              />,
+              )
       .toJSON();
     expect(tree).toMatchSnapshot();
   });
