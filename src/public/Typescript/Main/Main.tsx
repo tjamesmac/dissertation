@@ -6,7 +6,11 @@ import { IResponse, validateWords } from './helpers';
 import { element } from 'prop-types';
 
 /**
- * if I use a react component as the element within the contenteditable
+ * Now I need to store the values before they are changed
+ * I can create a use state that merges the previous with the new to record them all with a number
+ * to show the order in which they are changed
+ * 
+ * Need to look into whether I change all the words that are the same at once
  * 
  */
 
@@ -133,6 +137,14 @@ export const Main: React.FunctionComponent = () => {
 
     }
   };
+  const createSpan = ( elementTag: string, text: string ) => {
+
+    const span = document.createElement(elementTag);
+    const textNode = document.createTextNode(text);
+    span.appendChild(textNode);
+    return span;
+  
+  };
 
   const getSynonym = (event: any) => {
 
@@ -142,11 +154,27 @@ export const Main: React.FunctionComponent = () => {
     console.log(synonyms);
     // save initial string here
     const initial = (document.getElementById('textarea') as HTMLDivElement);
-    console.log(initial.children);
+    const children: any = initial.children;
     const initialText = initial.innerText;
     setInitialString(initialText);
     // update text area here
-    const splitInitial = initialText.split(' ');
+    console.log(children);
+
+    for (let element of children) {
+      console.log(element);
+      if (synonyms) {
+        if (synonyms.word === element.innerText) {
+          const span = createSpan('span', value);
+          span.style.color = 'blue';
+          initial.replaceChild(span, element);
+        }
+      }
+    }
+
+
+
+
+
     // while (initial.firstChild) { initial.removeChild(initial.firstChild); }
     // for (let element of splitInitial) {
     //   if (synonyms) {
