@@ -11,10 +11,10 @@ interface IModalProps {
   onWordClick: (event: any) => void;
 }
 
-const Modal = (prop: IModalProps): JSX.Element => {
+const Modal = ( prop: IModalProps ): JSX.Element => {
 
   const words = prop.words;
-  
+
   const synonyms = words.synonyms;
   const position = prop.position;
   const positionCSS = {
