@@ -1,24 +1,27 @@
 import * as React from 'react';
+import { IWordAndSynonym } from '../Main/Main';
 
 export interface IModalPosition {
   top: number;
   left: number;
 }
 interface IModalProps {
-  words: string[];
+  words: IWordAndSynonym;
   position: IModalPosition;
   onWordClick: (event: any) => void;
 }
 
 const Modal = (prop: IModalProps): JSX.Element => {
 
-  const words: string[] = prop.words;
+  const words = prop.words;
+  
+  const synonyms = words.synonyms;
   const position = prop.position;
   const positionCSS = {
     top: position.top,
     left: position.left,
   };
-  const wordMap = words.map((word: string, index: number) => {
+  const wordMap = synonyms.map((word: string, index: number) => {
     return <li
               className='synonyms-item'
               onClick={(e) => prop.onWordClick(e)}
