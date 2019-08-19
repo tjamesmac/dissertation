@@ -1,7 +1,9 @@
 import * as React from 'react';
+import { IResponse, validateWords } from '../Main/helpers';
 
 export interface ITextArea {
   children?: JSX.Element[] | JSX.Element;
+  response: IResponse[] | null;
 }
 
 /**
@@ -12,7 +14,12 @@ export interface ITextArea {
 export const TextArea = ( prop: ITextArea ): JSX.Element => {
   const response = prop.response;
   if (response) {
-    console.log(response);
+    const textAreaValue: string =
+      (document.getElementById('textarea') as HTMLDivElement)
+      .innerText;
+    const textChange = validateWords(response, textAreaValue);
+    (document.getElementById('textarea') as HTMLDivElement).innerHTML = textChange;
+
   }
 
   return (
