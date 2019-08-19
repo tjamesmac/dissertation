@@ -12,15 +12,6 @@ export interface ITextArea {
  * function
  */
 export const TextArea = ( prop: ITextArea ): JSX.Element => {
-  const response = prop.response;
-  if (response) {
-    const textAreaValue: string =
-      (document.getElementById('textarea') as HTMLDivElement)
-      .innerText;
-    const textChange = validateWords(response, textAreaValue);
-    (document.getElementById('textarea') as HTMLDivElement).innerHTML = textChange;
-
-  }
 
   return (
     <div id='textarea' contentEditable>
