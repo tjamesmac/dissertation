@@ -1,4 +1,4 @@
-import { IWord } from '../../../server/helpers/wordProcessing';
+import * as React from 'react';
 
 export interface IResponse {
   word: string;
@@ -6,7 +6,7 @@ export interface IResponse {
   synonyms: string[];
 }
 
-export const validateWords = (response: IResponse[], checkString: string): string => {
+export const validateWords = ( response: IResponse[], checkString: string ): string => {
 
   let toChange = checkString;
 
