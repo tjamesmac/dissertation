@@ -1,5 +1,7 @@
 import * as React from 'react';
 import Modal, { IModalPosition } from '../Modal/Modal';
+import TextArea, { ITextArea } from '../TextArea/TextArea';
+
 import { IResponse, validateWords } from './helpers';
 
 export const Main: React.FunctionComponent = () => {
@@ -29,7 +31,6 @@ export const Main: React.FunctionComponent = () => {
          */
         const rect = element.getBoundingClientRect();
         element.addEventListener( 'mouseover', (event: Event) => {
-          
           
           console.log(modalPosition.top, modalPosition.left);
           if (modalPosition.top === 0 && modalPosition.left === 0) {
@@ -129,7 +130,7 @@ export const Main: React.FunctionComponent = () => {
       <Modal
         words={synonyms}
         position={modalPosition}
-        onWordClick={(e) => getSynonym(e)}
+        onWordClick={( event ) => getSynonym( event )}
       />;
     }
   }
@@ -150,7 +151,8 @@ export const Main: React.FunctionComponent = () => {
             <div className='row'>
               <div className='col-12'>
                 <label>Please enter an advert</label>
-                <div id='textarea' contentEditable></div>
+                {/* <div id='textarea' contentEditable></div> */}
+                <TextArea></TextArea>
               </div>
             </div>
             <div className='row'>
