@@ -3,14 +3,32 @@ import Modal, { IModalPosition } from '../Modal/Modal';
 import TextArea, { ITextArea } from '../TextArea/TextArea';
 
 import { IResponse, validateWords } from './helpers';
+import { element } from 'prop-types';
+
+/**
+ * if I use a react component as the element within the contenteditable
+ * 
+ */
+
+
+
+
+export interface IWordAndSynonym {
+  word: string;
+  synonyms: string[];
+}
 
 export const Main: React.FunctionComponent = () => {
   // hooks
   const [ wordsResponse, setWordsResponse ] = React.useState< null | IResponse[] >( null );
-
-  const [ synonyms, setSynonyms ] = React.useState< string[] >([]);
+  // need to set this as an object that holds the word the synonyms are coming from
+  const [ synonyms, setSynonyms ] = React.useState< IWordAndSynonym | null >(null);
 
   const [ modalState, setModalState ] = React.useState< false | true >( false );
+
+  const [ initialString, setInitialString  ] = React.useState< string >('');
+
+  const [ newString, setNewString ] = React.useState< string >();
 
   const [ modalPosition, setModalPosition ] =
     React.useState< IModalPosition >( { top: 0, left: 0 } );
@@ -44,7 +62,8 @@ export const Main: React.FunctionComponent = () => {
           if (wordsResponse) {
             for (let word of wordsResponse) {
               if (word.word === element.innerHTML) {
-                setSynonyms(word.synonyms);
+                const rootAndSynonym = { word: word.word, synonyms: word.synonyms };
+                setSynonyms(rootAndSynonym);
 
               }
             }
@@ -101,6 +120,9 @@ export const Main: React.FunctionComponent = () => {
       if (response.status === 200) {
 
         const responseJSON: IResponse[] = await response.json();
+        // by keeping this here it does rerender everytime
+        const textChange = validateWords(responseJSON);
+        (document.getElementById('textarea') as HTMLDivElement).innerHTML = textChange;
 
         setWordsResponse(responseJSON);
 
@@ -116,7 +138,31 @@ export const Main: React.FunctionComponent = () => {
 
     const value = event.target.innerText;
     console.log(value);
-    console.log('hello');
+    console.log('Oh carp');
+    console.log(synonyms);
+    // save initial string here
+    const initial = (document.getElementById('textarea') as HTMLDivElement);
+    console.log(initial.children);
+    const initialText = initial.innerText;
+    setInitialString(initialText);
+    // update text area here
+    const splitInitial = initialText.split(' ');
+    // while (initial.firstChild) { initial.removeChild(initial.firstChild); }
+    // for (let element of splitInitial) {
+    //   if (synonyms) {
+    //     if (element === synonyms.word) {
+    //       const span = document.createElement('span');
+    //       span.style.color = 'blue';
+    //       const text = document.createTextNode(value);
+    //       span.appendChild(text);
+    //       initial.appendChild(span);
+    //     } else {
+    //       const textNode = document.createTextNode(element);
+    //       initial.appendChild(textNode);
+    //     }
+    //   }
+    // }
+ 
 
   };
 
