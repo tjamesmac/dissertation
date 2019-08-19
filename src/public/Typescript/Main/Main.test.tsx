@@ -16,7 +16,7 @@ describe('Main page component', () => {
 
 describe('testing', () => {
   it('should add color to word if it is an adjective', () => {
-    const validationString = 'this is my testing string';
+
     const dummyData = [
       {
         word: 'testing',
@@ -24,7 +24,7 @@ describe('testing', () => {
         synonyms: ['examining'],
       },
     ];
-    expect(validateWords(dummyData, validationString))
+    expect(validateWords(dummyData))
       .toEqual(`this is my <span style='color: green'>testing</span> string`);
   });
 });
