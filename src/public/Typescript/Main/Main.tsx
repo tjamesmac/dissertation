@@ -31,7 +31,7 @@ export const Main: React.FunctionComponent = () => {
          */
         const rect = element.getBoundingClientRect();
         element.addEventListener( 'mouseover', (event: Event) => {
-          
+
           console.log(modalPosition.top, modalPosition.left);
           if (modalPosition.top === 0 && modalPosition.left === 0) {
             console.log(rect.top, modalPosition.top, 'top');
@@ -102,10 +102,6 @@ export const Main: React.FunctionComponent = () => {
 
         const responseJSON: IResponse[] = await response.json();
 
-        const textChange = validateWords(responseJSON, textAreaValue);
-        (document.getElementById('textarea') as HTMLDivElement)
-        .innerHTML = textChange;
-
         setWordsResponse(responseJSON);
 
       }
@@ -117,9 +113,11 @@ export const Main: React.FunctionComponent = () => {
   };
 
   const getSynonym = (event: any) => {
+
     const value = event.target.innerText;
     console.log(value);
     console.log('hello');
+
   };
 
   let showModal;
@@ -151,8 +149,7 @@ export const Main: React.FunctionComponent = () => {
             <div className='row'>
               <div className='col-12'>
                 <label>Please enter an advert</label>
-                {/* <div id='textarea' contentEditable></div> */}
-                <TextArea></TextArea>
+                <TextArea response={wordsResponse}></TextArea>
               </div>
             </div>
             <div className='row'>
