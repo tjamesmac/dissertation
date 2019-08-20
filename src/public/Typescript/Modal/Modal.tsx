@@ -8,7 +8,7 @@ export interface IModalPosition {
 interface IModalProps {
   words: IWordAndSynonym;
   position: IModalPosition;
-  onWordClick: (event: any) => void;
+  onWordClick: ( event: any ) => void;
 }
 
 const Modal = ( prop: IModalProps ): JSX.Element => {
@@ -21,7 +21,7 @@ const Modal = ( prop: IModalProps ): JSX.Element => {
     top: position.top,
     left: position.left,
   };
-  const wordMap = synonyms.map((word: string, index: number) => {
+  const wordMap = synonyms.map(( word: string, index: number ) => {
     return <li
               className='synonyms-item'
               onClick={(e) => prop.onWordClick(e)}
