@@ -8,7 +8,7 @@
   "scripts": {
     "build:dev": "webpack --config build-util/webpack/webpack.config.js --env.env=dev && node-sass --include-path scss src/public/Scss/index.scss dist/index.css --output-style expanded",
     "build:prod": "webpack --config build-util/webpack/webpack.config.js --env.env=prod && node-sass --include-path scss src/public/Scss/index.scss dist/index.css --output-style compressed",
-    "start": "ts-node src/server/app.tsx",
+    "start": "node dist/server/app.js",
     "server": "nodemon --config \"./build-util/Nodemon/nodemon.json\"",
     "test": "jest",
     "test:watch": "jest --watchAll --verbose",
