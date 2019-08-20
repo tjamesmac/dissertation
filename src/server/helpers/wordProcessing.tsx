@@ -62,7 +62,7 @@ export const getWordData = (splitWords: string[]) => {
   }
   return arrayOfAdjectivesMetadata;
 };
-// do I need to record the position of the words so I can then highlight them after wards?
+// do I need to record the position of the words so I can then highlight them afterwards?
 // would be good if I could make a solid loop in order to account for the words
 //
 
