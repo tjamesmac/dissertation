@@ -7,12 +7,12 @@
   },
   "scripts": {
     "build:dev": "webpack --config build-util/webpack/webpack.config.js --env.env=dev && node-sass --include-path scss src/public/Scss/index.scss dist/index.css --output-style expanded",
-    "build:prod": "webpack --config build-util/webpack/webpack.config.js --env.env=prod && node-sass --include-path scss src/public/Scss/index.scss dist/index.css --output-style compressed",
-    "start": "node dist/server/app.js",
+    "build:prod": "webpack --config build-util/webpack/webpack.config.js --env.prod && node-sass --include-path scss src/public/Scss/index.scss dist/index.css --output-style compressed",
+    "start": "nodemon --config \"./build-util/Nodemon/nodemon.json\"",
     "server": "nodemon --config \"./build-util/Nodemon/nodemon.json\"",
     "test": "jest",
     "test:watch": "jest --watchAll --verbose",
-    "heroku-postbuild": "npm run build:prod && tsc"
+    "heroku-postbuild": "npm run webpack -p"
   },
   "repository": {
     "type": "git",
