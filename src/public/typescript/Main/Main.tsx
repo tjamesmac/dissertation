@@ -99,13 +99,14 @@ export const Main: React.FunctionComponent = () => {
     (document.getElementById('textarea') as HTMLDivElement)
     .innerText;
 
-    if (initialString) {console.log('this is occupied')}
+    if (initialString) {console.log('this is occupied'); }
 
     const bodyText: object = { value: textAreaValue };
 
     try {
 
-      const URL = 'http://localhost:3000/';
+      // const URL = 'http://localhost:3000/';
+      const URL = 'https://intense-gorge-55427.herokuapp.com/';
 
       const data = await fetch(URL, {
         method: 'POST',
