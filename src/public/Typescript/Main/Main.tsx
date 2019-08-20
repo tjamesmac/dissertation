@@ -26,7 +26,9 @@ export const Main: React.FunctionComponent = () => {
 
   const [ modalState, setModalState ] = React.useState< false | true >( false );
 
-  const [ initialString, setInitialString  ] = React.useState< string >('');
+  const [ initialString, setInitialString ] = React.useState< string >('');
+
+  const [ orderChange, setOrderChange ] = React.useState< string[] >([]);
 
   const [ newString, setNewString ] = React.useState< string >();
 
@@ -97,7 +99,9 @@ export const Main: React.FunctionComponent = () => {
     (document.getElementById('textarea') as HTMLDivElement)
     .innerText;
 
-    const bodyText: object = {value: textAreaValue};
+    if (initialString) {console.log('this is occupied')}
+
+    const bodyText: object = { value: textAreaValue };
 
     try {
 
@@ -143,7 +147,7 @@ export const Main: React.FunctionComponent = () => {
   };
   const getSynonym = (event: any) => {
 
-    const value = event.target.innerText;
+    const value: string = event.target.innerText;
 
     // save initial string here
     const initial = (document.getElementById('textarea') as HTMLDivElement);
@@ -158,6 +162,9 @@ export const Main: React.FunctionComponent = () => {
           const span = createSpan('span', value);
           span.style.color = 'blue';
           initial.replaceChild(span, element);
+          
+          setOrderChange( (oldArray) => [...oldArray, value] );
+          console.log(orderChange);
         }
       }
     }
@@ -176,6 +183,11 @@ export const Main: React.FunctionComponent = () => {
       />;
     }
   }
+  const arr1: any = [{one: 1, two: 2, three: 3}];
+  const arr2 = [{four: 4, five: 5, six: 6}];
+  arr1.push(...arr2);
+  console.log(arr1);
+  console.log(orderChange);
 
   console.log('please');
   return (
@@ -198,7 +210,7 @@ export const Main: React.FunctionComponent = () => {
             </div>
             <div className='row'>
               <div className='col-4'>
-              <button>Click me</button>
+              <button>{ wordsResponse ? 'Submit' : 'Click me' }</button>
               </div>
             </div>
           </form>
