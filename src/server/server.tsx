@@ -4,7 +4,7 @@ import * as path from 'path';
 
 import React from 'react';
 import { renderToString } from 'react-dom/server';
-import { App } from '../public/type/App/App';
+import { App } from '../public/typescript/App/App';
 import { htmlTemplate } from './htmlTemplate';
 import { getWordData, isString  } from './helpers/wordProcessing';
 
