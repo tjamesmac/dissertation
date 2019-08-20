@@ -12,7 +12,7 @@
     "server": "nodemon --config \"./build-util/Nodemon/nodemon.json\"",
     "test": "jest",
     "test:watch": "jest --watchAll --verbose",
-    "heroku-postbuild": "npm run build:prod"
+    
   },
   "repository": {
     "type": "git",
