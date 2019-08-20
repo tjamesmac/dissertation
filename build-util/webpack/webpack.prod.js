@@ -4,7 +4,7 @@ const production = {
   devtool: 'none',
   plugins: [
     new Dotenv({
-      path: './.env.production'
+      path: './.env'
     })
   ]
 }
