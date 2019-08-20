@@ -11,8 +11,7 @@
     "start": "ts-node src/server/app.tsx",
     "server": "nodemon --config \"./build-util/Nodemon/nodemon.json\"",
     "test": "jest",
-    "test:watch": "jest --watchAll --verbose",
-    
+    "test:watch": "jest --watchAll --verbose"
   },
   "repository": {
     "type": "git",
