@@ -3,19 +3,15 @@ import Modal, { IModalPosition } from '../Modal/Modal';
 import TextArea, { ITextArea } from '../TextArea/TextArea';
 
 import { IResponse, validateWords } from './helpers';
-import { element } from 'prop-types';
 
 /**
  * Now I need to store the values before they are changed
  * I can create a use state that merges the previous with the new to record them all with a number
  * to show the order in which they are changed
- * 
+ *
  * Need to look into whether I change all the words that are the same at once
- * 
+ *
  */
-
-
-
 
 export interface IWordAndSynonym {
   word: string;
@@ -52,7 +48,7 @@ export const Main: React.FunctionComponent = () => {
          * Apparently mouseenter doesn't bubble but I am having issues with it firing too many times
          */
         const rect = element.getBoundingClientRect();
-        element.addEventListener( 'mouseover', (event: Event) => {
+        element.addEventListener( 'mouseover', ( event: Event ) => {
 
           console.log(modalPosition.top, modalPosition.left);
           if (modalPosition.top === 0 && modalPosition.left === 0) {
@@ -89,7 +85,6 @@ export const Main: React.FunctionComponent = () => {
   });
 
   // Functions
-
   const submission = async ( event: React.FormEvent ) => {
     event.preventDefault();
 
@@ -125,6 +120,7 @@ export const Main: React.FunctionComponent = () => {
 
         const responseJSON: IResponse[] = await response.json();
         // by keeping this here it does rerender everytime
+        console.log(textAreaValue);
         const textChange = validateWords(responseJSON);
         (document.getElementById('textarea') as HTMLDivElement).innerHTML = textChange;
 
@@ -145,23 +141,18 @@ export const Main: React.FunctionComponent = () => {
     return span;
   
   };
-
   const getSynonym = (event: any) => {
 
     const value = event.target.innerText;
-    console.log(value);
-    console.log('Oh carp');
-    console.log(synonyms);
+
     // save initial string here
     const initial = (document.getElementById('textarea') as HTMLDivElement);
     const children: any = initial.children;
     const initialText = initial.innerText;
+    console.log(initialText);
     setInitialString(initialText);
     // update text area here
-    console.log(children);
-
     for (let element of children) {
-      console.log(element);
       if (synonyms) {
         if (synonyms.word === element.innerText) {
           const span = createSpan('span', value);
@@ -170,28 +161,7 @@ export const Main: React.FunctionComponent = () => {
         }
       }
     }
-
-
-
-
-
-    // while (initial.firstChild) { initial.removeChild(initial.firstChild); }
-    // for (let element of splitInitial) {
-    //   if (synonyms) {
-    //     if (element === synonyms.word) {
-    //       const span = document.createElement('span');
-    //       span.style.color = 'blue';
-    //       const text = document.createTextNode(value);
-    //       span.appendChild(text);
-    //       initial.appendChild(span);
-    //     } else {
-    //       const textNode = document.createTextNode(element);
-    //       initial.appendChild(textNode);
-    //     }
-    //   }
-    // }
- 
-
+    console.log(initial.innerText);
   };
 
   let showModal;
