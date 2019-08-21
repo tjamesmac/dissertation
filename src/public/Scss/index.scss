@@ -1,6 +1,9 @@
 @import './Utility/reset/reset.scss';
 @import './Utility/grid/grid.scss';
+@import './Base/base.scss';
+
 
 @import './home.scss';
-@import './Components/textAreaAsDiv.scss';
+@import './Components/textArea/textArea.scss';
 @import './Components/Modal/Modal.scss';
+@import './Components/button/button.scss';
