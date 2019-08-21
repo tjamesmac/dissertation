@@ -162,7 +162,7 @@ export const Main: React.FunctionComponent = () => {
           const span = createSpan('span', value);
           span.style.color = 'blue';
           initial.replaceChild(span, element);
-          
+
           setOrderChange( (oldArray) => [...oldArray, value] );
           console.log(orderChange);
         }
@@ -193,13 +193,13 @@ export const Main: React.FunctionComponent = () => {
           <form onSubmit={( event: React.FormEvent ) => submission( event )}>
             <div className='row'>
               <div className='col-12'>
-              <label className=''>Please enter a gender</label>
+              <label className='label'>Please enter a gender</label>
               <input className=''></input>
               </div>
             </div>
             <div className='row'>
               <div className='col-12'>
-                <label className=''>Please enter an advert</label>
+                <label className='label'>Please enter an advert</label>
                 <TextArea response={wordsResponse}></TextArea>
               </div>
             </div>
