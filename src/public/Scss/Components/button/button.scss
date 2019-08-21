@@ -1,0 +1,31 @@
+/**
+* Variables
+*/
+$padding: 5px;
+
+/**
+* Mixins
+*/
+
+/**
+* Style
+*/
+
+
+.btn {
+  padding: $padding + 5;
+  border: none;
+}
+
+.btn-primary {
+  background-color: $colour-two;
+  color: white;
+  font-size: $font-size;
+
+  &:focus {
+    box-shadow: 0 0 0 3px $colour-five;
+  }
+  &:hover {
+    background-color: $colour-three;
+  }
+}
