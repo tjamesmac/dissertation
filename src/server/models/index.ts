@@ -5,7 +5,11 @@ import User from './user/user';
 
 dotenv.config();
 
-const connectDb = () => {
+export const connectDb = () => {
   const dbURL: string = process.env.DATABASE_URL || '';
-  return mongoose.connect(dbURL);
+  return mongoose.connect(dbURL, { useNewUrlParser: true });
 };
+
+const models = { User };
+
+export default models;
