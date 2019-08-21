@@ -183,11 +183,6 @@ export const Main: React.FunctionComponent = () => {
       />;
     }
   }
-  const arr1: any = [{one: 1, two: 2, three: 3}];
-  const arr2 = [{four: 4, five: 5, six: 6}];
-  arr1.push(...arr2);
-  console.log(arr1);
-  console.log(orderChange);
 
   console.log('please');
   return (
@@ -198,19 +193,19 @@ export const Main: React.FunctionComponent = () => {
           <form onSubmit={( event: React.FormEvent ) => submission( event )}>
             <div className='row'>
               <div className='col-12'>
-              <label>Please enter a gender</label>
-              <input></input>
+              <label className=''>Please enter a gender</label>
+              <input className=''></input>
               </div>
             </div>
             <div className='row'>
               <div className='col-12'>
-                <label>Please enter an advert</label>
+                <label className=''>Please enter an advert</label>
                 <TextArea response={wordsResponse}></TextArea>
               </div>
             </div>
             <div className='row'>
               <div className='col-4'>
-              <button>{ wordsResponse ? 'Submit' : 'Click me' }</button>
+              <button className='btn btn-primary'>{ wordsResponse ? 'Submit' : 'Click me' }</button>
               </div>
             </div>
           </form>
