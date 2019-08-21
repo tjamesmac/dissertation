@@ -18,19 +18,42 @@ export interface IWordAndSynonym {
   synonyms: string[];
 }
 
+/**
+ * THIS IS A TEST INTERFACE
+ */
+interface ITest {
+  originalString: string;
+  newString: string;
+  changedWords: string[];
+  demographic: string;
+
+}
+
 export const Main: React.FunctionComponent = () => {
   // hooks
+  // response from server
   const [ wordsResponse, setWordsResponse ] = React.useState< null | IResponse[] >( null );
   // need to set this as an object that holds the word the synonyms are coming from
   const [ synonyms, setSynonyms ] = React.useState< IWordAndSynonym | null >(null);
-
+  // display modal
   const [ modalState, setModalState ] = React.useState< false | true >( false );
-
+  // store the original string
   const [ initialString, setInitialString ] = React.useState< string >('');
 
   const [ orderChange, setOrderChange ] = React.useState< string[] >([]);
 
   const [ newString, setNewString ] = React.useState< string >();
+
+
+  /**
+   * THIS IS A TEST HOOK
+   */
+  const [ test, setTest ] = React.useState< ITest >({
+    originalString: 'this is the og string',
+    newString: 'new string on the block',
+    changedWords: ['changeOne', 'changeTwo'],
+    demographic : 'smurf',
+  });
 
   const [ modalPosition, setModalPosition ] =
     React.useState< IModalPosition >( { top: 0, left: 0 } );
@@ -99,8 +122,6 @@ export const Main: React.FunctionComponent = () => {
     (document.getElementById('textarea') as HTMLDivElement)
     .innerText;
 
-    if (initialString) {console.log('this is occupied')}
-
     const bodyText: object = { value: textAreaValue };
 
     try {
@@ -124,10 +145,10 @@ export const Main: React.FunctionComponent = () => {
 
         const responseJSON: IResponse[] = await response.json();
         // by keeping this here it does rerender everytime
-        console.log(textAreaValue);
         const textChange = validateWords(responseJSON);
         (document.getElementById('textarea') as HTMLDivElement).innerHTML = textChange;
 
+        // use a reducer here to store the response and the string.
         setWordsResponse(responseJSON);
 
       }
@@ -184,6 +205,42 @@ export const Main: React.FunctionComponent = () => {
     }
   }
 
+
+  const click = () => {
+    console.log('click clack');
+  };
+  const submit = async () => {
+
+    const username = { username: 'tjamesmac' };
+
+    try {
+
+      const URL = 'http://localhost:3000/data';
+
+      const data = await fetch(URL, {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+
+        body: JSON.stringify(username),
+
+      });
+
+      const response = await data;
+
+      if (response.status === 200) {
+
+        console.log('cool');
+
+      }
+    } catch (error) {
+
+      console.error('uh oh error', error);
+
+    }
+  };
   console.log('please');
   return (
     <div className='container'>
@@ -205,7 +262,11 @@ export const Main: React.FunctionComponent = () => {
             </div>
             <div className='row'>
               <div className='col-4'>
-              <button className='btn btn-primary'>{ wordsResponse ? 'Submit' : 'Click me' }</button>
+              <button
+                onClick={ wordsResponse ? ( ) => submit() : () => click()}
+                className='btn btn-primary'>
+                { wordsResponse ? 'Submit' : 'Click me' }
+              </button>
               </div>
             </div>
           </form>
