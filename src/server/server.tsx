@@ -5,8 +5,8 @@ import * as path from 'path';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { App } from '../public/Typescript/App/App';
-import { htmlTemplate } from './htmlTemplate';
 import { getWordData, isString  } from './helpers/wordProcessing';
+import { htmlTemplate } from './htmlTemplate';
 
 class Server {
   public app: express.Application;
