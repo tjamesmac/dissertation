@@ -19,16 +19,28 @@ $colour-five: #F24C27;
 }
 // Spacing
 @mixin margin-bottom($margin: 20px) {
-  margin-bottom: $margin
+  margin-bottom: $margin;
 }
 @mixin margin-top($margin: 20px) {
-  margin-bottom: $margin
+  margin-top: $margin;
 }
 @mixin margin-left($margin: 20px) {
-  margin-bottom: $margin
+  margin-left: $margin;
 }
 @mixin margin-right($margin: 20px) {
-  margin-bottom: $margin
+  margin-right: $margin;
+}
+@mixin padding-bottom($padding: 20px) {
+  padding-bottom: $padding;
+}
+@mixin padding-top($padding: 20px) {
+  padding-top: $padding;
+}
+@mixin padding-left($padding: 20px) {
+  padding-left: $padding;
+}
+@mixin padding-right($padding: 20px) {
+  padding-right: $padding;
 }
 
 
