@@ -4,9 +4,12 @@ import * as path from 'path';
 
 import React from 'react';
 import { renderToString } from 'react-dom/server';
-import { App } from '../public/Typescript/App/App';
-import { getWordData, isString  } from './helpers/wordProcessing';
+import App from '../public/Typescript/App/App';
 import { htmlTemplate } from './htmlTemplate';
+import models from './models';
+import User from './models/user/user';
+import data from './routes/data/data.route';
+import home from './routes/home/home.route';
 
 class Server {
   public app: express.Application;
@@ -17,29 +20,13 @@ class Server {
   private config(): void {
     this.app.use( bodyParser.json() );
     this.app.use( '/', express.static( path.join(__dirname, '../../dist' ) ) );
-    this.serverSideRender();
     // routes go here when I get them
 
-    // this will temporarily hold the post route
-    this.app.post('/', ( req: express.Request, res: express.Response ) => {
-      const words = req.body;
-      console.log(words);
-      console.log(words.value);
+    this.app.use(data);
+    this.app.use(home);
+    
+    // end of routes
 
-      const split = isString(words.value);
-      const getWords = getWordData(split);
-
-      return res.send(getWords);
-    });
-  }
-  private serverSideRender(): void {
-    this.app.get('/', ( req: express.Request, res: express.Response ) => {
-      const jsx = ( <App /> );
-      const reactDom = renderToString( jsx );
-
-      res.writeHead( 200, { 'Content-Type': 'text/html' } );
-      res.end( htmlTemplate( reactDom ) );
-    });
   }
 }
 
