@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Main } from '../Main/Main';
 
-export const App = () => {
+const App = () => {
   return (
     <div>
     <div className='container'>
@@ -15,3 +15,5 @@ export const App = () => {
     </div>
   );
 };
+
+export default App;
