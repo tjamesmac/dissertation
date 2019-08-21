@@ -4,4 +4,5 @@
   height: 500px;
   color: black;
   padding: 15px;
+  @include margin-bottom;
 }
