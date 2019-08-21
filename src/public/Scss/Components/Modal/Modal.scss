@@ -37,6 +37,7 @@ $modalSizing: 150px;
     padding: $padding - 10;
     flex: 1 1 auto;
     background-color: $colour-two;
+    border: 1px solid $colour-four;
 
     &:hover {
       @include hover;
