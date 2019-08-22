@@ -1,20 +1,21 @@
 import { Request, Response } from 'express';
-import models from '../../models';
-import User from '../../models/user/user';
+
+import models from '../../models/index';
 
 const dataController = ( req: Request, res: Response ) => {
 
   const body = req.body;
-  const user = new User();
-  user.username = body.username;
-  // user.save( (error: string) => {
-  //   if (error) {
-  //     console.error(error);
-  //   }
-  //   console.log('hello i have saved');
-  // });
-  console.log('i am still here');
+  const data = new models.Data();
+  data.originalString = body.originalString;
+  data.newString = body.newString;
+  data.changedWords = body.changedWords;
+  data.demographic = body.demographic;
 
+  data.save( (error: string) => {
+    if (error) { console.log(error); }
+    console.log('data saved');
+  } );
+  
   return res.sendStatus(200);
 };
 
