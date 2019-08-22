@@ -6,17 +6,15 @@ export interface IResponse {
   synonyms: string[];
 }
 
-export const validateWords = ( response: IResponse[] ): string => {
+export const validateWords = ( response: IResponse[], textCheck: string ): string => {
 
-  const textAreaValue: string =
-    (document.getElementById('textarea') as HTMLDivElement)
-    .innerText;
+  
 
-  let toChange = textAreaValue;
+  let toChange = textCheck;
 
   for (let key of response) {
 
-    if (textAreaValue.includes(key.word)) {
+    if (textCheck.includes(key.word)) {
 
       const word = key.word;
       const regex = new RegExp(word, 'g');
