@@ -19,10 +19,14 @@ exports[`Main page component it renders correctly 1`] = `
           <div
             className="col-12"
           >
-            <label>
+            <label
+              className="label"
+            >
               Please enter a gender
             </label>
-            <input />
+            <input
+              className=""
+            />
           </div>
         </div>
         <div
@@ -31,7 +35,9 @@ exports[`Main page component it renders correctly 1`] = `
           <div
             className="col-12"
           >
-            <label>
+            <label
+              className="label"
+            >
               Please enter an advert
             </label>
             <div
@@ -46,7 +52,10 @@ exports[`Main page component it renders correctly 1`] = `
           <div
             className="col-4"
           >
-            <button>
+            <button
+              className="btn btn-primary"
+              onClick={[Function]}
+            >
               Click me
             </button>
           </div>

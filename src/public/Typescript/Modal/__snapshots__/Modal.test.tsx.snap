@@ -2,13 +2,25 @@
 
 exports[`Main page component it renders correctly 1`] = `
 <ul
-  className="synonym"
+  className="synonyms"
+  style={
+    Object {
+      "left": 2,
+      "top": 1,
+    }
+  }
 >
-  <li>
-    one
+  <li
+    className="synonyms-item"
+    onClick={[Function]}
+  >
+    hi
   </li>
-  <li>
-    two
+  <li
+    className="synonyms-item"
+    onClick={[Function]}
+  >
+    hiya
   </li>
 </ul>
 `;
