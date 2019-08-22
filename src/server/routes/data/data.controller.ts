@@ -16,7 +16,7 @@ const dataController = ( req: Request, res: Response ) => {
     if (error) { console.log(error); }
     console.log('data saved');
   } );
-  
+
   return res.sendStatus(200);
 };
 
