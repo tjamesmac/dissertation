@@ -12,7 +12,7 @@ interface IDataModel extends IData, mongoose.Document {}
 const dataSchema: Schema = new mongoose.Schema({
   originalString: String,
   newString: String,
-  changedWords: Array,
+  orderOfWords: Array,
   demographic: String,
 });
 
