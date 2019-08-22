@@ -1,8 +1,8 @@
 import * as React from 'react';
 import Modal, { IModalPosition } from '../Modal/Modal';
-import TextArea, { ITextArea } from '../TextArea/TextArea';
-
-import { IResponse, validateWords } from './helpers';
+import TextArea from '../TextArea/TextArea';
+import { createSpan, dataReducer, IResponse, validateWords } from './Main.helpers';
+import { IWordAndSynonym } from './Main.interface';
 
 /**
  * Now I need to store the values before they are changed
@@ -16,64 +16,18 @@ import { IResponse, validateWords } from './helpers';
  *
  */
 
-export interface IWordAndSynonym {
-  word: string;
-  synonyms: string[];
-}
-
-/**
- * THIS IS A TEST INTERFACE
- */
-interface IDataPL {
-  originalString: string;
-  newString: string;
-  orderOfWords: string[];
-  demographic: string;
-
-}
-
 export const Main: React.FunctionComponent = () => {
-  // hooks
+  // HOOKS
   // response from server
   const [ wordsResponse, setWordsResponse ] = React.useState< null | IResponse[] >( null );
   // need to set this as an object that holds the word the synonyms are coming from
   const [ synonyms, setSynonyms ] = React.useState< IWordAndSynonym | null >(null);
   // display modal
   const [ modalState, setModalState ] = React.useState< false | true >( false );
-  // store the original string
-
-  const dataReducer = ( state: IDataPL, action: any ) => {
-    switch ( action.type ) {
-      case 'UPDATE_ORIGINAL':
-        return {
-          ...state,
-          originalString: action.payload,
-        };
-      case 'UPDATE_NEW':
-        return {
-          ...state,
-          newString: action.payload,
-        };
-      case 'UPDATE_ORDER':
-        const value = action.payload;
-
-        // const mergeStates = state.orderOfWords.concat(value);
-        const alternativeState = [...state.orderOfWords, value];
-        
-        return {
-          ...state,
-          orderOfWords: alternativeState,
-        };
-      case 'UPDATE_DEMO':
-        return {
-          ...state,
-          demographic: action.payload,
-        };
-        default:
-          throw new Error();
-    }
-  };
-
+  // modal position
+  const [ modalPosition, setModalPosition ] =
+    React.useState< IModalPosition >( { top: 0, left: 0 } );
+  // store in the db
   const [ submissionData, dispatch ] =
     React.useReducer < any >( dataReducer, {
       originalString: '',
@@ -82,64 +36,36 @@ export const Main: React.FunctionComponent = () => {
       demographic : '',
   });
 
-  const updateDemographic = ( event: any ) => {
-
-      const value = event.target!.value;
-
-      dispatch( { type: 'UPDATE_DEMO', payload: value } );
-
-  };
-
-  const [ modalPosition, setModalPosition ] =
-    React.useState< IModalPosition >( { top: 0, left: 0 } );
-
   React.useEffect(() => {
-
     const textArea = document.querySelector('#textarea');
-
     if (textArea) {
-
       const children: any = textArea.children;
-
       for (let element of children) {
-
         /**
          * the event has been replaced from mouseenter
          * Apparently mouseenter doesn't bubble but I am having issues with it firing too many times
          */
         const rect = element.getBoundingClientRect();
-
         element.addEventListener( 'mouseover', ( event: Event ) => {
-
           if (modalPosition.top === 0 && modalPosition.left === 0) {
-
             if (rect.top + 20 !== modalPosition.top) {
-
               setModalPosition({ top: rect.top + 20, left: rect.left });
-
             }
           }
           if (wordsResponse) {
             for (let word of wordsResponse) {
               if (word.word === element.innerHTML) {
-
                 const rootAndSynonym = { word: word.word, synonyms: word.synonyms };
                 setSynonyms(rootAndSynonym);
-
               }
             }
           }
           if (!modalState) {
-
             setModalState(true);
-
           }
         } );
-        /**
-         * the event has been replaced from mouseleave
-         */
+        // the event has been replaced from mouseleave
         element.addEventListener( 'mouseout', () => {
-
           if (modalState) {
             // setModalState(false);
           }
@@ -147,83 +73,56 @@ export const Main: React.FunctionComponent = () => {
       }
     }
   });
-
   // Functions
+
+  const updateDemographic = ( event: any ) => {
+      const value = event.target!.value;
+      dispatch( { type: 'UPDATE_DEMO', payload: value } );
+  };
   const submission = async ( event: React.FormEvent ) => {
     event.preventDefault();
-
-    /**
-     *
-     * This has been changed to innerText - innerHTML security issue
-     * Seems to be cleaner to use text
-     *
-     */
-
+    //
+     // This has been changed to innerText - innerHTML security issue
+     // Seems to be cleaner to use text
+     //
     const textAreaValue: string =
-    (document.getElementById('textarea') as HTMLDivElement)
-    .innerText;
-
+      (document.getElementById('textarea') as HTMLDivElement)
+      .innerText;
     const bodyText: object = { value: textAreaValue };
-
     try {
-
       const URL = 'http://localhost:3000/';
-
       const data = await fetch(URL, {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
         },
-
         body: JSON.stringify(bodyText),
-
       });
-
       const response = await data;
-
       if (response.status === 200) {
-
         const responseJSON: IResponse[] = await response.json();
         // by keeping this here it does rerender everytime
         const textChange = validateWords(responseJSON, textAreaValue);
         (document.getElementById('textarea') as HTMLDivElement).innerHTML = textChange;
-
         // use a reducer here to store the response and the string.
         setWordsResponse(responseJSON);
 
       }
     } catch (error) {
-
       console.error('uh oh error', error);
-
     }
   };
-  const createSpan = ( elementTag: string, text: string ) => {
-
-    const span = document.createElement(elementTag);
-    const textNode = document.createTextNode(text);
-    span.appendChild(textNode);
-    return span;
-
-  };
   const getSynonym = (event: any) => {
-
     const value: string = event.target.innerText;
-
-    // save initial string here
     const original = (document.getElementById('textarea') as HTMLDivElement);
     const children: any = original.children; // difficult to type HTML collection
-
-    // update text area here
-
     for (let element of children) {
       if (synonyms) {
         if (synonyms.word === element.innerText) {
-          const span = createSpan('span', value);
-          span.style.color = 'blue';
-          original.replaceChild(span, element);
 
+          const span = createSpan('span', value, 'blue');
+          original.replaceChild(span, element);
           dispatch( { type: 'UPDATE_ORDER', payload: value } );
           dispatch( { type: 'UPDATE_NEW', payload: original.innerText } );
 
@@ -232,9 +131,33 @@ export const Main: React.FunctionComponent = () => {
     }
     console.log(original.innerText);
   };
+  const click = () => {
+    const original = (document.getElementById('textarea') as HTMLDivElement).innerText;
+    dispatch( { type: 'UPDATE_ORIGINAL', payload: original } );
+  };
+  const submit = async () => {
+    try {
+      // this needs to be a process.env at some point
+      const URL = 'http://localhost:3000/data';
+      const data = await fetch(URL, {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(submissionData),
+      });
+      const response = await data;
+      if (response.status === 200) {
+        console.log('submitted');
+      }
 
+    } catch (error) {
+      console.error('uh oh error', error);
+    }
+  };
   let showModal;
-// This is what made the modal work
+  // This is what made the modal work
   if (modalState) {
     if (synonyms) {
       showModal =
@@ -245,41 +168,6 @@ export const Main: React.FunctionComponent = () => {
       />;
     }
   }
-
-  const click = () => {
-
-    const original = (document.getElementById('textarea') as HTMLDivElement).innerText;
-
-    dispatch( { type: 'UPDATE_ORIGINAL', payload: original } );
-  };
-
-  const submit = async () => {
-
-    try {
-
-      const URL = 'http://localhost:3000/data';
-
-      const data = await fetch(URL, {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        },
-
-        body: JSON.stringify(submissionData),
-
-      });
-
-      const response = await data;
-
-      if (response.status === 200) {
-        console.log('submitted');
-      }
-    } catch (error) {
-      console.error('uh oh error', error);
-    }
-  };
-
   console.log(submissionData);
 
   return (
