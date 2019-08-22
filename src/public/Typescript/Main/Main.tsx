@@ -9,7 +9,7 @@ import { IResponse, validateWords } from './helpers';
  * I can create a use state that merges the previous with the new to record them all with a number
  * to show the order in which they are changed
  *
- * TODO: I am currently making the reducer
+ * DONE: Reducer
  *
  *
  * Need to look into whether I change all the words that are the same at once
@@ -24,7 +24,7 @@ export interface IWordAndSynonym {
 /**
  * THIS IS A TEST INTERFACE
  */
-interface ITest {
+interface IDataPL {
   originalString: string;
   newString: string;
   orderOfWords: string[];
@@ -42,7 +42,7 @@ export const Main: React.FunctionComponent = () => {
   const [ modalState, setModalState ] = React.useState< false | true >( false );
   // store the original string
 
-  const testReducer = ( state: ITest, action: any ) => {
+  const dataReducer = ( state: IDataPL, action: any ) => {
     switch ( action.type ) {
       case 'UPDATE_ORIGINAL':
         return {
@@ -74,8 +74,8 @@ export const Main: React.FunctionComponent = () => {
     }
   };
 
-  const [ test, dispatch ] =
-    React.useReducer < any >( testReducer, {
+  const [ submissionData, dispatch ] =
+    React.useReducer < any >( dataReducer, {
       originalString: '',
       newString: '',
       orderOfWords: [],
@@ -162,8 +162,6 @@ export const Main: React.FunctionComponent = () => {
     const textAreaValue: string =
     (document.getElementById('textarea') as HTMLDivElement)
     .innerText;
-
-    
 
     const bodyText: object = { value: textAreaValue };
 
@@ -268,21 +266,21 @@ export const Main: React.FunctionComponent = () => {
           'Content-Type': 'application/json',
         },
 
-        body: JSON.stringify(test),
+        body: JSON.stringify(submissionData),
 
       });
 
       const response = await data;
 
       if (response.status === 200) {
-        console.log('cool');
+        console.log('submitted');
       }
     } catch (error) {
       console.error('uh oh error', error);
     }
   };
 
-  console.log(test);
+  console.log(submissionData);
 
   return (
     <div className='container'>
