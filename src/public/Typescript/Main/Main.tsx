@@ -211,8 +211,6 @@ export const Main: React.FunctionComponent = () => {
   };
   const submit = async () => {
 
-    const username = { username: 'tjamesmac' };
-
     try {
 
       const URL = 'http://localhost:3000/data';
@@ -224,7 +222,7 @@ export const Main: React.FunctionComponent = () => {
           'Content-Type': 'application/json',
         },
 
-        body: JSON.stringify(username),
+        body: JSON.stringify(test),
 
       });
 
