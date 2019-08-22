@@ -9,6 +9,9 @@ import { IResponse, validateWords } from './helpers';
  * I can create a use state that merges the previous with the new to record them all with a number
  * to show the order in which they are changed
  *
+ * TODO: I am currently making the reducer
+ *
+ *
  * Need to look into whether I change all the words that are the same at once
  *
  */
@@ -24,7 +27,7 @@ export interface IWordAndSynonym {
 interface ITest {
   originalString: string;
   newString: string;
-  changedWords: string[];
+  orderOfWords: string[];
   demographic: string;
 
 }
@@ -38,22 +41,54 @@ export const Main: React.FunctionComponent = () => {
   // display modal
   const [ modalState, setModalState ] = React.useState< false | true >( false );
   // store the original string
-  const [ initialString, setInitialString ] = React.useState< string >('');
 
-  const [ orderChange, setOrderChange ] = React.useState< string[] >([]);
+  const testReducer = ( state: ITest, action: any ) => {
+    switch ( action.type ) {
+      case 'UPDATE_ORIGINAL':
+        return {
+          ...state,
+          originalString: action.payload,
+        };
+      case 'UPDATE_NEW':
+        return {
+          ...state,
+          newString: action.payload,
+        };
+      case 'UPDATE_ORDER':
+        const value = action.payload;
 
-  const [ newString, setNewString ] = React.useState< string >();
+        // const mergeStates = state.orderOfWords.concat(value);
+        const alternativeState = [...state.orderOfWords, value];
+        
+        return {
+          ...state,
+          orderOfWords: alternativeState,
+        };
+      case 'UPDATE_DEMO':
+        return {
+          ...state,
+          demographic: action.payload,
+        };
+        default:
+          throw new Error();
+    }
+  };
 
-
-  /**
-   * THIS IS A TEST HOOK
-   */
-  const [ test, setTest ] = React.useState< ITest >({
-    originalString: 'this is the og string',
-    newString: 'new string on the block',
-    changedWords: ['changeOne', 'changeTwo'],
-    demographic : 'smurf',
+  const [ test, dispatch ] =
+    React.useReducer < any >( testReducer, {
+      originalString: '',
+      newString: '',
+      orderOfWords: [],
+      demographic : '',
   });
+
+  const updateDemographic = ( event: any ) => {
+
+      const value = event.target!.value;
+
+      dispatch( { type: 'UPDATE_DEMO', payload: value } );
+
+  };
 
   const [ modalPosition, setModalPosition ] =
     React.useState< IModalPosition >( { top: 0, left: 0 } );
@@ -73,20 +108,21 @@ export const Main: React.FunctionComponent = () => {
          * Apparently mouseenter doesn't bubble but I am having issues with it firing too many times
          */
         const rect = element.getBoundingClientRect();
+
         element.addEventListener( 'mouseover', ( event: Event ) => {
 
-          console.log(modalPosition.top, modalPosition.left);
           if (modalPosition.top === 0 && modalPosition.left === 0) {
-            console.log(rect.top, modalPosition.top, 'top');
+
             if (rect.top + 20 !== modalPosition.top) {
-              console.log('im updating');
+
               setModalPosition({ top: rect.top + 20, left: rect.left });
-              console.log(rect.top, modalPosition.top, 'bottom');
+
             }
           }
           if (wordsResponse) {
             for (let word of wordsResponse) {
               if (word.word === element.innerHTML) {
+
                 const rootAndSynonym = { word: word.word, synonyms: word.synonyms };
                 setSynonyms(rootAndSynonym);
 
@@ -94,13 +130,16 @@ export const Main: React.FunctionComponent = () => {
             }
           }
           if (!modalState) {
+
             setModalState(true);
+
           }
         } );
         /**
          * the event has been replaced from mouseleave
          */
         element.addEventListener( 'mouseout', () => {
+
           if (modalState) {
             // setModalState(false);
           }
@@ -117,10 +156,14 @@ export const Main: React.FunctionComponent = () => {
      *
      * This has been changed to innerText - innerHTML security issue
      * Seems to be cleaner to use text
+     *
      */
+
     const textAreaValue: string =
     (document.getElementById('textarea') as HTMLDivElement)
     .innerText;
+
+    
 
     const bodyText: object = { value: textAreaValue };
 
@@ -145,7 +188,7 @@ export const Main: React.FunctionComponent = () => {
 
         const responseJSON: IResponse[] = await response.json();
         // by keeping this here it does rerender everytime
-        const textChange = validateWords(responseJSON);
+        const textChange = validateWords(responseJSON, textAreaValue);
         (document.getElementById('textarea') as HTMLDivElement).innerHTML = textChange;
 
         // use a reducer here to store the response and the string.
@@ -164,32 +207,32 @@ export const Main: React.FunctionComponent = () => {
     const textNode = document.createTextNode(text);
     span.appendChild(textNode);
     return span;
-  
+
   };
   const getSynonym = (event: any) => {
 
     const value: string = event.target.innerText;
 
     // save initial string here
-    const initial = (document.getElementById('textarea') as HTMLDivElement);
-    const children: any = initial.children;
-    const initialText = initial.innerText;
-    console.log(initialText);
-    setInitialString(initialText);
+    const original = (document.getElementById('textarea') as HTMLDivElement);
+    const children: any = original.children; // difficult to type HTML collection
+
     // update text area here
+
     for (let element of children) {
       if (synonyms) {
         if (synonyms.word === element.innerText) {
           const span = createSpan('span', value);
           span.style.color = 'blue';
-          initial.replaceChild(span, element);
+          original.replaceChild(span, element);
 
-          setOrderChange( (oldArray) => [...oldArray, value] );
-          console.log(orderChange);
+          dispatch( { type: 'UPDATE_ORDER', payload: value } );
+          dispatch( { type: 'UPDATE_NEW', payload: original.innerText } );
+
         }
       }
     }
-    console.log(initial.innerText);
+    console.log(original.innerText);
   };
 
   let showModal;
@@ -205,10 +248,13 @@ export const Main: React.FunctionComponent = () => {
     }
   }
 
-
   const click = () => {
-    console.log('click clack');
+
+    const original = (document.getElementById('textarea') as HTMLDivElement).innerText;
+
+    dispatch( { type: 'UPDATE_ORIGINAL', payload: original } );
   };
+
   const submit = async () => {
 
     try {
@@ -229,17 +275,15 @@ export const Main: React.FunctionComponent = () => {
       const response = await data;
 
       if (response.status === 200) {
-
         console.log('cool');
-
       }
     } catch (error) {
-
       console.error('uh oh error', error);
-
     }
   };
-  console.log('please');
+
+  console.log(test);
+
   return (
     <div className='container'>
       <div className='row'>
@@ -248,8 +292,12 @@ export const Main: React.FunctionComponent = () => {
           <form onSubmit={( event: React.FormEvent ) => submission( event )}>
             <div className='row'>
               <div className='col-12'>
-              <label className='label'>Please enter a gender</label>
-              <input className=''></input>
+                <label className='label'>Please enter a gender</label>
+                <select onChange={ ( event ) => updateDemographic( event ) }>
+                  <option value=''>-- Please choose an option --</option>
+                  <option value='male'>Male</option>
+                  <option value='female'>Female</option>
+                </select>
               </div>
             </div>
             <div className='row'>
