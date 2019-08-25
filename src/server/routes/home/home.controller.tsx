@@ -4,18 +4,33 @@ import { renderToString } from 'react-dom/server';
 import App from '../../../public/Typescript/App/App';
 import { getWordData, isString  } from '../../helpers/wordProcessing';
 import { htmlTemplate } from '../../htmlTemplate';
+import { overAll } from '../../wordnet';
 
 const controller = {
-  postHomeController: ( req: Request, res: Response ) => {
-    console.log('inside everything');
+  postHomeController: async ( req: Request, res: Response ) => {
+    // console.log('inside everything');
     const words = req.body;
+    overAll();
 
-    console.log(words.value);
+    // NEED to store the data in an object { adjectives: [], adjectivesAndData: {} }
+    
 
-    const split = isString(words.value);
-    const getWords = getWordData(split);
 
-    return res.send(getWords);
+
+
+
+
+    // console.log( wait );
+    // wait.then((response) => console.log(response, 'response'));
+    // console.log(wait, 'controller');
+
+    // console.log(words.value);
+
+    // const split = isString(words.value);
+    // const getWords = getWordData(split);
+    
+
+    return res.send('getWords');
   },
   getSSR: ( req: Request, res: Response ) => {
     const jsx = ( <App /> );
