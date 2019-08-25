@@ -27,8 +27,14 @@ export async function overAll() {
       await wordpos.lookupAdjective( word , ( response: any ) => {
         for ( let element of response ) {
           console.log(element.pos);
-          const pos = element.synonyms;
-          obj[word] = [ ...obj[word], ...pos ];
+          const synonyms = element.synonyms;
+          for (const w of synonyms) {
+            if (!obj[word].includes(w)) {
+              obj[word] = [ ...obj[word], ...synonyms ];
+
+            }
+          }
+          // obj[word] = [ ...obj[word], ...pos ];
         }
       });
     }
