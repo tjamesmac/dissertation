@@ -1,6 +1,6 @@
 import * as React from 'react';
-import Modal, { IModalPosition } from '../modal/odal';
-import TextArea from '../textArea/extArea';
+import Modal, { IModalPosition } from '../modal/modal';
+import TextArea from '../textArea/textArea';
 import { createSpan, dataReducer, validateWords } from './Main.helpers';
 import { IResponse, IWordAndSynonym } from './main.interface';
 
