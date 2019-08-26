@@ -1,14 +1,12 @@
 import * as React from 'react';
 import renderer from 'react-test-renderer';
+import { IResponse } from '../Main/Main.interface';
 import TextArea from './TextArea';
 
 describe('Main page component', () => {
 
-  const response = [
-    {
-    synonyms: ['hi', 'hiya'],
-    }
-  ];
+  const response: IResponse = { synonyms: ['hi', 'hiya'] };
+
   it('it renders correctly', () => {
     const tree = renderer
       .create(<TextArea response={response}/>)
