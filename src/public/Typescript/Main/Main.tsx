@@ -1,8 +1,8 @@
 import * as React from 'react';
 import Modal, { IModalPosition } from '../Modal/Modal';
 import TextArea from '../TextArea/TextArea';
-import { createSpan, dataReducer, IResponse, validateWords } from './Main.helpers';
-import { IWordAndSynonym } from './Main.interface';
+import { createSpan, dataReducer, validateWords } from './Main.helpers';
+import { IResponse, IWordAndSynonym } from './Main.interface';
 
 /**
  * Now I need to store the values before they are changed
@@ -19,7 +19,7 @@ import { IWordAndSynonym } from './Main.interface';
 export const Main: React.FunctionComponent = () => {
   // HOOKS
   // response from server
-  const [ wordsResponse, setWordsResponse ] = React.useState< null | IResponse[] >( null );
+  const [ wordsResponse, setWordsResponse ] = React.useState< null | any >( null );
   // need to set this as an object that holds the word the synonyms are coming from
   const [ synonyms, setSynonyms ] = React.useState< IWordAndSynonym | null >(null);
   // display modal
@@ -53,9 +53,12 @@ export const Main: React.FunctionComponent = () => {
             }
           }
           if (wordsResponse) {
-            for (let word of wordsResponse) {
-              if (word.word === element.innerHTML) {
-                const rootAndSynonym = { word: word.word, synonyms: word.synonyms };
+            const keys: any = Object.keys(wordsResponse);
+            for (const value of keys) {
+              if (value === element.innerText) {
+                const syns = wordsResponse[value];
+                console.log(syns, 'syns');
+                const rootAndSynonym = { word: value, synonyms: syns };
                 setSynonyms(rootAndSynonym);
               }
             }
@@ -82,12 +85,13 @@ export const Main: React.FunctionComponent = () => {
   const submission = async ( event: React.FormEvent ) => {
     event.preventDefault();
     //
-     // This has been changed to innerText - innerHTML security issue
-     // Seems to be cleaner to use text
-     //
+    // This has been changed to innerText - innerHTML security issue
+    // Seems to be cleaner to use text
+    //
     const textAreaValue: string =
       (document.getElementById('textarea') as HTMLDivElement)
       .innerText;
+
     const bodyText: object = { value: textAreaValue };
     try {
       const URL = 'http://localhost:3000/';
@@ -100,12 +104,16 @@ export const Main: React.FunctionComponent = () => {
         body: JSON.stringify(bodyText),
       });
       const response = await data;
+      
       if (response.status === 200) {
-        const responseJSON: IResponse[] = await response.json();
+        const responseJSON: IResponse = await response.json();
+        console.log(responseJSON);
         // by keeping this here it does rerender everytime
         const textChange = validateWords(responseJSON, textAreaValue);
         (document.getElementById('textarea') as HTMLDivElement).innerHTML = textChange;
         // use a reducer here to store the response and the string.
+
+        console.log(responseJSON);
         setWordsResponse(responseJSON);
 
       }
@@ -117,7 +125,7 @@ export const Main: React.FunctionComponent = () => {
     const value: string = event.target.innerText;
     const original = (document.getElementById('textarea') as HTMLDivElement);
     const children: any = original.children; // difficult to type HTML collection
-    for (let element of children) {
+    for (const element of children) {
       if (synonyms) {
         if (synonyms.word === element.innerText) {
 
@@ -129,7 +137,6 @@ export const Main: React.FunctionComponent = () => {
         }
       }
     }
-    console.log(original.innerText);
   };
   const click = () => {
     const original = (document.getElementById('textarea') as HTMLDivElement).innerText;
@@ -168,7 +175,6 @@ export const Main: React.FunctionComponent = () => {
       />;
     }
   }
-  console.log(submissionData);
 
   return (
     <div className='container'>

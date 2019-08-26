@@ -1,11 +1,6 @@
 import * as React from 'react';
-import { IDataPL } from './Main.interface';
+import { IDataPL, IResponse } from './Main.interface';
 
-export interface IResponse {
-  word: string;
-  type: string;
-  synonyms: string[];
-}
 
 // State reducer
 export const dataReducer = ( state: IDataPL, action: any ) => {
@@ -39,13 +34,21 @@ export const dataReducer = ( state: IDataPL, action: any ) => {
         throw new Error();
   }
 };
-
-export const validateWords = ( response: IResponse[], textCheck: string ): string => {
-
+// removed IResponse from response
+export const validateWords = ( response: any, textCheck: string ): string => {
+  const keys = Object.keys(response);
+  const newKeys = keys.filter( (x) => {
+    if (response[x].length) {
+      return x;
+    } else {
+      return null;
+    }
+  } );
+  console.log(newKeys);
   let toChange: string = textCheck;
-  for (let key of response) {
-    if (textCheck.includes(key.word)) {
-      const word = key.word;
+  for (let key of newKeys) {
+    if (textCheck.includes(key)) {
+      const word = key;
       const regex = new RegExp(word, 'g');
       // string doesn't replace unless assigned to variable
       const newString = toChange.replace(regex, `<span style='color: green'>${word}</span>`);
