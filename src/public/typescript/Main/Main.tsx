@@ -89,26 +89,15 @@ export const Main: React.FunctionComponent = () => {
     // Seems to be cleaner to use text
     //
     const textAreaValue: string =
-<<<<<<< HEAD:src/public/Typescript/Main/Main.tsx
       (document.getElementById('textarea') as HTMLDivElement)
       .innerText;
-=======
-    (document.getElementById('textarea') as HTMLDivElement)
-    .innerText;
-
-    if (initialString) {console.log('this is occupied'); }
->>>>>>> feature/heroku:src/public/typescript/Main/Main.tsx
 
     const bodyText: object = { value: textAreaValue };
     try {
-<<<<<<< HEAD:src/public/Typescript/Main/Main.tsx
-      const URL = 'http://localhost:3000/';
-=======
 
       // const URL = 'http://localhost:3000/';
       const URL = 'https://intense-gorge-55427.herokuapp.com/';
 
->>>>>>> feature/heroku:src/public/typescript/Main/Main.tsx
       const data = await fetch(URL, {
         method: 'POST',
         headers: {
@@ -158,7 +147,7 @@ export const Main: React.FunctionComponent = () => {
   const submit = async () => {
     try {
       // this needs to be a process.env at some point
-      const URL = 'http://localhost:3000/data';
+      const URL = 'https://intense-gorge-55427.herokuapp.com/data';
       const data = await fetch(URL, {
         method: 'POST',
         headers: {
