@@ -36,14 +36,14 @@ $modalSizing: 150px;
 
     padding: $padding - 10;
     flex: 1 1 auto;
-    background-color: #F2A444;
+    background-color: $colour-two;
+    border: 1px solid $colour-four;
 
     &:hover {
-      background-color: #F2DFCE;
+      @include hover;
     }
-  }
-
-  &:hover {
-    // background-color: #F24C27;
+    &:focus {
+      @include focus;
+    }
   }
 }

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import renderer from 'react-test-renderer';
-import { validateWords } from './helpers';
-import { Main } from './Main';
+import { Main } from './main';
+import { validateWords } from './main.helpers';
 
 describe('Main page component', () => {
 
@@ -16,7 +16,7 @@ describe('Main page component', () => {
 
 describe('testing', () => {
   it('should add color to word if it is an adjective', () => {
-
+    const dummyString = 'this is my testing string';
     const dummyData = [
       {
         word: 'testing',
@@ -24,7 +24,7 @@ describe('testing', () => {
         synonyms: ['examining'],
       },
     ];
-    expect(validateWords(dummyData))
-      .toEqual(`this is my <span style='color: green'>testing</span> string`);
+    expect(validateWords(dummyData, dummyString))
+      .toEqual(`this is my <span style='color: green'>testing</span> string&#8203;`);
   });
 });

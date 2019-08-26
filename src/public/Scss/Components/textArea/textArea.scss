@@ -4,4 +4,10 @@
   height: 500px;
   color: black;
   padding: 15px;
+  @include margin-bottom;
+  @include margin-top(10px);
+
+  &:focus {
+    @include focus;
+  }
 }

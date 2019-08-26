@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Main page component it renders correctly 1`] = `
+<ul
+  className="synonyms"
+  style={
+    Object {
+      "left": 2,
+      "top": 1,
+    }
+  }
+>
+  <li
+    className="synonyms-item"
+    onClick={[Function]}
+  >
+    hi
+  </li>
+  <li
+    className="synonyms-item"
+    onClick={[Function]}
+  >
+    hiya
+  </li>
+</ul>
+`;

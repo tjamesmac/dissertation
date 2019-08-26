@@ -1,16 +1,12 @@
 import * as React from 'react';
 import renderer from 'react-test-renderer';
-import TextArea from './TextArea';
+import { IResponse } from '../main/main.interface';
+import TextArea from './textArea';
 
 describe('Main page component', () => {
 
-  const response = [
-    {
-    word: 'hello',
-    type: 'adjective',
-    synonyms: ['hi', 'hiya'],
-    }
-  ];
+  const response: IResponse = { synonyms: ['hi', 'hiya'] };
+
   it('it renders correctly', () => {
     const tree = renderer
       .create(<TextArea response={response}/>)

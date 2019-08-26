@@ -91,6 +91,7 @@ body {
   display: flex;
   flex-wrap: wrap;
   @include marginLR((-$base));
+  margin-bottom: 10px;
 }
 
 // need to apply to all cols of all breakpoint and width

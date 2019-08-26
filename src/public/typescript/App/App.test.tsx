@@ -1,7 +1,7 @@
 import { shallow } from 'enzyme';
 import * as React from 'react';
 import renderer from 'react-test-renderer';
-import { App } from './App';
+import App from './app';
 
 describe('App component renders correctly', () => {
   it('renders as expected', () => {

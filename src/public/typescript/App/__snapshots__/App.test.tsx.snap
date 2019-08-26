@@ -1,57 +1,83 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`App component renders correctly matches snapshot 1`] = `
-<div
-  className="container"
->
+<div>
   <div
-    className="row"
+    className="container"
   >
     <div
-      className="col-12"
+      className="row"
     >
-      <form
-        onSubmit={[Function]}
+      <div
+        className="col-12"
       >
-        <div
-          className="row"
+        <h1>
+          Gender Neutral
+        </h1>
+      </div>
+    </div>
+  </div>
+  <div
+    className="container"
+  >
+    <div
+      className="row"
+    >
+      <div
+        className="col-12"
+      >
+        <form
+          onSubmit={[Function]}
         >
           <div
-            className="col-12"
+            className="row"
           >
-            <label>
-              Please enter a gender
-            </label>
-            <input />
-          </div>
-        </div>
-        <div
-          className="row"
-        >
-          <div
-            className="col-12"
-          >
-            <label>
-              Please enter an advert
-            </label>
             <div
-              contentEditable={true}
-              id="textarea"
-            />
+              className="col-12"
+            >
+              <label
+                className="label"
+              >
+                Please enter a gender
+              </label>
+              <input
+                className=""
+              />
+            </div>
           </div>
-        </div>
-        <div
-          className="row"
-        >
           <div
-            className="col-4"
+            className="row"
           >
-            <button>
-              Click me
-            </button>
+            <div
+              className="col-12"
+            >
+              <label
+                className="label"
+              >
+                Please enter an advert
+              </label>
+              <div
+                contentEditable={true}
+                id="textarea"
+              />
+            </div>
           </div>
-        </div>
-      </form>
+          <div
+            className="row"
+          >
+            <div
+              className="col-4"
+            >
+              <button
+                className="btn btn-primary"
+                onClick={[Function]}
+              >
+                Click me
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </div>

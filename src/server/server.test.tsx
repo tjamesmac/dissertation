@@ -4,7 +4,7 @@ import Server from './server';
 
 import React from 'react';
 import { renderToString } from 'react-dom/server';
-import { Hello } from '../public/typescript/Hello/Hello';
+import { Hello } from '../public/typescript/hello/Hello';
 import { htmlTemplate } from './htmlTemplate';
 
 describe('my server', () => {
