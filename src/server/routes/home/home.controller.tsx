@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
-import App from '../../../public/typescript/App/App';
+import App from '../../../public/typescript/app/app';
 import { getWordData, isString  } from '../../helpers/wordProcessing';
 import { htmlTemplate } from '../../htmlTemplate';
 import { overAll } from '../../wordnet';
