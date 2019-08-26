@@ -94,7 +94,7 @@ export const Main: React.FunctionComponent = () => {
 
     const bodyText: object = { value: textAreaValue };
     try {
-      const URL = process.env.URL ||'http://localhost:3000/';
+      const URL = process.env.URL || 'http://localhost:3000/';
       const data = await fetch(URL, {
         method: 'POST',
         headers: {
