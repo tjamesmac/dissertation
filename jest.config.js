@@ -1,6 +1,6 @@
 module.exports = {
   "moduleNameMapper": {
-    "\\.(css|less|sass|scss)$": "<rootDir>/src/public/Scss/styleMock.js",
+    "\\.(css|less|sass|scss)$": "<rootDir>/src/public/scss/styleMock.js",
   },
   "roots": [
     "<rootDir>/src"
