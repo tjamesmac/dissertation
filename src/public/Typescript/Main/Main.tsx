@@ -107,7 +107,6 @@ export const Main: React.FunctionComponent = () => {
       
       if (response.status === 200) {
         const responseJSON: IResponse = await response.json();
-        console.log(responseJSON);
         // by keeping this here it does rerender everytime
         const textChange = validateWords(responseJSON, textAreaValue);
         (document.getElementById('textarea') as HTMLDivElement).innerHTML = textChange;
