@@ -93,6 +93,7 @@ export const Main: React.FunctionComponent = () => {
       .innerText;
 
     const bodyText: object = { value: textAreaValue };
+    console.log(process.env.URL);
     try {
       const URL = process.env.URL || 'http://localhost:3000/';
       const data = await fetch(URL, {
