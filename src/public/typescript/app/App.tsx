@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Main } from '../main/Main';
+import { Main } from '../main/ain';
 
 const App = () => {
   return (

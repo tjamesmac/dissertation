@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { IDataPL, IResponse } from './Main.interface';
+import { IDataPL, IResponse } from './ain.interface';
 
 // State reducer
 export const dataReducer = ( state: IDataPL, action: any ) => {

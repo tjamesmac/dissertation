@@ -1,4 +1,4 @@
-import { IResponse } from '../main/Main.interface';
+import { IResponse } from '../main/ain.interface';
 
 export interface ITextArea {
   children?: JSX.Element[] | JSX.Element;
