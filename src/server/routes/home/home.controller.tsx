@@ -10,15 +10,17 @@ const controller = {
   postHomeController: async ( req: Request, res: Response ) => {
     // console.log('inside everything');
     const words = req.body;
-    overAll();
+    // this needs to be lowercased before going through the function
 
-    // NEED to store the data in an object { adjectives: [], adjectivesAndData: {} }
-    
-
-
-
-
-
+    overAll( words.value )
+      .then( ( answer ) => {
+        for ( const prop of Object.keys(answer) ) {
+          if (!answer[prop].length) {
+            delete answer[prop];
+          }
+        }
+        return res.send( answer );
+      } );
 
     // console.log( wait );
     // wait.then((response) => console.log(response, 'response'));
@@ -30,7 +32,7 @@ const controller = {
     // const getWords = getWordData(split);
     
 
-    return res.send('getWords');
+    // return res.send('getWords');
   },
   getSSR: ( req: Request, res: Response ) => {
     const jsx = ( <App /> );
