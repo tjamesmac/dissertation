@@ -1,6 +1,6 @@
-import { shallow } from './node_modules/enzyme';
-import * as React from './node_modules/react';
-import renderer from './node_modules/react-test-renderer';
+import { shallow } from 'enzyme';
+import * as React from 'react';
+import renderer from 'react-test-renderer';
 import App from './App';
 
 describe('App component renders correctly', () => {
