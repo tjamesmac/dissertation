@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { IDataPL, IResponse } from './Main.interface';
 
-
 // State reducer
 export const dataReducer = ( state: IDataPL, action: any ) => {
   switch ( action.type ) {
@@ -46,7 +45,7 @@ export const validateWords = ( response: any, textCheck: string ): string => {
   } );
   console.log(newKeys);
   let toChange: string = textCheck;
-  for (let key of newKeys) {
+  for (const key of newKeys) {
     if (textCheck.includes(key)) {
       const word = key;
       const regex = new RegExp(word, 'g');
