@@ -1,7 +1,7 @@
 import * as React from 'react';
 import renderer from 'react-test-renderer';
-import { Main } from './ain';
-import { validateWords } from './ain.helpers';
+import { Main } from './main';
+import { validateWords } from './main.helpers';
 
 describe('Main page component', () => {
 

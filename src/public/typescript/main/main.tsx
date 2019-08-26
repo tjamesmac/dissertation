@@ -1,8 +1,8 @@
 import * as React from 'react';
-import Modal, { IModalPosition } from '../Modal/Modal';
-import TextArea from '../TextArea/TextArea';
+import Modal, { IModalPosition } from '../modal/odal';
+import TextArea from '../textArea/extArea';
 import { createSpan, dataReducer, validateWords } from './Main.helpers';
-import { IResponse, IWordAndSynonym } from './ain.interface';
+import { IResponse, IWordAndSynonym } from './main.interface';
 
 /**
  * Now I need to store the values before they are changed
