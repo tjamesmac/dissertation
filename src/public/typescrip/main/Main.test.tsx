@@ -1,7 +1,7 @@
-import * as React from 'react';
-import renderer from 'react-test-renderer';
+import * as React from './node_modules/react';
+import renderer from './node_modules/react-test-renderer';
 import { Main } from './Main';
-import { validateWords } from './Main.helpers';
+import { validateWords } from './ain.helpers';
 
 describe('Main page component', () => {
 
