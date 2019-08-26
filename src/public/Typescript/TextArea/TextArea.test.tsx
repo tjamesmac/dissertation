@@ -6,8 +6,6 @@ describe('Main page component', () => {
 
   const response = [
     {
-    word: 'hello',
-    type: 'adjective',
     synonyms: ['hi', 'hiya'],
     }
   ];
