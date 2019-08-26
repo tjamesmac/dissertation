@@ -19,7 +19,7 @@ import { IResponse, IWordAndSynonym } from './Main.interface';
 export const Main: React.FunctionComponent = () => {
   // HOOKS
   // response from server
-  const [ wordsResponse, setWordsResponse ] = React.useState< null | any >( null );
+  const [ wordsResponse, setWordsResponse ] = React.useState< null | IResponse >( null );
   // need to set this as an object that holds the word the synonyms are coming from
   const [ synonyms, setSynonyms ] = React.useState< IWordAndSynonym | null >(null);
   // display modal
@@ -40,7 +40,7 @@ export const Main: React.FunctionComponent = () => {
     const textArea = document.querySelector('#textarea');
     if (textArea) {
       const children: any = textArea.children;
-      for (let element of children) {
+      for (const element of children) {
         /**
          * the event has been replaced from mouseenter
          * Apparently mouseenter doesn't bubble but I am having issues with it firing too many times
@@ -104,7 +104,7 @@ export const Main: React.FunctionComponent = () => {
         body: JSON.stringify(bodyText),
       });
       const response = await data;
-      
+
       if (response.status === 200) {
         const responseJSON: IResponse = await response.json();
         // by keeping this here it does rerender everytime
