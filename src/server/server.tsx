@@ -2,16 +2,8 @@ import bodyParser from 'body-parser';
 import express from 'express';
 import path from 'path';
 
-<<<<<<< HEAD
 import data from './routes/data/data.route';
 import home from './routes/home/home.route';
-=======
-import React from 'react';
-import { renderToString } from 'react-dom/server';
-import { App } from '../public/typescript/App/App';
-import { htmlTemplate } from './htmlTemplate';
-import { getWordData, isString  } from './helpers/wordProcessing';
->>>>>>> feature/heroku
 
 class Server {
   public app: express.Application;
