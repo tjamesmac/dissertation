@@ -1,11 +1,7 @@
 import { shallow } from 'enzyme';
 import * as React from 'react';
 import renderer from 'react-test-renderer';
-<<<<<<< HEAD:src/public/Typescript/App/App.test.tsx
-import App from '../App/App';
-=======
-import { App } from './App';
->>>>>>> feature/heroku:src/public/typescript/App/App.test.tsx
+import App from './App';
 
 describe('App component renders correctly', () => {
   it('renders as expected', () => {

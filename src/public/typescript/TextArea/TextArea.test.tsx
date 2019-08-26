@@ -1,6 +1,6 @@
 import * as React from 'react';
 import renderer from 'react-test-renderer';
-import { IResponse } from '../Main/Main.interface';
+import { IResponse } from '../Main/main.interface';
 import TextArea from './TextArea';
 
 describe('Main page component', () => {

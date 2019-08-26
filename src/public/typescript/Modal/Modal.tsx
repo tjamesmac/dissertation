@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { IWordAndSynonym } from '../Main/Main.interface';
+import { IWordAndSynonym } from '../Main/main.interface';
 
 export interface IModalPosition {
   top: number;
