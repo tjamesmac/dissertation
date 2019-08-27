@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
+import { StaticRouter } from 'react-router-dom';
 import App from '../../../public/typescript/app/app';
-import { getWordData, isString  } from '../../helpers/wordProcessing';
 import { htmlTemplate } from '../../htmlTemplate';
 import { overAll } from '../../wordnet';
 
@@ -23,7 +23,12 @@ const controller = {
       } );
   },
   getSSR: ( req: Request, res: Response ) => {
-    const jsx = ( <App /> );
+    const context = { };
+    const jsx = (
+          <StaticRouter context={ context } location={ req.url }>
+            <App />
+          </StaticRouter>
+    );
     const reactDom = renderToString( jsx );
 
     res.writeHead( 200, { 'Content-Type': 'text/html' } );
