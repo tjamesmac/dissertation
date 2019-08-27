@@ -25,7 +25,7 @@ const App = () => {
       <Switch>
         <Route path='/' exact render={( props ) => <Home name='thomas'/> } />
         <Route path='/main' component={ Main } />
-        <Route path='/results' component={ Choice } />
+        <Route path='/choice' component={ Choice } />
         <Route component={ NotFound } />
       </Switch>
     </div>
