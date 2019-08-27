@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Link } from 'react-router-dom';
 import Modal, { IModalPosition } from '../modal/modal';
 import TextArea from '../textArea/textArea';
 import { createSpan, dataReducer, validateWords } from './Main.helpers';
@@ -232,12 +233,19 @@ export const Main: React.FunctionComponent = () => {
                 className='btn btn-primary'>
                 { wordsResponse ? 'Submit' : 'Click me' }
               </button>
-              <button
-                onClick={ () => testThing()}
-                className='btn btn-primary'
-              >
-                This is my new button
-              </button>
+              </div>
+              <div className='col-4'>
+                <button
+                  onClick={ () => testThing()}
+                  className='btn btn-primary'
+                >
+                  This is my new button
+                </button>
+              </div>
+              <div className='col-4'>
+                <Link to='/new'>
+                  <button className='btn btn-primary'>Go to new</button>
+                </Link>
               </div>
             </div>
           {/* </form> */}
