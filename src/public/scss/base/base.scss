@@ -42,6 +42,9 @@ $colour-five: #F24C27;
 @mixin padding-right($padding: 20px) {
   padding-right: $padding;
 }
+@mixin padding-all($padding: 10px) {
+  padding: $padding;
+}
 
 
 
