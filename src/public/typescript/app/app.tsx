@@ -7,7 +7,6 @@ import { NotFound } from '../notFound/notFound';
 
 const App = () => {
   return (
-    <div>
     <div className='container'>
       <div className='row'>
         <div className='col-12'>
@@ -22,7 +21,6 @@ const App = () => {
         <Link to='/main'>Main</Link>
         </div>
       </div>
-    </div>
       <Switch>
         <Route path='/' exact render={( props ) => <Home name='thomas'/> } />
         <Route path='/main' component={ Main } />
