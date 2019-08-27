@@ -3,6 +3,10 @@ import controller from './choice.controller';
 
 const router = express.Router();
 
-router.post('/new', controller.getNew);
+router
+  .route('/new')
+  .get(controller.getNew)
+  .post(controller.postName);
+  // .post()
 
 export default router;
