@@ -4,7 +4,7 @@ import Server from './server';
 
 import React from 'react';
 import { renderToString } from 'react-dom/server';
-import { Hello } from '../public/typescript/home/home';
+import { Home } from '../public/typescript/home/home';
 import { htmlTemplate } from './htmlTemplate';
 
 describe('my server', () => {
@@ -26,13 +26,13 @@ describe('server template', () => {
     const props = {
       name: 'Test',
     };
-    const helloComponent = mount(<Hello {...props} />);
-    expect(helloComponent.prop('name')).toEqual('Test');
+    const homeComponent = mount(<Home {...props} />);
+    expect(homeComponent.prop('name')).toEqual('Test');
   });
   it('should match template', () => {
     const name = 'Test';
-    const hello = <Hello name={name}/>;
-    const reactDom = renderToString(hello);
+    const home = <Home name={name}/>;
+    const reactDom = renderToString(home);
     const html = htmlTemplate(reactDom);
     expect(html).toMatch(htmlTemplate(reactDom));
   });

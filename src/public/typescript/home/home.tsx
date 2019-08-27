@@ -1,7 +1,7 @@
 import React from 'react';
 import { IHelloProps } from './home.interface';
 
-export const Hello: React.FunctionComponent<{name: string}> = (props: IHelloProps) => {
+export const Home: React.FunctionComponent<{name: string}> = (props: IHelloProps) => {
   return (
     <div className='container'>
       <div className='row'>

@@ -1,12 +1,12 @@
 import { shallow } from 'enzyme';
 import * as React from 'react';
 import renderer from 'react-test-renderer';
-import { Hello } from './home';
+import { Home } from './home';
 
 describe('Hello component', () => {
   const name = 'Test';
   it('renders the Hello with a name', () => {
-    const result = shallow(<Hello name={name}/>).contains(
+    const result = shallow(<Home name={name}/>).contains(
       <div className='container'>
       <div className='row'>
         <div className='col-12'>
@@ -18,7 +18,7 @@ describe('Hello component', () => {
   });
   it('it renders correctly', () => {
     const tree = renderer
-      .create(<Hello name={name}/>)
+      .create(<Home name={name}/>)
       .toJSON();
     expect(tree).toMatchSnapshot();
   });
