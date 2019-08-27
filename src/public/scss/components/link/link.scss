@@ -1,8 +1,16 @@
 
 .link {
   color: white;
+  text-decoration: none;
+  @include padding-all();
 
   &.link-primary {
-    background-color: $colour-five;
+    background-color: $colour-two;
+  }
+  &:focus {
+    @include focus();
+  }
+  &:hover {
+    @include hover();
   }
 }
