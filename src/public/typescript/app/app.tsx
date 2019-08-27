@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Main } from '../main/main';
+import { Home } from '../home/home';
 
 const App = () => {
   return (
