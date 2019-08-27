@@ -3,6 +3,7 @@ import { IHelloProps } from './home.interface';
 
 export const Home: React.FunctionComponent<{name: string}> = (props: IHelloProps) => {
   return (
+
     <div className='container'>
       <div className='row'>
         <div className='col-12'>
