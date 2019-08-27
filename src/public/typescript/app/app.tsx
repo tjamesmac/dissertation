@@ -15,10 +15,10 @@ const App = () => {
       </div>
       <div className='row'>
         <div className='col-3'>
-          <Link to='/'>Home</Link>
+          <Link className='link' to='/'>Home</Link>
         </div>
         <div className='col-3'>
-        <Link to='/main'>Main</Link>
+          <Link className='link' to='/main'>Main</Link>
         </div>
       </div>
       <Switch>
