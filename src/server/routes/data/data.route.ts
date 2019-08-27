@@ -3,6 +3,8 @@ import controller from './data.controller';
 
 const router = express.Router();
 
-router.post('/data', controller);
+router
+  .route('/data')
+  .post(controller);
 
 export default router;
