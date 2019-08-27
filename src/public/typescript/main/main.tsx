@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import Modal, { IModalPosition } from '../modal/modal';
 import TextArea from '../textArea/textArea';
 import { createSpan, dataReducer, validateWords } from './Main.helpers';
@@ -28,6 +28,9 @@ export const Main: React.FunctionComponent = () => {
   // modal position
   const [ modalPosition, setModalPosition ] =
     React.useState< IModalPosition >( { top: 0, left: 0 } );
+
+  const [ nextPage, setNextPage ] = React.useState<false | true >(false);
+
   // store in the db
   const [ submissionData, dispatch ] =
     React.useReducer < any >( dataReducer, {
@@ -141,10 +144,6 @@ export const Main: React.FunctionComponent = () => {
       }
     }
   };
-  const click = () => {
-    const original = (document.getElementById('textarea') as HTMLDivElement).innerText;
-    dispatch( { type: 'UPDATE_ORIGINAL', payload: original } );
-  };
   const submit = async () => {
     try {
       // this needs to be a process.env at some point
@@ -161,6 +160,9 @@ export const Main: React.FunctionComponent = () => {
       const response = await data;
       if (response.status === 200) {
         console.log('submitted');
+        console.log('next page lets go');
+        setNextPage(!nextPage);
+
       }
 
     } catch (error) {
@@ -202,6 +204,10 @@ export const Main: React.FunctionComponent = () => {
       />;
     }
   }
+  if (nextPage) {
+    console.log('here i go');
+    return <Redirect to='/results' />;
+  }
 
   console.log(submissionData);
   return (
@@ -232,19 +238,19 @@ export const Main: React.FunctionComponent = () => {
               { wordsResponse ? 'Submit' : 'Click me' }
             </button>
             </div>
-            <div className='col-4'>
+            {/* <div className='col-4'>
               <button
                 onClick={ () => testThing()}
                 className='btn btn-primary'
               >
                 This is my new button
               </button>
-            </div>
-            <div className='col-4'>
+            </div> */}
+            {/* <div className='col-4'>
               <Link to='/new'>
                 <button className='btn btn-primary'>Go to new</button>
               </Link>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
