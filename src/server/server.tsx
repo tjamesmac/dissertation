@@ -18,8 +18,8 @@ class Server {
     // routes go here when I get them
 
     this.app.use(data);
-    this.app.use(home);
     this.app.use(choice);
+    this.app.use(home);
 
     // end of routes
 
