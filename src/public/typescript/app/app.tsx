@@ -1,9 +1,10 @@
 import React from 'react';
 import { Link, Route, Switch } from 'react-router-dom';
 
+import Choice from '../choice/choice';
 import { Home } from '../home/home';
 import { Main } from '../main/main';
-import { NotFound } from '../notFound/notFound';
+import NotFound from '../notFound/notFound';
 
 const App = () => {
   return (
@@ -24,6 +25,7 @@ const App = () => {
       <Switch>
         <Route path='/' exact render={( props ) => <Home name='thomas'/> } />
         <Route path='/main' component={ Main } />
+        <Route path='/results' component={ Choice } />
         <Route component={ NotFound } />
       </Switch>
     </div>
