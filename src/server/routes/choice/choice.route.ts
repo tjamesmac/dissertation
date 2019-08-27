@@ -4,9 +4,8 @@ import controller from './choice.controller';
 const router = express.Router();
 
 router
-  .route('/new')
+  .route('/choice')
   .get(controller.getNew)
   .post(controller.postName);
-  // .post()
 
 export default router;
