@@ -2,6 +2,7 @@ import bodyParser from 'body-parser';
 import express from 'express';
 import path from 'path';
 
+import choice from './routes/choice/choice.route';
 import data from './routes/data/data.route';
 import home from './routes/home/home.route';
 
@@ -18,6 +19,7 @@ class Server {
 
     this.app.use(data);
     this.app.use(home);
+    this.app.use(choice);
 
     // end of routes
 
