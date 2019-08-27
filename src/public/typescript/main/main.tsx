@@ -205,52 +205,48 @@ export const Main: React.FunctionComponent = () => {
 
   console.log(submissionData);
   return (
-    <div className='container'>
       <div className='row'>
         <div className='col-12'>
           {showModal}
-          {/* <form onSubmit={( event: React.FormEvent ) => console.log('hello')}> */}
-            <div className='row'>
-              <div className='col-12'>
-                <label className='label'>Please enter a gender</label>
-                <select onChange={ ( event ) => updateDemographic( event ) }>
-                  <option value=''>-- Please choose an option --</option>
-                  <option value='male'>Male</option>
-                  <option value='female'>Female</option>
-                </select>
-              </div>
+          <div className='row'>
+            <div className='col-12'>
+              <label className='label'>Please enter a gender</label>
+              <select onChange={ ( event ) => updateDemographic( event ) }>
+                <option value=''>-- Please choose an option --</option>
+                <option value='male'>Male</option>
+                <option value='female'>Female</option>
+              </select>
             </div>
-            <div className='row'>
-              <div className='col-12'>
-                <label className='label'>Please enter an advert</label>
-                <TextArea response={wordsResponse}></TextArea>
-              </div>
+          </div>
+          <div className='row'>
+            <div className='col-12'>
+              <label className='label'>Please enter an advert</label>
+              <TextArea response={wordsResponse}></TextArea>
             </div>
-            <div className='row'>
-              <div className='col-4'>
+          </div>
+          <div className='row'>
+            <div className='col-4'>
+            <button
+              onClick={ wordsResponse ? ( ) => submit() : (event) => submission(event)}
+              className='btn btn-primary'>
+              { wordsResponse ? 'Submit' : 'Click me' }
+            </button>
+            </div>
+            <div className='col-4'>
               <button
-                onClick={ wordsResponse ? ( ) => submit() : (event) => submission(event)}
-                className='btn btn-primary'>
-                { wordsResponse ? 'Submit' : 'Click me' }
+                onClick={ () => testThing()}
+                className='btn btn-primary'
+              >
+                This is my new button
               </button>
-              </div>
-              <div className='col-4'>
-                <button
-                  onClick={ () => testThing()}
-                  className='btn btn-primary'
-                >
-                  This is my new button
-                </button>
-              </div>
-              <div className='col-4'>
-                <Link to='/new'>
-                  <button className='btn btn-primary'>Go to new</button>
-                </Link>
-              </div>
             </div>
-          {/* </form> */}
+            <div className='col-4'>
+              <Link to='/new'>
+                <button className='btn btn-primary'>Go to new</button>
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
   );
 };
