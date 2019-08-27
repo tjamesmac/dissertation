@@ -3,7 +3,7 @@ import mongoose, { Schema } from 'mongoose';
 interface IData {
   originalString: string;
   newString: string;
-  changedWords: string[];
+  orderOfWords: string[];
   demographic: string;
 }
 
