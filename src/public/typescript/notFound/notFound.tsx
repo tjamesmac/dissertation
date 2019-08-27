@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const NotFound: React.FunctionComponent = () => {
+const NotFound: React.FunctionComponent = () => {
   return (
       <div className='row'>
         <div className='col-12'>
@@ -10,3 +10,5 @@ export const NotFound: React.FunctionComponent = () => {
       </div>
   );
 };
+
+export default NotFound;
