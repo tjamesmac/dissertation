@@ -168,8 +168,27 @@ export const Main: React.FunctionComponent = () => {
   };
   const testThing = async () => {
     console.log('this is a thing');
-    
-  }
+
+    try {
+      const URL = '/new';
+      const data = await fetch(URL, {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify('change'),
+      });
+      const response = await data;
+      if ( response.status === 200 ) {
+        console.log('hooray');
+      }
+
+    } catch (error) {
+      console.error('this is called my error', error);
+    }
+
+  };
   let showModal;
   // This is what made the modal work
   if (modalState) {
@@ -215,6 +234,7 @@ export const Main: React.FunctionComponent = () => {
               </button>
               <button
                 onClick={ () => testThing()}
+                className='btn btn-primary'
               >
                 This is my new button
               </button>
