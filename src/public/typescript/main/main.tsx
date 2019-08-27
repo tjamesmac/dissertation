@@ -206,7 +206,7 @@ export const Main: React.FunctionComponent = () => {
   }
   if (nextPage) {
     console.log('here i go');
-    return <Redirect to='/results' />;
+    return <Redirect to='/choice' />;
   }
 
   console.log(submissionData);
