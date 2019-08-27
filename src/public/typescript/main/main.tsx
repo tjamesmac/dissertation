@@ -82,6 +82,7 @@ export const Main: React.FunctionComponent = () => {
       const value = event.target!.value;
       dispatch( { type: 'UPDATE_DEMO', payload: value } );
   };
+
   const submission = async ( event: React.FormEvent ) => {
     event.preventDefault();
     //
@@ -92,9 +93,11 @@ export const Main: React.FunctionComponent = () => {
       (document.getElementById('textarea') as HTMLDivElement)
       .innerText;
 
+    dispatch( { type: 'UPDATE_ORIGINAL', payload: textAreaValue } );
+
     const bodyText: object = { value: textAreaValue };
     try {
-      const URL = 'http://localhost:3000/';
+      const URL = '/';
       const data = await fetch(URL, {
         method: 'POST',
         headers: {
@@ -112,7 +115,6 @@ export const Main: React.FunctionComponent = () => {
         (document.getElementById('textarea') as HTMLDivElement).innerHTML = textChange;
         // use a reducer here to store the response and the string.
 
-        console.log(responseJSON);
         setWordsResponse(responseJSON);
 
       }
@@ -130,6 +132,7 @@ export const Main: React.FunctionComponent = () => {
 
           const span = createSpan('span', value, 'blue');
           original.replaceChild(span, element);
+
           dispatch( { type: 'UPDATE_ORDER', payload: value } );
           dispatch( { type: 'UPDATE_NEW', payload: original.innerText } );
 
@@ -144,7 +147,8 @@ export const Main: React.FunctionComponent = () => {
   const submit = async () => {
     try {
       // this needs to be a process.env at some point
-      const URL = 'http://localhost:3000/data';
+      // just kidding can use a relative path
+      const URL = '/data';
       const data = await fetch(URL, {
         method: 'POST',
         headers: {
@@ -162,6 +166,10 @@ export const Main: React.FunctionComponent = () => {
       console.error('uh oh error', error);
     }
   };
+  const testThing = async () => {
+    console.log('this is a thing');
+    
+  }
   let showModal;
   // This is what made the modal work
   if (modalState) {
@@ -175,12 +183,13 @@ export const Main: React.FunctionComponent = () => {
     }
   }
 
+  console.log(submissionData);
   return (
     <div className='container'>
       <div className='row'>
         <div className='col-12'>
           {showModal}
-          <form onSubmit={( event: React.FormEvent ) => submission( event )}>
+          {/* <form onSubmit={( event: React.FormEvent ) => console.log('hello')}> */}
             <div className='row'>
               <div className='col-12'>
                 <label className='label'>Please enter a gender</label>
@@ -200,13 +209,18 @@ export const Main: React.FunctionComponent = () => {
             <div className='row'>
               <div className='col-4'>
               <button
-                onClick={ wordsResponse ? ( ) => submit() : () => click()}
+                onClick={ wordsResponse ? ( ) => submit() : (event) => submission(event)}
                 className='btn btn-primary'>
                 { wordsResponse ? 'Submit' : 'Click me' }
               </button>
+              <button
+                onClick={ () => testThing()}
+              >
+                This is my new button
+              </button>
               </div>
             </div>
-          </form>
+          {/* </form> */}
         </div>
       </div>
     </div>
