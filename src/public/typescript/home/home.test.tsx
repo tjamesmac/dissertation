@@ -1,7 +1,7 @@
 import { shallow } from 'enzyme';
 import * as React from 'react';
 import renderer from 'react-test-renderer';
-import { Hello } from './hello';
+import { Hello } from './home';
 
 describe('Hello component', () => {
   const name = 'Test';

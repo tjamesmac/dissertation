@@ -1,5 +1,5 @@
 import React from 'react';
-import { IHelloProps } from './hello.interface';
+import { IHelloProps } from './home.interface';
 
 export const Hello: React.FunctionComponent<{name: string}> = (props: IHelloProps) => {
   return (
