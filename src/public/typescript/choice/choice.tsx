@@ -4,7 +4,7 @@ const Choice: React.FunctionComponent = () => {
 
   const fetchData = async () => {
     try {
-      const URL = '/choice';
+      const URL = '/choice/data';
       const data = await fetch(URL);
       const response = await data;
       if ( response.status === 200 ) {
