@@ -5,8 +5,10 @@ import { IOption } from './choice.interface';
 const Option = ( prop: IOption ) => {
   const data = prop.data;
   const demo = prop.demo;
+  const handleClick = prop.onClick;
   return (
     <div
+      onClick={ handleClick }
       className='option'
       data-demo={ demo }
       tabIndex={ 0 }
