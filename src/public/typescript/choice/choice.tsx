@@ -31,7 +31,7 @@ const Choice: React.FunctionComponent = () => {
     const target = event.target;
     const text = target.innerText;
 
-    const parent = target.parent();
+    const parent = target.parentElement;
     console.log(parent);
     const attr = parent.getAttribute('data-demo');
     console.log(attr);
