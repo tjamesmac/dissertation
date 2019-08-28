@@ -26,18 +26,33 @@ const Choice: React.FunctionComponent = () => {
       fetchData();
   }, []);
 
-  const choicePicker = () => {
+  const choicePicker = ( event: any ) => {
 
-    const options = document.querySelector('.options-container');
-    if (options) {
-      const children: any = options.children;
-      console.log(children);
+    const target = event.target;
+    const text = target.innerText;
 
-      for ( const element of children ) {
-        console.log(element);
-      }
-    }
+    const parent = target.parent();
+    console.log(parent);
+    const attr = parent.getAttribute('data-demo');
+    console.log(attr);
+    console.log(text);
+    // const options = document.querySelector('.options-container');
+    // console.log(options);
+    // if (options) {
+    //   const children: any = options.children;
+    //   console.log(children);
+
+    //   for ( const element of children ) {
+    //     console.log(element);
+    //     element.addEventListener('click', ( event: Event ) => {
+    //       const value = event.target;
+    //       console.log(value);
+
+    //     } );
+    //   }
+    // }
   };
+  
 
   let optionMap;
 
@@ -49,6 +64,7 @@ const Choice: React.FunctionComponent = () => {
           key={ options._id }
           data={ options.originalString }
           demo={ options.demographic }
+          onClick={ ( e: any ) => choicePicker( e ) }
         />
       );
     } );
