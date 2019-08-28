@@ -4,6 +4,7 @@ body {
 }
 .header {
   color: white;
+  @include margin-bottom;
 }
 .response {
   color: #038C8C;
