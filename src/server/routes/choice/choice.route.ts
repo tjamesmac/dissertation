@@ -4,7 +4,7 @@ import controller from './choice.controller';
 const router = express.Router();
 
 router
-  .route('/choice')
+  .route('/choice/data')
   .get(controller.getNew)
   .post(controller.postName);
 
