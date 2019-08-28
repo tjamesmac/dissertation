@@ -1,19 +1,6 @@
 import React, { useEffect } from 'react';
 
-interface IOption {
-  data: string;
-  demo: string;
-  // key: string;
-}
-const Option = ( prop: IOption ) => {
-  const data = prop.data;
-  const demo = prop.demo;
-  return (
-    <div className='option' data-demo={ demo } tabIndex={0}>
-      <p>{data}</p>
-    </div>
-  );
-};
+import Option from './option.extra';
 
 const Choice: React.FunctionComponent = () => {
 
