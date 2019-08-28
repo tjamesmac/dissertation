@@ -15,8 +15,14 @@ const Choice: React.FunctionComponent = () => {
 
       if ( response.status === 200 ) {
         const responseJSON = await response.json();
-        console.log(responseJSON);
-        setChoices(responseJSON);
+        // hacky way of getting the last two before the latest
+        const arr = [];
+        for ( let i = 0; i < responseJSON.length; i++ ) {
+          if (i >= 1) {
+            arr.push(responseJSON[i]);
+          }
+        }
+        setChoices(arr);
       }
     } catch (error) {
       console.error('fetch results', error);
@@ -30,35 +36,20 @@ const Choice: React.FunctionComponent = () => {
 
     const target = event.target;
     const text = target.innerText;
-
+    console.log(target.getAttribute('data-demo'));
     const parent = target.parentElement;
     console.log(parent);
     const attr = parent.getAttribute('data-demo');
     console.log(attr);
     console.log(text);
-    // const options = document.querySelector('.options-container');
-    // console.log(options);
-    // if (options) {
-    //   const children: any = options.children;
-    //   console.log(children);
-
-    //   for ( const element of children ) {
-    //     console.log(element);
-    //     element.addEventListener('click', ( event: Event ) => {
-    //       const value = event.target;
-    //       console.log(value);
-
-    //     } );
-    //   }
-    // }
   };
-  
 
   let optionMap;
 
   if (choices) {
-
+    console.log(choices);
     optionMap = choices.map( ( options: any ) => {
+      console.log(options);
       return (
         <Option
           key={ options._id }
@@ -73,7 +64,6 @@ const Choice: React.FunctionComponent = () => {
       <div>Loading...</div>
     );
   }
-
 
   return (
       <div className='row'>
