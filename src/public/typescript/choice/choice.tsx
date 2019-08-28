@@ -49,6 +49,10 @@ const Choice: React.FunctionComponent = () => {
         />
       );
     } );
+  } else {
+    return (
+      <div>Loading...</div>
+    );
   }
 
   return (
@@ -56,7 +60,9 @@ const Choice: React.FunctionComponent = () => {
         <div className='col-12'>
           <h2 className='header'>Options!</h2>
           <p>Please pick one of the two options below.</p>
-          {optionMap}
+          <div className='option-container'>
+            {optionMap}
+          </div>
           <button className='btn btn-primary' onClick={() => fetchData()}>Click</button>
         </div>
       </div>
