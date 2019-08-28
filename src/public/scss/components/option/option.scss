@@ -1,12 +1,33 @@
 .option-container {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   flex-direction: row;
-  padding: $padding;
+  @include margin-top;
+  @include margin-bottom;
 
   .option {
-    flex: 1 1 50%;
+    flex: 0 1 45%;
     background-color: $colour-four;
     color: black;
+    padding: $padding;
+    cursor: pointer;
+
+    &:hover {
+      @include hover;
+    }
+    &:focus {
+      @include focus;
+    }
+
   }
 }
+
+@media (max-width: $medium) {
+  //  empty ruleset for the time being
+    .option-container {
+      flex-direction: column;
+      .option {
+        margin-top: 10px;
+      }
+    }
+  }
