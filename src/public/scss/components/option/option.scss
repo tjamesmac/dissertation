@@ -2,9 +2,11 @@
   display: flex;
   justify-content: center;
   flex-direction: row;
+  padding: $padding;
 
   .option {
     flex: 1 1 50%;
     background-color: $colour-four;
+    color: black;
   }
 }
