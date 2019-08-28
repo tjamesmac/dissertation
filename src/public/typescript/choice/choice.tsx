@@ -25,8 +25,24 @@ const Choice: React.FunctionComponent = () => {
   useEffect( () => {
       fetchData();
   }, []);
+
+  const choicePicker = () => {
+
+    const options = document.querySelector('.options-container');
+    if (options) {
+      const children: any = options.children;
+      console.log(children);
+
+      for ( const element of children ) {
+        console.log(element);
+      }
+    }
+  };
+
   let optionMap;
+
   if (choices) {
+
     optionMap = choices.map( ( options: any ) => {
       return (
         <Option
@@ -41,6 +57,7 @@ const Choice: React.FunctionComponent = () => {
       <div>Loading...</div>
     );
   }
+
 
   return (
       <div className='row'>
