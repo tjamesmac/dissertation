@@ -9,7 +9,7 @@ const Option = ( prop: IOption ) => {
   const data = prop.data;
   const demo = prop.demo;
   return (
-    <div className='option' data-demo={ demo }>
+    <div className='option' data-demo={ demo } tabIndex={0}>
       <p>{data}</p>
     </div>
   );
