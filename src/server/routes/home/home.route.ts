@@ -4,7 +4,7 @@ import controller from './home.controller';
 const router = express.Router();
 
 router
-  .route('/*')
+  .route('*')
   .get(controller.getSSR)
   .post(controller.postHomeController);
 
