@@ -1,12 +1,23 @@
 import { Request, Response } from 'express';
 
+import models from '../../models/index';
+
 const controller = {
-  getNew: ( req: Request, res: Response ) => {
-    console.log('hello why are you not working');
-    const object = { value: 'hello' };
-    const json = JSON.stringify(object);
-    console.log(json);
-    return res.send(object);
+  getNew: async ( req: Request, res: Response ) => {
+    // in here I need to return the last submission and then add the result to it
+    // first lets render the two different options;
+    // next step is to then check if there are two from each demographic;
+    const length = await models.Data.countDocuments();
+
+    if (length > 2) {
+      const data = models.Data.find( (error, response) => {
+        if (error) {
+          console.error('finding documents', error);
+        }
+        return res.send(response);
+
+      }).sort({ _id: -1 }).limit(2);
+    }
   },
   postName: ( req: Request, res: Response ) => {
     return res.send('poop');
