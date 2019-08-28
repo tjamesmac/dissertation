@@ -33,32 +33,34 @@ const Choice: React.FunctionComponent = () => {
   }, []);
 
   const choicePicker = ( event: any ) => {
-
+    event.stopPropagation();
     const target = event.target;
     const text = target.innerText;
-    console.log(target.getAttribute('data-demo'));
     const parent = target.parentElement;
-    console.log(parent);
-    const attr = parent.getAttribute('data-demo');
-    console.log(attr);
-    console.log(text);
+    const attr = target.getAttribute('data-demo');
+    console.log(parent, 'parent');
+    console.log(attr, 'attr');
+    console.log(text, 'text');
   };
 
   let optionMap;
 
   if (choices) {
-    console.log(choices);
-    optionMap = choices.map( ( options: any ) => {
-      console.log(options);
-      return (
-        <Option
-          key={ options._id }
-          data={ options.originalString }
-          demo={ options.demographic }
-          onClick={ ( e: any ) => choicePicker( e ) }
-        />
-      );
-    } );
+    // add 'error handling'
+    if (choices[0]._id) {
+      optionMap = choices.map( ( options: any ) => {
+        return (
+          <Option
+            key={ options._id }
+            data={ options.originalString }
+            demo={ options.demographic }
+            onClick={ ( e: any ) => choicePicker( e ) }
+          />
+        );
+      } );
+    } else {
+      optionMap = <div>Sorry no results found.</div>;
+    }
   } else {
     return (
       <div>Loading...</div>
