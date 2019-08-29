@@ -33,25 +33,40 @@ const Choice: React.FunctionComponent = () => {
   }, []);
 
   const choicePicker = ( event: any ) => {
-    event.stopPropagation();
-    const target = event.target;
+    const target = event.currentTarget;
+
     const text = target.innerText;
     const parent = target.parentElement;
     const attr = target.getAttribute('data-demo');
     console.log(parent, 'parent');
     console.log(attr, 'attr');
     console.log(text, 'text');
+    // ** CONVOLUTED ANSWER
+    // Get the id of the options as well
+    // then in the post controller search the database for the corresponding document
+    // then add the data of that document to a new document/model
+    // compare the differences in the demographic and the order of words + sentences
+    // index the words - start counting women and men words, initial and the changed ones;
+
+    // I also want to store
+    // - the amount of words that can be altered
+    // - the amount of words in total;
+    // - amount of questions
+    // - showcases how many words people think need to be changed.
+    // -
+    // if no adjectives are returned then
   };
 
   let optionMap;
 
   if (choices) {
-    // add 'error handling'
+    // added 'error handling'
     if (choices[0]._id) {
       optionMap = choices.map( ( options: any ) => {
         return (
           <Option
             key={ options._id }
+            id={ options._id }
             data={ options.originalString }
             demo={ options.demographic }
             onClick={ ( e: any ) => choicePicker( e ) }
@@ -59,6 +74,7 @@ const Choice: React.FunctionComponent = () => {
         );
       } );
     } else {
+      // ** this message will need redoing
       optionMap = <div>Sorry no results found.</div>;
     }
   } else {
