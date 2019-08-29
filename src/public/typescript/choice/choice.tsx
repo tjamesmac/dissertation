@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 
+import { IPostObject } from './choice.interface';
 import Option from './option.extra';
 
 const Choice: React.FunctionComponent = () => {
@@ -32,15 +33,47 @@ const Choice: React.FunctionComponent = () => {
       fetchData();
   }, []);
 
-  const choicePicker = ( event: any ) => {
+  const choicePicker = async ( event: any ) => {
     const target = event.currentTarget;
 
     const text = target.innerText;
-    const parent = target.parentElement;
-    const attr = target.getAttribute('data-demo');
-    console.log(parent, 'parent');
-    console.log(attr, 'attr');
+    const demo = target.getAttribute('data-demo');
+    const getID = target.getAttribute('id');
+    console.log(demo, 'demo');
+    console.log(getID, 'id');
     console.log(text, 'text');
+
+    const postObject: IPostObject = {
+      value: text,
+      demographic: demo,
+      _id: getID,
+    };
+
+    try {
+      const URL = '/choice/data';
+      const data = fetch(URL, {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(postObject),
+      });
+
+      const response = await data;
+
+      if ( response.status === 200 ) {
+        console.log('made it');
+        const responseJSON = response.json();
+        console.log(responseJSON);
+      }
+
+    } catch (error) {
+      console.error('post data', error);
+    }
+
+
+
     // ** CONVOLUTED ANSWER
     // Get the id of the options as well
     // then in the post controller search the database for the corresponding document
