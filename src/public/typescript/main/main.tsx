@@ -58,6 +58,8 @@ export const Main: React.FunctionComponent = () => {
           }
           if (wordsResponse) {
             const keys: any = Object.keys(wordsResponse);
+            console.log(keys.length, 'keys');
+            dispatch( { type: 'UPDATE_LENGTH', payload: keys.length } );
             for (const value of keys) {
               if (value === element.innerText) {
                 const syns = wordsResponse[value];
@@ -118,7 +120,7 @@ export const Main: React.FunctionComponent = () => {
         const textChange = validateWords(responseJSON, textAreaValue);
         (document.getElementById('textarea') as HTMLDivElement).innerHTML = textChange;
         // use a reducer here to store the response and the string.
-
+        console.log(responseJSON, 'responseJSON');
         setWordsResponse(responseJSON);
 
       }
