@@ -37,29 +37,21 @@ const Choice: React.FunctionComponent = () => {
                 ) {
               maleArr.push(element);
             }
-            if ( element.demographic === 'female' && femaleArr.length === 0 && element._id !== recentID ) {
+            if (
+                element.demographic === 'female'
+                && femaleArr.length === 0
+                && element._id !== recentID ) {
               femaleArr.push(element);
             }
           }
           const allAgain = [ ...femaleArr, ...maleArr ];
           console.log(allAgain);
           setChoices(allAgain);
+
         } else {
           setChoices( { error: 'not enough results yet. Thank you for participating.' } );
         }
-
-  
-       
-
-        }
-        // hacky way of getting the last two before the latest
-        // const arr = [];
-        // for ( let i = 0; i < responseJSON.length; i++ ) {
-        //   if (i >= 1) {
-        //     arr.push(responseJSON[i]);
-        //   }
-        // }
-        // setChoices(arr);
+      }
     } catch (error) {
       console.error('fetch results', error);
     }
