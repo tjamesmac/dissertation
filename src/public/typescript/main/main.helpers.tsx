@@ -17,7 +17,6 @@ export const dataReducer = ( state: IDataPL, action: any ) => {
     case 'UPDATE_ORDER':
       const value = action.payload;
 
-      // const mergeStates = state.orderOfWords.concat(value);
       const alternativeState = [...state.orderOfWords, value];
 
       return {
@@ -28,6 +27,11 @@ export const dataReducer = ( state: IDataPL, action: any ) => {
       return {
         ...state,
         demographic: action.payload,
+      };
+    case 'UPDATE_LENGTH':
+      return {
+        ...state,
+        length: action.payload,
       };
       default:
         throw new Error();
@@ -50,7 +54,7 @@ export const validateWords = ( response: any, textCheck: string ): string => {
       const word = key;
       const regex = new RegExp(word, 'g');
       // string doesn't replace unless assigned to variable
-      const newString = toChange.replace(regex, `<span style='color: green'>${word}</span>`);
+      const newString = toChange.replace(regex, `<span style='color: green;'>${word}</span>`);
       // assign changes to the original string
       toChange = newString;
     } else {
