@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import Modal, { IModalPosition } from '../modal/modal';
 import TextArea from '../textArea/textArea';
-import { createSpan, dataReducer, validateWords } from './Main.helpers';
+import { createSpan, dataReducer, greenify, validateWords } from './Main.helpers';
 import { IResponse, IWordAndSynonym } from './main.interface';
 
 /**
@@ -118,9 +118,11 @@ export const Main: React.FunctionComponent = () => {
         const responseJSON: IResponse = await response.json();
         // by keeping this here it does rerender everytime
         const textChange = validateWords(responseJSON, textAreaValue);
+
+        greenify(); // this is used to color the words;
+
         (document.getElementById('textarea') as HTMLDivElement).innerHTML = textChange;
-        // use a reducer here to store the response and the string.
-        console.log(responseJSON, 'responseJSON');
+
         setWordsResponse(responseJSON);
 
       }
