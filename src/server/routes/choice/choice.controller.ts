@@ -21,7 +21,11 @@ const controller = {
     }
   },
   postName: ( req: Request, res: Response ) => {
-    return res.send('poop');
+
+    const body = req.body;
+    console.log(body);
+
+    return res.sendStatus(200);
   },
 };
 
