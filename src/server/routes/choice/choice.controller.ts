@@ -23,9 +23,19 @@ const controller = {
   postName: ( req: Request, res: Response ) => {
 
     const body = req.body;
-    console.log(body);
+    const value = body.value;
+    const demographic = body.demographic;
+    const _id = body._id;
+    const data = { value, demographic, _id };
 
-    return res.sendStatus(200);
+    models.Data.findOne({_id: body._id}, (error, response) => {
+      if (error) {
+        console.error('Cannot find corresponding ID', error);
+      }
+      console.log(response);
+    });
+
+    return res.send(data);
   },
 };
 
