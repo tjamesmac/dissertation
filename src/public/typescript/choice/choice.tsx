@@ -64,15 +64,14 @@ const Choice: React.FunctionComponent = () => {
 
       if ( response.status === 200 ) {
         console.log('made it');
-        const responseJSON = response.json();
+        console.log(response);
+        const responseJSON = await response.json();
         console.log(responseJSON);
       }
 
     } catch (error) {
       console.error('post data', error);
     }
-
-
 
     // ** CONVOLUTED ANSWER
     // Get the id of the options as well
