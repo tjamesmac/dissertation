@@ -16,15 +16,50 @@ const Choice: React.FunctionComponent = () => {
 
       if ( response.status === 200 ) {
         const responseJSON = await response.json();
-        // hacky way of getting the last two before the latest
-        const arr = [];
-        for ( let i = 0; i < responseJSON.length; i++ ) {
-          if (i >= 1) {
-            arr.push(responseJSON[i]);
+        console.log(responseJSON, 'choice response');
+
+        const keys = Object.keys(responseJSON);
+
+        if ( keys.length === 3 ) {
+          const recentID = responseJSON.recent[0]._id;
+          const male = responseJSON.male;
+          const female = responseJSON.female;
+          console.log(recentID);
+
+          const all = [...male, ...female];
+          const maleArr: any = [];
+          const femaleArr: any = [];
+          for ( const element of all ) {
+            if (
+                element.demographic === 'male'
+                && maleArr.length === 0
+                && element._id !== recentID
+                ) {
+              maleArr.push(element);
+            }
+            if ( element.demographic === 'female' && femaleArr.length === 0 && element._id !== recentID ) {
+              femaleArr.push(element);
+            }
           }
+          const allAgain = [ ...femaleArr, ...maleArr ];
+          console.log(allAgain);
+          setChoices(allAgain);
+        } else {
+          setChoices( { error: 'not enough results yet. Thank you for participating.' } );
         }
-        setChoices(arr);
-      }
+
+  
+       
+
+        }
+        // hacky way of getting the last two before the latest
+        // const arr = [];
+        // for ( let i = 0; i < responseJSON.length; i++ ) {
+        //   if (i >= 1) {
+        //     arr.push(responseJSON[i]);
+        //   }
+        // }
+        // setChoices(arr);
     } catch (error) {
       console.error('fetch results', error);
     }
@@ -93,7 +128,9 @@ const Choice: React.FunctionComponent = () => {
 
   if (choices) {
     // added 'error handling'
-    if (choices[0]._id) {
+    const keys = Object.keys(choices);
+    if (keys.length > 1) {
+      console.log(choices);
       optionMap = choices.map( ( options: any ) => {
         return (
           <Option
@@ -106,12 +143,11 @@ const Choice: React.FunctionComponent = () => {
         );
       } );
     } else {
-      // ** this message will need redoing
-      optionMap = <div>Sorry no results found.</div>;
+      optionMap = <div>Not enough results yet. Thank you for participating.</div>;
     }
   } else {
     return (
-      <div>Loading...</div>
+      <div className='loading'>Loading...</div>
     );
   }
 
