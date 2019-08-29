@@ -176,7 +176,7 @@ export const Main: React.FunctionComponent = () => {
           console.log('submitted');
           console.log('next page lets go');
           setNextPage(!nextPage);
-  
+
         }
       } else {
         console.log('please fill out the demographic');
