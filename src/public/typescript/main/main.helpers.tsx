@@ -47,15 +47,15 @@ export const validateWords = ( response: any, textCheck: string ): string => {
       return null;
     }
   } );
-  console.log(newKeys);
   let toChange: string = textCheck;
   for (const key of newKeys) {
     if (textCheck.includes(key)) {
       const word = key;
       const regex = new RegExp(word, 'g');
       // string doesn't replace unless assigned to variable
-      const newString = toChange.replace(regex, `<span style='color: green;'>${word}</span>`);
-      // assign changes to the original string
+      // styling has been taking up because the replace wasn't capable of handling it
+      const newString = toChange.replace(regex, `<span>${word}</span>`);
+
       toChange = newString;
     } else {
       console.log('oh bother');
@@ -64,10 +64,24 @@ export const validateWords = ( response: any, textCheck: string ): string => {
   return toChange + '&#8203;';
 };
 
+export const greenify = async () => {
+  const textarea = (document.getElementById('textarea') as HTMLDivElement);
+  const children: any = await textarea.children;
+  console.log(children);
+  if (children) {
+    console.log('hello');
+    for ( const element of children ) {
+      element.style.color = 'green';
+    }
+  } else {
+    console.error('no adjectives are present');
+  }
+};
+
 export const createSpan = ( elementTag: string, text: string, colour: string ) => {
-  const span = document.createElement(elementTag);
+  const element = document.createElement(elementTag);
   const textNode = document.createTextNode(text);
-  span.appendChild(textNode);
-  span.style.color = colour;
-  return span;
+  element.appendChild(textNode);
+  element.style.color = colour;
+  return element;
 };
