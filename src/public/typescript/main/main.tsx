@@ -31,6 +31,8 @@ export const Main: React.FunctionComponent = () => {
 
   const [ nextPage, setNextPage ] = React.useState<false | true >(false);
 
+  const [ demographicWarning, setDemographicWarning ] = React.useState< false | true>(false);
+
   // store in the db
   const [ submissionData, dispatch ] =
     React.useReducer < any >( dataReducer, {
@@ -38,6 +40,7 @@ export const Main: React.FunctionComponent = () => {
       newString: '',
       orderOfWords: [],
       demographic : '',
+      length: 0,
   });
 
   React.useEffect(() => {
@@ -59,7 +62,6 @@ export const Main: React.FunctionComponent = () => {
           if (wordsResponse) {
             const keys: any = Object.keys(wordsResponse);
             console.log(keys.length, 'keys');
-            dispatch( { type: 'UPDATE_LENGTH', payload: keys.length } );
             for (const value of keys) {
               if (value === element.innerText) {
                 const syns = wordsResponse[value];
@@ -116,6 +118,10 @@ export const Main: React.FunctionComponent = () => {
 
       if (response.status === 200) {
         const responseJSON: IResponse = await response.json();
+        console.log(responseJSON, 'response');
+        const length = Object.keys(responseJSON).length;
+        dispatch( { type: 'UPDATE_LENGTH', payload: length } );
+
         // by keeping this here it does rerender everytime
         const textChange = validateWords(responseJSON, textAreaValue);
 
@@ -152,21 +158,29 @@ export const Main: React.FunctionComponent = () => {
     try {
       // this needs to be a process.env at some point
       // just kidding can use a relative path
-      const URL = '/data';
-      const data = await fetch(URL, {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(submissionData),
-      });
-      const response = await data;
-      if (response.status === 200) {
-        console.log('submitted');
-        console.log('next page lets go');
-        setNextPage(!nextPage);
+      const stateCheck: any = submissionData;
+      if (stateCheck.demographic) {
+        setDemographicWarning(false);
 
+        const URL = '/data';
+        const data = await fetch(URL, {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(submissionData),
+        });
+        const response = await data;
+        if (response.status === 200) {
+          console.log('submitted');
+          console.log('next page lets go');
+          setNextPage(!nextPage);
+  
+        }
+      } else {
+        console.log('please fill out the demographic');
+        setDemographicWarning(true);
       }
 
     } catch (error) {
@@ -208,12 +222,16 @@ export const Main: React.FunctionComponent = () => {
       />;
     }
   }
+  let warning;
+  if (demographicWarning) {
+    warning = <div className='warning'>Please fill out the gender option</div>;
+  }
+
   if (nextPage) {
     console.log('here i go');
     return <Redirect to='/choice' />;
-  }
+    }
 
-  console.log(submissionData);
   return (
       <div className='row'>
         <div className='col-12'>
@@ -231,6 +249,7 @@ export const Main: React.FunctionComponent = () => {
           <div className='row'>
             <div className='col-12'>
               <label className='label'>Please enter an advert</label>
+              {warning}
               <TextArea response={wordsResponse}></TextArea>
             </div>
           </div>
