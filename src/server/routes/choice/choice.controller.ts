@@ -60,10 +60,8 @@ const controller = {
     maleFemale.male = male;
     maleFemale.female = female;
 
- 
     console.log(maleFemale, 'male female controller');
     return await res.send(maleFemale);
-
 
     // if (length > 3) {
     //   const data = models.Data.find( (error, response) => {
