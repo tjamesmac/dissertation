@@ -5,6 +5,7 @@ interface IData {
   newString: string;
   orderOfWords: string[];
   demographic: string;
+  length: number;
 }
 
 interface IDataModel extends IData, mongoose.Document {}
@@ -14,6 +15,7 @@ const dataSchema: Schema = new mongoose.Schema({
   newString: String,
   orderOfWords: Array,
   demographic: String,
+  length: Number,
 });
 
 const Data = mongoose.model<IDataModel>('Data', dataSchema);
