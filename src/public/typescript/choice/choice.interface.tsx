@@ -1,5 +1,6 @@
 export interface IOption {
   data: string;
+  id: string;
   demo: string;
-  onClick: any;
+  onClick: (e: any) => any;
 }
