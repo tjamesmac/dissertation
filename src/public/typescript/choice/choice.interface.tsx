@@ -4,3 +4,9 @@ export interface IOption {
   demo: string;
   onClick: (e: any) => any;
 }
+
+export interface IPostObject {
+  demographic: string;
+  _id: string;
+  value: string;
+}
