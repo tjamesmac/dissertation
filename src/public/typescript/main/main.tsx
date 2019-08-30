@@ -162,14 +162,12 @@ export const Main: React.FunctionComponent = () => {
 
           const span = createSpan('span', value, 'blue');
           original.replaceChild(span, element);
-          
+
           const newSynonyms = synonyms.synonyms.filter( (item) => item !== value );
           newSynonyms.push(element.innerText);
-           
-       
+
           const rootAndSynonym = { word: value, synonyms: newSynonyms };
           setSynonyms(rootAndSynonym);
-
 
           dispatch( { type: 'UPDATE_ORDER', payload: value } );
           dispatch( { type: 'UPDATE_NEW', payload: original.innerText } );
