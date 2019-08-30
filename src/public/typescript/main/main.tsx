@@ -42,47 +42,42 @@ export const Main: React.FunctionComponent = () => {
       demographic : '',
       length: 0,
   });
-
-  React.useEffect(() => {
-    const textArea = document.querySelector('#textarea');
-    if (textArea) {
-      const children: any = textArea.children;
-      for (const element of children) {
-        /**
-         * the event has been replaced from mouseenter
-         * Apparently mouseenter doesn't bubble but I am having issues with it firing too many times
-         */
-        const rect = element.getBoundingClientRect();
-        element.addEventListener( 'mouseover', ( event: Event ) => {
-          if (modalPosition.top === 0 && modalPosition.left === 0) {
-            if (rect.top + 20 !== modalPosition.top) {
-              setModalPosition({ top: rect.top + 20, left: rect.left });
-            }
-          }
-          if (wordsResponse) {
-            const keys: any = Object.keys(wordsResponse);
-            console.log(keys.length, 'keys');
-            for (const value of keys) {
-              if (value === element.innerText) {
-                const syns = wordsResponse[value];
-                console.log(syns, 'syns');
-                const rootAndSynonym = { word: value, synonyms: syns };
-                setSynonyms(rootAndSynonym);
-              }
-            }
-          }
-          if (!modalState) {
-            setModalState(true);
-          }
-        } );
-        // the event has been replaced from mouseleave
-        element.addEventListener( 'mouseout', () => {
-          if (modalState) {
-            // setModalState(false);
-          }
-        } );
+  // cannot use an arrow function here other global ref of 'this' is used;
+  function mouseEnterHandler(this: any, event: any) {
+    const rect = this.getBoundingClientRect();
+    setModalPosition({ top: rect.top + 20, left: rect.left });
+    if (wordsResponse) {
+      const keys: any = Object.keys(wordsResponse);
+      for (const value of keys) {
+        if (value === this.innerText) {
+          const syns = wordsResponse[value];
+          const rootAndSynonym = { word: value, synonyms: syns };
+          setSynonyms(rootAndSynonym);
+        }
       }
     }
+    if (!modalState) {
+      setModalState(true);
+    }
+  }
+  React.useEffect(() => {
+    const textAreaEffect = document.querySelector('#textarea');
+    if (textAreaEffect) {
+      const children: any = textAreaEffect.children;
+      for (const element of children ) {
+        element.addEventListener('mouseenter', mouseEnterHandler);
+      }
+    }
+
+    return () => {
+      const removeTextAreaEffect = document.querySelector('#textarea');
+      if (removeTextAreaEffect) {
+        const children: any = removeTextAreaEffect.children;
+        for (const element of children ) {
+          element.removeEventListener('mouseenter', mouseEnterHandler);
+        }
+      }
+    };
   });
   // Functions
 
@@ -187,29 +182,7 @@ export const Main: React.FunctionComponent = () => {
       console.error('uh oh error', error);
     }
   };
-  const testThing = async () => {
-    console.log('this is a thing');
 
-    try {
-      const URL = '/new';
-      const data = await fetch(URL, {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify('change'),
-      });
-      const response = await data;
-      if ( response.status === 200 ) {
-        console.log('hooray');
-      }
-
-    } catch (error) {
-      console.error('this is called my error', error);
-    }
-
-  };
   let showModal;
   // This is what made the modal work
   if (modalState) {
@@ -261,19 +234,6 @@ export const Main: React.FunctionComponent = () => {
               { wordsResponse ? 'Submit' : 'Click me' }
             </button>
             </div>
-            {/* <div className='col-4'>
-              <button
-                onClick={ () => testThing()}
-                className='btn btn-primary'
-              >
-                This is my new button
-              </button>
-            </div> */}
-            {/* <div className='col-4'>
-              <Link to='/new'>
-                <button className='btn btn-primary'>Go to new</button>
-              </Link>
-            </div> */}
           </div>
         </div>
       </div>
