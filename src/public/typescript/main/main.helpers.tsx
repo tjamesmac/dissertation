@@ -51,7 +51,8 @@ export const validateWords = ( response: any, textCheck: string ): string => {
   for (const key of newKeys) {
     if (textCheck.includes(key)) {
       const word = key;
-      const regex = new RegExp(word, 'g');
+      // const regex = new RegExp(word, 'g');
+      const regex = new RegExp('\\b' + key + '\\b', 'g');
       // string doesn't replace unless assigned to variable
       // styling has been taking up because the replace wasn't capable of handling it
       const newString = toChange.replace(regex, `<span>${word}</span>`);
