@@ -9,12 +9,16 @@ interface IModalProps {
   words: IWordAndSynonym;
   position: IModalPosition;
   onWordClick: ( event: any ) => void;
+  hover: any;
+  removeHover: any;
+  
 }
 
 const Modal = ( prop: IModalProps ): JSX.Element => {
 
   const words = prop.words;
-
+  const hover = prop.hover;
+  const removeHover = prop.removeHover;
   const synonyms = words.synonyms;
   const position = prop.position;
   const positionCSS = {
@@ -29,7 +33,7 @@ const Modal = ( prop: IModalProps ): JSX.Element => {
             </li>;
   });
   return (
-    <ul className='synonyms' style={positionCSS}>
+    <ul className='synonyms' style={positionCSS} onMouseEnter={hover} onMouseLeave={removeHover}>
       {wordMap}
     </ul>
   );
