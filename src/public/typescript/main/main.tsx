@@ -43,7 +43,7 @@ export const Main: React.FunctionComponent = () => {
       demographic : '',
       length: 0,
   });
-  // cannot use an arrow function here other global ref of 'this' is used;
+  // cannot use an arrow function here otherwise global ref of 'this' is used;
   function mouseEnterHandler(this: any, event: any) {
     const rect = this.getBoundingClientRect();
     setModalPosition({ top: rect.top + 20, left: rect.left });
@@ -54,6 +54,16 @@ export const Main: React.FunctionComponent = () => {
           const syns = wordsResponse[value];
           const rootAndSynonym = { word: value, synonyms: syns };
           setSynonyms(rootAndSynonym);
+        }
+        if ( this.innerText !== value ) {
+          const syns = wordsResponse[value];
+          if ( syns.includes( this.innerText ) ) {
+            const newSynonyms = wordsResponse[value].filter( (item) => item !== this.innerText );
+            newSynonyms.push(value);
+
+            const rootAndSynonym = { word: this.innerText, synonyms: newSynonyms };
+            setSynonyms(rootAndSynonym);
+          }
         }
       }
     }
@@ -148,10 +158,18 @@ export const Main: React.FunctionComponent = () => {
     const children: any = original.children; // difficult to type HTML collection
     for (const element of children) {
       if (synonyms) {
-        if (synonyms.word === element.innerText) {
+        if (synonyms.word === element.innerText || synonyms.synonyms.includes(element.innerText)) {
 
           const span = createSpan('span', value, 'blue');
           original.replaceChild(span, element);
+          
+          const newSynonyms = synonyms.synonyms.filter( (item) => item !== value );
+          newSynonyms.push(element.innerText);
+           
+       
+          const rootAndSynonym = { word: value, synonyms: newSynonyms };
+          setSynonyms(rootAndSynonym);
+
 
           dispatch( { type: 'UPDATE_ORDER', payload: value } );
           dispatch( { type: 'UPDATE_NEW', payload: original.innerText } );
