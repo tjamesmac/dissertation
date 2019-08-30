@@ -25,6 +25,7 @@ export const Main: React.FunctionComponent = () => {
   const [ synonyms, setSynonyms ] = React.useState< IWordAndSynonym | null >(null);
   // display modal
   const [ modalState, setModalState ] = React.useState< false | true >( false );
+  const [ hoverModalState, setHoverModalState ] = React.useState< false | true >( false );
   // modal position
   const [ modalPosition, setModalPosition ] =
     React.useState< IModalPosition >( { top: 0, left: 0 } );
@@ -60,12 +61,21 @@ export const Main: React.FunctionComponent = () => {
       setModalState(true);
     }
   }
+  function mouseLeaveHandler(this: any, event: any) {
+
+    if (modalState) {
+      setTimeout(() => {
+        setModalState(false);
+      }, 1000);
+    }
+  }
   React.useEffect(() => {
     const textAreaEffect = document.querySelector('#textarea');
     if (textAreaEffect) {
       const children: any = textAreaEffect.children;
       for (const element of children ) {
         element.addEventListener('mouseenter', mouseEnterHandler);
+        element.addEventListener('mouseleave', mouseLeaveHandler);
       }
     }
 
@@ -75,6 +85,7 @@ export const Main: React.FunctionComponent = () => {
         const children: any = removeTextAreaEffect.children;
         for (const element of children ) {
           element.removeEventListener('mouseenter', mouseEnterHandler);
+          element.removeEventListener('mouseleave', mouseLeaveHandler);
         }
       }
     };
@@ -182,16 +193,25 @@ export const Main: React.FunctionComponent = () => {
       console.error('uh oh error', error);
     }
   };
+  const onHover = () => {
+    setHoverModalState(true);
+  };
+  const removeHover = () => {
+    setModalState(false);
+    setHoverModalState(false);
+  };
 
   let showModal;
   // This is what made the modal work
-  if (modalState) {
-    if (synonyms) {
+  if (modalState || hoverModalState) {
+    if ( synonyms ) {
       showModal =
       <Modal
-        words={synonyms}
-        position={modalPosition}
-        onWordClick={( event ) => getSynonym( event )}
+        hover={ () => onHover() }
+        removeHover={ () => removeHover() }
+        words={ synonyms }
+        position={ modalPosition }
+        onWordClick={ ( event ) => getSynonym( event ) }
       />;
     }
   }
