@@ -25,7 +25,6 @@ const controller = {
     // first lets render the two different options;
     // next step is to then check if there are two from each demographic;
     const length = await models.Data.countDocuments();
-    console.log('this is the length of my document stuff');
     const maleFemale: IMaleFemale = {};
     const data = await models.Data.find( (error, response) => {
       if (error) {
@@ -55,24 +54,12 @@ const controller = {
       }
       return docs;
     } );
-    console.log(female, 'female man');
-    console.log(male, 'male dude');
+
     maleFemale.male = male;
     maleFemale.female = female;
 
-    console.log(maleFemale, 'male female controller');
     return await res.send(maleFemale);
 
-    // if (length > 3) {
-    //   const data = models.Data.find( (error, response) => {
-    //     if (error) {
-    //       console.error('finding documents', error);
-    //     }
-    //     console.log(response);
-    //     return res.send(response);
-
-    //   }).sort({ _id: -1 }).limit(3);
-    // }
   },
   postName: ( req: Request, res: Response ) => {
 
