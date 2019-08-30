@@ -9,9 +9,11 @@ describe('Main page component', () => {
     const modalWords = { word: 'hello', synonyms: ['hi', 'hiya']};
     const tree = renderer
       .create(<Modal
+                hover={() => console.log('test')}
+                removeHover={() => console.log('test')}
                 words={modalWords}
                 position={modalPosition}
-                onWordClick={() => console.log('hello')}
+                onWordClick={() => console.log('test')}
               />,
               )
       .toJSON();
