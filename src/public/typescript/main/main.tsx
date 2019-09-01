@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import Modal, { IModalPosition } from '../modal/modal';
 import TextArea from '../textArea/textArea';
 import { createSpan, dataReducer, greenify, validateWords } from './Main.helpers';
