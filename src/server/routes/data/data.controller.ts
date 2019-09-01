@@ -11,8 +11,6 @@ const dataController = ( req: Request, res: Response ) => {
   data.orderOfWords = body.orderOfWords;
   data.demographic = body.demographic;
   data.length = body.length;
-  console.log(body.length, 'length');
-  console.log(data, 'data');
   data.save( (error: string) => {
     if (error) { console.log(error); }
     console.log('data saved');
