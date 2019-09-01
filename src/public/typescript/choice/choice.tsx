@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Redirect } from 'react-router-dom';
 
 import { IPostObject } from './choice.interface';
 import Option from './option.extra';
@@ -6,6 +7,8 @@ import Option from './option.extra';
 const Choice: React.FunctionComponent = () => {
 
   const [ choices, setChoices ] = React.useState();
+
+  const [ redir, setRedir ] = React.useState();
 
   const fetchData = async () => {
     try {
@@ -94,26 +97,16 @@ const Choice: React.FunctionComponent = () => {
         console.log(response);
         const responseJSON = await response.json();
         console.log(responseJSON);
+        console.log(responseJSON.status, 'returned status');
+        if ( responseJSON.status === 301 ) {
+          console.log('I am awesome');
+          setRedir(true);
+        }
       }
 
     } catch (error) {
       console.error('post data', error);
     }
-
-    // ** CONVOLUTED ANSWER
-    // Get the id of the options as well
-    // then in the post controller search the database for the corresponding document
-    // then add the data of that document to a new document/model
-    // compare the differences in the demographic and the order of words + sentences
-    // index the words - start counting women and men words, initial and the changed ones;
-
-    // I also want to store
-    // - the amount of words that can be altered
-    // - the amount of words in total;
-    // - amount of questions
-    // - showcases how many words people think need to be changed.
-    // -
-    // if no adjectives are returned then
   };
 
   let optionMap;
@@ -141,6 +134,9 @@ const Choice: React.FunctionComponent = () => {
     return (
       <div className='loading'>Loading...</div>
     );
+  }
+  if ( redir ) {
+    return <Redirect to='/final' />;
   }
 
   return (
