@@ -21,6 +21,15 @@ interface IMaleFemale {
   };
 }
 
+const getWordCount = (arr: any, map: any) => {
+  // @ts-ignore
+  for (let i = 0; i < arr.length; i++) {
+    let item = arr[i];
+    map[item] = (map[item] + 1) || 1;
+  }
+  return map;
+};
+
 const controller = {
   getNew: async ( req: Request, res: Response ) => {
     // in here I need to return the last submission and then add the result to it
@@ -68,14 +77,13 @@ const controller = {
     const body = req.body;
 
     const dataObject = new models.FinalResult();
+    const wordsObject = new models.Words();
     // This is the demographic from the two chosen responses;
     const chosenDemographic = body.demographic;
-    await models.Data.findOne({}, {}, { sort: { created_at : -1 } }, (error, response) => {
-      console.log( response, 'this is the document I would like');
+    await models.Data.findOne({}, {}, { sort: { _id : -1 } }, (error, response) => {
       if (error) {
         console.error('Cannot find corresponding ID', error);
       }
-      console.log(response, 'this is called my response');
       if ( response ) {
         // demographic from the drop down
         const actualDemographic = response.demographic;
@@ -101,18 +109,65 @@ const controller = {
         dataObject.lengthOfAdjectivesPossible = lengthOfAdjectivesPossible;
         // ID of the document that contained the original data in
         dataObject.correspondingID = response._id;
-        console.log(dataObject);
+
+        wordsObject.demographic = actualDemographic;
+        wordsObject.words = response.orderOfWords;
 
       }
+    }).then((resProm: any) => {
+
+      const createDictionary = ( responseData: any ) => {
+        if (responseData) {
+          const words = responseData.words;
+          console.log(words, 'words inside');
+          const wordDictionary = getWordCount(wordsObject.words, words);
+          wordsObject.words = wordDictionary;
+        } else {
+          const words = {};
+          const wordDictionary = getWordCount(wordsObject.words, words);
+          wordsObject.words = wordDictionary;
+        }
+      };
+
+      const neededDemo =  wordsObject.demographic;
+      console.log(neededDemo);
+      models.Words
+        .findOne({ demographic: neededDemo }, async ( error: any, response: any ) => {
+            if ( error ) {
+              console.error('finding words document', error);
+            }
+            if ( await response ) {
+              createDictionary( response );
+
+              await models
+                .Words.deleteOne( { demographic: wordsObject.demographic }, ( err: any ) => {
+                  if (!err) {
+                    console.log('deleted');
+                  } else {
+                    console.error( 'cant delete', err );
+                  }
+              } );
+              await wordsObject.save( (er: string) => {
+                if (er) { console.error('didnt save', er); }
+                console.log('words saved');
+                console.log(wordsObject, 'object that was saved');
+              } );
+            } else {
+              console.log(response, 'response is empty');
+              createDictionary( response );
+              await wordsObject.save( (er: string) => {
+                if (er) { console.error('didnt save', er); }
+                console.log('words saved');
+              } );
+            }
+      });
     });
-    console.log(dataObject, 'dataObject testing');
+
     dataObject.save( (error: string) => {
       if (error) { console.log(error); }
       console.log('final result saved');
     } );
-    // loop over the original and then add those
-
-    return res.sendStatus(200);
+    return res.send( { status: 301 } );
   },
 };
 
