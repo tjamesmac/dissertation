@@ -1,7 +1,9 @@
 import React from 'react';
 import { Link, Route, Switch } from 'react-router-dom';
 
+import Admin from '../admin/admin';
 import Choice from '../choice/choice';
+import { Final } from '../final/final';
 import { Home } from '../home/home';
 import { Main } from '../main/main';
 import NotFound from '../notFound/notFound';
@@ -26,6 +28,8 @@ const App = () => {
         <Route path='/' exact render={( props ) => <Home name='thomas'/> } />
         <Route path='/main' component={ Main } />
         <Route path='/choice' component={ Choice } />
+        <Route path='/final' component={ Final } />
+        <Route path='/admin' component={ Admin } />
         <Route component={ NotFound } />
       </Switch>
     </div>
