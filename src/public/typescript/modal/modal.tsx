@@ -9,9 +9,9 @@ interface IModalProps {
   words: IWordAndSynonym;
   position: IModalPosition;
   onWordClick: ( event: any ) => void;
-  hover: any;
-  removeHover: any;
-  
+  hover: ( event: any ) => void;
+  removeHover: ( event: any ) => void;
+
 }
 
 const Modal = ( prop: IModalProps ): JSX.Element => {
