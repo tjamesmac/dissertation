@@ -2,14 +2,14 @@ import mongoose, { Schema } from 'mongoose';
 
 interface IWords {
   demographic: string;
-  words: string[];
+  words: any;
 }
 
 interface IWordsModel extends IWords, mongoose.Document {}
 
 const wordsSchema: Schema = new mongoose.Schema({
   demographic: String,
-  words: [String],
+  words: Object,
 });
 
 const Words = mongoose.model<IWordsModel>('Words', wordsSchema);
