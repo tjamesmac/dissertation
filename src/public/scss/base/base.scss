@@ -81,3 +81,6 @@ h6 {
   @include margin-bottom;
   color: $colour-four;
 }
+.info {
+  @include margin-top;
+}
