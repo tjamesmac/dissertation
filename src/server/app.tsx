@@ -3,7 +3,7 @@ import models, { connectDb } from './models';
 import Server from './server';
 
 const app = new Server().app;
-const PORT: any = process.env.PORT || 3000;
+const PORT: string | number = process.env.PORT || 3000;
 
 const eraseDbonLoad = true;
 

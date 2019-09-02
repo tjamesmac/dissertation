@@ -24,7 +24,7 @@ export async function overAll( inputString: string ) {
       await wordpos.lookupAdjective( word , ( response: any ) => {
         for ( const element of response ) {
           const synonyms = element.synonyms;
-          if (element.pos === 'a') {
+          if (element.pos === 'a' || element.pos === 's') {
             for (const w of synonyms) {
               if (word !== w) {
                 if (!obj[word].includes(w)) {
