@@ -29,6 +29,19 @@ const getWordCount = (arr: any, map: any) => {
   }
   return map;
 };
+const createDictionary = ( responseData: any, target: any ) => {
+  if (responseData) {
+    const words = responseData.words;
+    console.log(responseData, 'words inside');
+    console.log(words, 'words inside');
+    const wordDictionary = getWordCount(target.words, words || {});
+    target.words = wordDictionary;
+  } else {
+    const words = {};
+    const wordDictionary = getWordCount(target.words, words);
+    target.words = wordDictionary;
+  }
+};
 
 const controller = {
   getNew: async ( req: Request, res: Response ) => {
@@ -112,56 +125,94 @@ const controller = {
 
         wordsObject.demographic = actualDemographic;
         wordsObject.words = response.orderOfWords;
+        console.log(response.orderOfWords, 'this is the order of words insdie ');
 
       }
-    }).then((resProm: any) => {
+    }).then( async (resProm: any) => {
+      return resProm.demographic;
+    }).then( (demo: any) => {
+      console.log(demo, 'nested promises');
+      return demo;
+    }).then( async (item) => {
+      await models.Words
+        .findOne({ demographic: item }, async ( error: any, findOneRes: any ) => {
+            if ( error ) { console.error('finding words document', error); }
+            if ( findOneRes ) {
 
-      const createDictionary = ( responseData: any ) => {
-        if (responseData) {
-          const words = responseData.words;
-          console.log(words, 'words inside');
-          const wordDictionary = getWordCount(wordsObject.words, words);
-          wordsObject.words = wordDictionary;
-        } else {
-          const words = {};
-          const wordDictionary = getWordCount(wordsObject.words, words);
-          wordsObject.words = wordDictionary;
-        }
-      };
-
-      const neededDemo =  wordsObject.demographic;
-      console.log(neededDemo);
-      models.Words
-        .findOne({ demographic: neededDemo }, async ( error: any, response: any ) => {
-            if ( error ) {
-              console.error('finding words document', error);
-            }
-            if ( await response ) {
-              createDictionary( response );
-
-              await models
-                .Words.deleteOne( { demographic: wordsObject.demographic }, ( err: any ) => {
-                  if (!err) {
-                    console.log('deleted');
-                  } else {
-                    console.error( 'cant delete', err );
-                  }
-              } );
-              await wordsObject.save( (er: string) => {
-                if (er) { console.error('didnt save', er); }
-                console.log('words saved');
-                console.log(wordsObject, 'object that was saved');
-              } );
+              if (wordsObject.words.length > 0) {
+                createDictionary( findOneRes, wordsObject );
+                await models
+                  .Words.deleteOne( { demographic: wordsObject.demographic }, ( err: any ) => {
+                    if (!err) {
+                      console.log('deleted');
+                    } else {
+                      console.error( 'cant delete', err );
+                    }
+                });
+                await wordsObject.save( (er: string) => {
+                  if (er) { console.error('didnt save', er); }
+                  console.log('words saved');
+                  console.log(wordsObject, 'object that was saved');
+                } );
+              } else {
+                console.log('i am empty');
+              }
             } else {
-              console.log(response, 'response is empty');
-              createDictionary( response );
+              console.log(findOneRes, 'response is empty');
+              createDictionary( findOneRes, wordsObject );
               await wordsObject.save( (er: string) => {
                 if (er) { console.error('didnt save', er); }
                 console.log('words saved');
+                console.log(wordsObject, 'when words doesnt exist');
               } );
             }
       });
-    });
+    } );
+
+
+
+      
+      
+    // const neededDemo =  await wordsObject.demographic;
+    
+    // console.log(neededDemo);
+      
+      // await models.Words
+      //   .findOne({ demographic: neededDemo }, async ( error: any, findOneRes: any ) => {
+      //       if ( error ) {
+      //         console.error('finding words document', error);
+      //       }
+      //       if ( findOneRes ) {
+
+      //         if (wordsObject.words.length > 0) {
+      //           createDictionary( findOneRes );
+      //           await models
+      //             .Words.deleteOne( { demographic: wordsObject.demographic }, ( err: any ) => {
+      //             if (!err) {
+      //               console.log('deleted');
+      //             } else {
+      //               console.error( 'cant delete', err );
+      //             }
+      //           } );
+      //           await wordsObject.save( (er: string) => {
+      //             if (er) { console.error('didnt save', er); }
+      //             console.log('words saved');
+      //             console.log(wordsObject, 'object that was saved');
+      //           } );
+      //         } else {
+      //           console.log('i am empty');
+      //         }
+      //       } else {
+      //         console.log(findOneRes, 'response is empty');
+      //         createDictionary( findOneRes );
+      //         await wordsObject.save( (er: string) => {
+      //           if (er) { console.error('didnt save', er); }
+      //           console.log('words saved');
+      //           console.log(wordsObject, 'when words doesnt exist');
+      //         } );
+      //       }
+      // });
+    // });
 
     dataObject.save( (error: string) => {
       if (error) { console.log(error); }
