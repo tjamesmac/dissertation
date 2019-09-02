@@ -1,25 +1,46 @@
 import * as React from 'react';
 
+interface IAdminResponse {
+  // stuff to go in here;
+}
+
 export const Admin = ( ): JSX.Element => {
+
+  const [ dataResponse, setDataResponse ] = React.useState< null | IAdminResponse >( null );
 
   const fetchData = async () => {
     try {
 
-      const URL = '/data';
+      const URL = '/admin/data';
       const data = await fetch(URL);
       const response = await data;
 
       if ( response.status === 200 ) {
         console.log('thomas is cool');
-        console.log(response.status);
+        const responseJSON = await response.json();
+        console.log(responseJSON);
+        setDataResponse(responseJSON);
       }
     } catch (error) {
-      console.error('fetch results', error);
+      console.error('admin fetch GET results', error);
     }
   };
   React.useEffect( () => {
       fetchData();
   }, []);
+
+  let dataLoader;
+  if ( dataResponse ) {
+    dataLoader =
+      <div>
+        <p>Here is the data you requested</p>
+      </div>;
+  } else {
+    dataLoader =
+    <div>
+      <p>Currently fetching data...</p>
+    </div>;
+  }
 
   return (
     <div className='row'>
@@ -29,6 +50,7 @@ export const Admin = ( ): JSX.Element => {
         </div>
       <div className='col-12'>
         {/* stuff goes here */}
+        {dataLoader}
       </div>
       </div>
     </div>
