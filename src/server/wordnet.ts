@@ -24,12 +24,16 @@ export async function overAll( inputString: string ) {
       await wordpos.lookupAdjective( word , ( response: any ) => {
         for ( const element of response ) {
           const synonyms = element.synonyms;
-          console.log(synonyms);
           if (element.pos === 'a') {
+            console.log(synonyms);
             for (const w of synonyms) {
+              console.log(w, 'w first inside loop');
               if (word !== w) {
+
                 if (!obj[word].includes(w)) {
+                  console.log(word, 'w secnod inside loop');
                   obj[word] = [ ...obj[word], ...w ];
+                  console.log(obj)
                 }
               }
 
