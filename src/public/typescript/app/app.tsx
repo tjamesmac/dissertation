@@ -21,7 +21,7 @@ const App = () => {
           <Link className='link link-primary' to='/'>Home</Link>
         </div>
         <div className='col-3'>
-          <Link className='link link-primary' to='/main'>Main</Link>
+          <Link className='link link-primary' to='/choice'>Choice</Link>
         </div>
       </div>
       <Switch>
