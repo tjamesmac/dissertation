@@ -78,5 +78,6 @@ h6 {
   @include padding-all;
   background-color: $colour-five;
   @include margin-top;
+  @include margin-bottom;
   color: $colour-four;
 }
