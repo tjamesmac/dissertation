@@ -31,9 +31,10 @@ export async function overAll( inputString: string ) {
               if (word !== w) {
 
                 if (!obj[word].includes(w)) {
-                  console.log(word, 'w secnod inside loop');
+                  console.log(w, 'w second inside loop');
+                  console.log(obj[word], 'w secnod inside loop');
                   obj[word] = [ ...obj[word], ...w ];
-                  console.log(obj)
+                  console.log(obj);
                 }
               }
 
