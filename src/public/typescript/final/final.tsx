@@ -3,9 +3,11 @@ import { Link } from 'react-router-dom';
 
 export const Final = ( ): JSX.Element => {
   return (
-    <div className='info'>
-      <p>Thank you for taking part.</p>
-      <Link to='/' className='btn btn-primary'>Back to the beginning</Link>
+    <div className='col-12'>
+      <div className='info'>
+        <p>Thank you for taking part.</p>
+      </div>
+        <Link to='/' className='btn btn-primary'>Back to the beginning</Link>
     </div>
   );
 };
