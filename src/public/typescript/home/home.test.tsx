@@ -6,7 +6,7 @@ import { Home } from './home';
 describe('Hello component', () => {
   const name = 'Test';
   it('renders the Hello with a name', () => {
-    const result = shallow(<Home name={name}/>).contains(
+    const result = shallow(<Home />).contains(
       <div className='container'>
       <div className='row'>
         <div className='col-12'>
@@ -18,7 +18,7 @@ describe('Hello component', () => {
   });
   it('it renders correctly', () => {
     const tree = renderer
-      .create(<Home name={name}/>)
+      .create(<Home/>)
       .toJSON();
     expect(tree).toMatchSnapshot();
   });

@@ -26,12 +26,11 @@ describe('server template', () => {
     const props = {
       name: 'Test',
     };
-    const homeComponent = mount(<Home {...props} />);
+    const homeComponent = mount(<Home />);
     expect(homeComponent.prop('name')).toEqual('Test');
   });
   it('should match template', () => {
-    const name = 'Test';
-    const home = <Home name={name}/>;
+    const home = <Home />;
     const reactDom = renderToString(home);
     const html = htmlTemplate(reactDom);
     expect(html).toMatch(htmlTemplate(reactDom));
