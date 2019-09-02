@@ -5,6 +5,7 @@ interface IFinalResult {
 
   // demographic match;
   demographicMatch: boolean;
+  demographic: string;
   // length of the submission
   submissionLength: number;
   // amount of words that can be changed
@@ -20,6 +21,7 @@ interface IFinalResultModel extends IFinalResult, mongoose.Document {}
 const finalResultSchema: Schema = new mongoose.Schema({
   // goes in here
   demographicMatch: Boolean,
+  demographic: String,
   // length of the submission
   submissionLength: Number,
   // amount of words that can be changed
