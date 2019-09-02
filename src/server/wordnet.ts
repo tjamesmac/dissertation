@@ -33,7 +33,7 @@ export async function overAll( inputString: string ) {
                 if (!obj[word].includes(w)) {
                   console.log(w, 'w second inside loop');
                   console.log(obj[word], 'w secnod inside loop');
-                  obj[word] = [ ...obj[word], ...w ];
+                  obj[word] = [ ...obj[word], ...[w] ];
                   console.log(obj);
                 }
               }
