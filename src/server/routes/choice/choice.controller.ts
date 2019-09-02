@@ -134,86 +134,36 @@ const controller = {
       console.log(demo, 'nested promises');
       return demo;
     }).then( async (item) => {
-      await models.Words
-        .findOne({ demographic: item }, async ( error: any, findOneRes: any ) => {
-            if ( error ) { console.error('finding words document', error); }
-            if ( findOneRes ) {
-
-              if (wordsObject.words.length > 0) {
-                createDictionary( findOneRes, wordsObject );
-                await models
-                  .Words.deleteOne( { demographic: wordsObject.demographic }, ( err: any ) => {
-                    if (!err) {
-                      console.log('deleted');
-                    } else {
-                      console.error( 'cant delete', err );
-                    }
-                });
-                await wordsObject.save( (er: string) => {
-                  if (er) { console.error('didnt save', er); }
-                  console.log('words saved');
-                  console.log(wordsObject, 'object that was saved');
-                } );
-              } else {
-                console.log('i am empty');
-              }
-            } else {
-              console.log(findOneRes, 'response is empty');
-              createDictionary( findOneRes, wordsObject );
-              await wordsObject.save( (er: string) => {
-                if (er) { console.error('didnt save', er); }
-                console.log('words saved');
-                console.log(wordsObject, 'when words doesnt exist');
-              } );
-            }
+      await models.Words.findOne({ demographic: item }, async ( error: any, findOneRes: any ) => {
+        if ( error ) { console.error('finding words document', error); }
+        if ( findOneRes ) {
+          if (wordsObject.words.length > 0) {
+            createDictionary( findOneRes, wordsObject );
+            await models
+              .Words.deleteOne( { demographic: wordsObject.demographic }, ( err: any ) => {
+                if (!err) {
+                  console.log('deleted');
+                } else {
+                  console.error( 'cant delete', err );
+                }
+            });
+            await wordsObject.save( (er: string) => {
+              if (er) { console.error('didnt save', er); }
+              console.log('words saved');
+              console.log(wordsObject, 'object that was saved');
+            } );
+          }
+        } else {
+          console.log(findOneRes, 'response is empty');
+          createDictionary( findOneRes, wordsObject );
+          await wordsObject.save( (er: string) => {
+            if (er) { console.error('didnt save', er); }
+            console.log('words saved');
+            console.log(wordsObject, 'when words doesnt exist');
+          } );
+        }
       });
-    } );
-
-
-
-      
-      
-    // const neededDemo =  await wordsObject.demographic;
-    
-    // console.log(neededDemo);
-      
-      // await models.Words
-      //   .findOne({ demographic: neededDemo }, async ( error: any, findOneRes: any ) => {
-      //       if ( error ) {
-      //         console.error('finding words document', error);
-      //       }
-      //       if ( findOneRes ) {
-
-      //         if (wordsObject.words.length > 0) {
-      //           createDictionary( findOneRes );
-      //           await models
-      //             .Words.deleteOne( { demographic: wordsObject.demographic }, ( err: any ) => {
-      //             if (!err) {
-      //               console.log('deleted');
-      //             } else {
-      //               console.error( 'cant delete', err );
-      //             }
-      //           } );
-      //           await wordsObject.save( (er: string) => {
-      //             if (er) { console.error('didnt save', er); }
-      //             console.log('words saved');
-      //             console.log(wordsObject, 'object that was saved');
-      //           } );
-      //         } else {
-      //           console.log('i am empty');
-      //         }
-      //       } else {
-      //         console.log(findOneRes, 'response is empty');
-      //         createDictionary( findOneRes );
-      //         await wordsObject.save( (er: string) => {
-      //           if (er) { console.error('didnt save', er); }
-      //           console.log('words saved');
-      //           console.log(wordsObject, 'when words doesnt exist');
-      //         } );
-      //       }
-      // });
-    // });
-
+    });
     dataObject.save( (error: string) => {
       if (error) { console.log(error); }
       console.log('final result saved');
