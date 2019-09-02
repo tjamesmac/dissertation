@@ -9,8 +9,8 @@ interface IModalProps {
   words: IWordAndSynonym;
   position: IModalPosition;
   onWordClick: ( event: any ) => void;
-  hover: ( event: any ) => void;
-  removeHover: ( event: any ) => void;
+  hover: ( event: any ) => any;
+  removeHover: ( event: any ) => any;
 
 }
 
