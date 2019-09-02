@@ -6,7 +6,7 @@ export const htmlTemplate = ( reactDom?: string ): string => {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" type="text/css" href="index.css">
-    <title>Document</title>
+    <title>Gender bias</title>
   </head>
   <body>
     <div id="app">${ reactDom }</div>
