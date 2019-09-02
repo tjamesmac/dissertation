@@ -75,6 +75,8 @@ h6 {
 
 }
 .warning {
-  @include padding-top;
-  color: $colour-five;
+  @include padding-all;
+  background-color: $colour-five;
+  @include margin-top;
+  color: $colour-four;
 }
