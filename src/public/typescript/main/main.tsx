@@ -21,10 +21,13 @@ export const Main: React.FunctionComponent = () => {
   // HOOKS
   // response from server
   const [ wordsResponse, setWordsResponse ] = React.useState< null | IResponse >( null );
+
+  const [ validLength, setValidLength ] = React.useState< true | false >( false );
   // need to set this as an object that holds the word the synonyms are coming from
   const [ synonyms, setSynonyms ] = React.useState< IWordAndSynonym | null >(null);
   // display modal
   const [ modalState, setModalState ] = React.useState< false | true >( false );
+
   const [ hoverModalState, setHoverModalState ] = React.useState< false | true >( false );
   // modal position
   const [ modalPosition, setModalPosition ] =
@@ -136,6 +139,10 @@ export const Main: React.FunctionComponent = () => {
         const responseJSON: IResponse = await response.json();
         console.log(responseJSON, 'response');
         const length = Object.keys(responseJSON).length;
+        if ( length === 0 ) {
+          console.log('oh no no results');
+          setValidLength(true);
+        }
         dispatch( { type: 'UPDATE_LENGTH', payload: length } );
 
         // by keeping this here it does rerender everytime
@@ -239,7 +246,24 @@ export const Main: React.FunctionComponent = () => {
   if (nextPage) {
     console.log('here i go');
     return <Redirect to='/choice' />;
-    }
+  }
+  let validLengthWarning;
+  if ( validLength ) {
+    validLengthWarning =
+      <div>
+        <div className='warning'>
+          <p>Sorry, none of the words you have chosen are sufficient adjectives.
+          Please hit reset and try again.</p>
+        </div>
+        <button
+          className='btn btn-primary'
+          onClick={() => window.location.reload()}
+        >
+          Reset
+        </button>
+      </div>
+      ;
+  }
 
   return (
       <div className='row'>
@@ -259,12 +283,14 @@ export const Main: React.FunctionComponent = () => {
             <div className='col-12'>
               <label className='label'>Please enter an advert</label>
               {warning}
+              {validLengthWarning}
               <TextArea response={wordsResponse}></TextArea>
             </div>
           </div>
           <div className='row'>
             <div className='col-4'>
             <button
+              disabled={ validLength ? true : false }
               onClick={ wordsResponse ? ( ) => submit() : (event) => submission(event)}
               className='btn btn-primary'>
               { wordsResponse ? 'Submit' : 'Click me' }
