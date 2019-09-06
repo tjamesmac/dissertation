@@ -47,4 +47,3 @@ export async function overAll( inputString: string ) {
   };
   return lookupA( await confirmAdjective );
 }
-// overAll().then( ( answer ) => console.log( answer, 'this is a thing' ) );
