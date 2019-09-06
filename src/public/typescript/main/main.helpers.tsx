@@ -165,7 +165,9 @@ const wordMatcher = (key: string, stringToChange: string, gender: string) => {
   return newString;
 };
 
-export const validateWords = ( response: any, textCheck: string ): string => {
+export const validateWords = ( response: any, textCheck: string ): any => {
+  const maleWords = [];
+  const femaleWords = [];
   const keys = Object.keys(response);
   const newKeys = keys.filter( (x) => {
     if (response[x].length) {
@@ -182,17 +184,21 @@ export const validateWords = ( response: any, textCheck: string ): string => {
         if (textCheck.includes(key) && key.match(male)) {
 
           const maleNew  = wordMatcher(key, toChange, 'male');
+          maleWords.push(key);
           toChange = maleNew;
         }
       }
       for (const female of genderedWords.femaleGenderedWords) {
         if (textCheck.includes(key) && key.match(female)) {
+          femaleWords.push(key);
           const femaleWord = wordMatcher(key, toChange, 'female');
           toChange = femaleWord;
         }
       }
   }
-  return toChange + '&#8203;';
+  toChange += '&#8203;';
+  const returnedObject = { male: maleWords, female: femaleWords, textChange: toChange };
+  return returnedObject;
 };
 
 export const greenify = async () => {
@@ -216,93 +222,3 @@ export const createSpan = ( elementTag: string, text: string, colour: string ) =
   element.style.color = colour;
   return element;
 };
-
-// export const genderedWords = () => {
-//   const maleGenderedWords =
-//   [
-//     'active',
-//     'adventurous',
-//     'aggress',
-//     'ambitio',
-//     'analy',
-//     'assert',
-//     'athlet',
-//     'autonom',
-//     'boast',
-//     'challeng',
-//     'compet',
-//     'confident',
-//     'courag',
-//     'decide',
-//     'decisive',
-//     'decision',
-//     'determin',
-//     'dominant',
-//     'domina',
-//     'force',
-//     'greedy',
-//     'headstrong',
-//     'hierarch',
-//     'hostil',
-//     'impulsive',
-//     'independent',
-//     'individual',
-//     'intellect',
-//     'lead',
-//     'logic',
-//     'masculine',
-//     'objective',
-//     'opinion',
-//     'outspoken',
-//     'persist',
-//     'principle',
-//     'reckless',
-//     'stubborn',
-//     'superior',
-//     'self-confiden',
-//     'self-sufficien',
-//     'self-relian',
-//   ];
-//   const femaleGenderedWords = [
-//     'affectionate',
-//     'child',
-//     'cheer',
-//     'commit',
-//     'communal',
-//     'compassion',
-//     'connect',
-//     'considerate',
-//     'cooperat',
-//     'depend',
-//     'emotiona',
-//     'empath',
-//     'feminine',
-//     'flatterable',
-//     'gentle',
-//     'honest',
-//     'interpersonal',
-//     'interdependen',
-//     'interpersona',
-//     'kind',
-//     'kinship',
-//     'loyal',
-//     'modesty',
-//     'nag',
-//     'nutur',
-//     'pleasant',
-//     'polite',
-//     'quiet',
-//     'respon',
-//     'sensitiv',
-//     'submissive',
-//     'support',
-//     'sympath',
-//     'tender',
-//     'together',
-//     'trust',
-//     'understand',
-//     'warm',
-//     'whin',
-//     'yield',
-//   ];
-// };
