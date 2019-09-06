@@ -131,7 +131,6 @@ const controller = {
     }).then( async (resProm: any) => {
       return resProm.demographic;
     }).then( (demo: any) => {
-      console.log(demo, 'nested promises');
       return demo;
     }).then( async (item) => {
       await models.Words.findOne({ demographic: item }, async ( error: any, findOneRes: any ) => {
@@ -150,7 +149,6 @@ const controller = {
             await wordsObject.save( (er: string) => {
               if (er) { console.error('didnt save', er); }
               console.log('words saved');
-              console.log(wordsObject, 'object that was saved');
             } );
           }
         } else {
@@ -167,6 +165,7 @@ const controller = {
     dataObject.save( (error: string) => {
       if (error) { console.log(error); }
       console.log('final result saved');
+      console.log(dataObject, 'this is my dataObject');
     } );
     return res.send( { status: 301 } );
   },
