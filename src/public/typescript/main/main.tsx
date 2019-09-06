@@ -1,21 +1,10 @@
 import * as React from 'react';
 import { Redirect } from 'react-router-dom';
+import Balance from '../balance/balance';
 import Modal, { IModalPosition } from '../modal/modal';
 import TextArea from '../textArea/textArea';
 import { createSpan, dataReducer, greenify, validateWords } from './main.helpers';
 import { IResponse, IWordAndSynonym } from './main.interface';
-
-/**
- * Now I need to store the values before they are changed
- * I can create a use state that merges the previous with the new to record them all with a number
- * to show the order in which they are changed
- *
- * DONE: Reducer
- *
- *
- * Need to look into whether I change all the words that are the same at once
- *
- */
 
 export const Main: React.FunctionComponent = () => {
   // HOOKS
@@ -36,6 +25,10 @@ export const Main: React.FunctionComponent = () => {
   const [ nextPage, setNextPage ] = React.useState<false | true >(false);
 
   const [ demographicWarning, setDemographicWarning ] = React.useState< false | true>(false);
+
+  const [ maleWords , setMaleWords ] = React.useState< number > (0);
+
+  const [ femaleWords , setFemaleWords ] = React.useState< number > (0);
 
   // store in the db
   const [ submissionData, dispatch ] =
@@ -112,6 +105,7 @@ export const Main: React.FunctionComponent = () => {
 
   const submission = async ( event: React.FormEvent ) => {
     event.preventDefault();
+    setValidLength(false);
     //
     // This has been changed to innerText - innerHTML security issue
     // Seems to be cleaner to use text
@@ -146,15 +140,31 @@ export const Main: React.FunctionComponent = () => {
         dispatch( { type: 'UPDATE_LENGTH', payload: length } );
 
         // by keeping this here it does rerender everytime
-        const textChange = validateWords(responseJSON, textAreaValue);
-        console.log(textChange.includes(`='male'`));
+        const validatedWords = validateWords(responseJSON, textAreaValue);
+        const textChange = validatedWords.textChange;
+
         if ( !textChange.includes(`='male'`) && !textChange.includes(`='female'`)) {
           setValidLength(true);
         }
 
-        // greenify(); // this is used to color the words;
-
         (document.getElementById('textarea') as HTMLDivElement).innerHTML = textChange;
+
+        const checkForGender: any = document.querySelector('#textarea');
+        const genderChildren = checkForGender.children;
+
+        let maleCheckCount = 0;
+        let femaleCheckCount = 0;
+
+        for ( const element of genderChildren ) {
+          if (element.className === 'male') {
+            maleCheckCount++;
+          }
+          if (element.className === 'female') {
+            femaleCheckCount++;
+          }
+        }
+        setMaleWords(maleCheckCount);
+        setFemaleWords(femaleCheckCount);
 
         setWordsResponse(responseJSON);
 
@@ -256,17 +266,16 @@ export const Main: React.FunctionComponent = () => {
     validLengthWarning =
       <div>
         <div className='warning'>
-          <p>Sorry, none of the words you have chosen are sufficient adjectives.
-          Please hit reset and try again.</p>
+          <p>Sorry, none of the words you have chosen are gendered adjectives.
+          Please type additional text and try again.</p>
         </div>
-        <button
-          className='btn btn-primary'
-          onClick={() => window.location.reload()}
-        >
-          Reset
-        </button>
       </div>
       ;
+  }
+
+  let showBalance;
+  if (maleWords || femaleWords) {
+    showBalance = <Balance male={maleWords} female={femaleWords} />;
   }
 
   return (
@@ -275,7 +284,7 @@ export const Main: React.FunctionComponent = () => {
           {showModal}
           <div className='row'>
             <div className='col-12'>
-              <label className='label'>Please enter a gender</label>
+              <label className='label'>Please enter a gender:</label>
               <select onChange={ ( event ) => updateDemographic( event ) }>
                 <option value=''>-- Please choose an option --</option>
                 <option value='male'>Male</option>
@@ -285,20 +294,24 @@ export const Main: React.FunctionComponent = () => {
           </div>
           <div className='row'>
             <div className='col-12'>
-              <label className='label'>Please enter an advert</label>
               {warning}
               {validLengthWarning}
+              {showBalance}
               <TextArea response={wordsResponse}></TextArea>
             </div>
           </div>
           <div className='row'>
             <div className='col-4'>
             <button
-              disabled={ validLength ? true : false }
               onClick={(event) => submission(event)}
-              // onClick={ wordsResponse ? ( ) => submit() : (event) => submission(event)}
               className='btn btn-primary'>
-              { wordsResponse ? 'Submit' : 'Click me' }
+              Check
+            </button>
+            <button
+              disabled={ validLength ? true : false }
+              onClick={() => submit()}
+              className='btn btn-primary btn-extra'>
+              Submit
             </button>
             </div>
           </div>
