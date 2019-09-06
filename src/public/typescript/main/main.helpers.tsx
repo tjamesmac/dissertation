@@ -1,5 +1,97 @@
-import * as React from 'react';
-import { IDataPL, IResponse } from './main.interface';
+
+import { IDataPL } from './main.interface';
+
+const genderedWords = {
+  maleGenderedWords:
+    [
+      'active',
+      'adventurous',
+      'aggress',
+      'ambitio',
+      'analy',
+      'assert',
+      'athlet',
+      'autonom',
+      'boast',
+      'challeng',
+      'compet',
+      'confident',
+      'courag',
+      'decide',
+      'decisive',
+      'decision',
+      'determin',
+      'dominant',
+      'domina',
+      'force',
+      'greedy',
+      'headstrong',
+      'hierarch',
+      'hostil',
+      'impulsive',
+      'independent',
+      'individual',
+      'intellect',
+      'lead',
+      'logic',
+      'masculine',
+      'objective',
+      'opinion',
+      'outspoken',
+      'persist',
+      'principle',
+      'reckless',
+      'stubborn',
+      'superior',
+      'self-confiden',
+      'self-sufficien',
+      'self-relian',
+    ]
+  ,
+  femaleGenderedWords:
+    [
+      'affectionate',
+      'child',
+      'cheer',
+      'commit',
+      'communal',
+      'compassion',
+      'connect',
+      'considerate',
+      'cooperat',
+      'depend',
+      'emotiona',
+      'empath',
+      'feminine',
+      'flatterable',
+      'gentle',
+      'honest',
+      'interpersonal',
+      'interdependen',
+      'interpersona',
+      'kind',
+      'kinship',
+      'loyal',
+      'modesty',
+      'nag',
+      'nutur',
+      'pleasant',
+      'polite',
+      'quiet',
+      'respon',
+      'sensitiv',
+      'submissive',
+      'support',
+      'sympath',
+      'tender',
+      'together',
+      'trust',
+      'understand',
+      'warm',
+      'whin',
+      'yield',
+    ],
+};
 
 // State reducer
 export const dataReducer = ( state: IDataPL, action: any ) => {
@@ -38,6 +130,41 @@ export const dataReducer = ( state: IDataPL, action: any ) => {
   }
 };
 // removed IResponse from response
+// export const validateWords = ( response: any, textCheck: string ): string => {
+//   const keys = Object.keys(response);
+//   const newKeys = keys.filter( (x) => {
+//     if (response[x].length) {
+//       return x;
+//     } else {
+//       return null;
+//     }
+//   } );
+//   let toChange: string = textCheck;
+//   for (const key of newKeys) {
+//     if (textCheck.includes(key)) {
+//       const word = key;
+//       // const regex = new RegExp(word, 'g');
+//       const regex = new RegExp('\\b' + key + '\\b', 'g');
+//       // string doesn't replace unless assigned to variable
+//       // styling has been taking up because the replace wasn't capable of handling it
+//       const newString = toChange.replace(regex, `<span>${word}</span>`);
+
+//       toChange = newString;
+//     } else {
+//       console.log('oh bother');
+//     }
+//   }
+//   return toChange + '&#8203;';
+// };
+const wordMatcher = (key: string, stringToChange: string, gender: string) => {
+  
+  const word = key;
+  const regex = new RegExp('\\b' + key + '\\b', 'g');
+  const newString = stringToChange.replace(regex, `<span class='${gender}'>${word}</span>`);
+
+  return newString;
+};
+
 export const validateWords = ( response: any, textCheck: string ): string => {
   const keys = Object.keys(response);
   const newKeys = keys.filter( (x) => {
@@ -49,18 +176,21 @@ export const validateWords = ( response: any, textCheck: string ): string => {
   } );
   let toChange: string = textCheck;
   for (const key of newKeys) {
-    if (textCheck.includes(key)) {
-      const word = key;
-      // const regex = new RegExp(word, 'g');
-      const regex = new RegExp('\\b' + key + '\\b', 'g');
-      // string doesn't replace unless assigned to variable
-      // styling has been taking up because the replace wasn't capable of handling it
-      const newString = toChange.replace(regex, `<span>${word}</span>`);
+      for (const male of genderedWords.maleGenderedWords) {
+        // console.log(key, word);
+        // console.log(word.search(key));
+        if (textCheck.includes(key) && key.match(male)) {
 
-      toChange = newString;
-    } else {
-      console.log('oh bother');
-    }
+          const maleNew  = wordMatcher(key, toChange, 'male');
+          toChange = maleNew;
+        }
+      }
+      for (const female of genderedWords.femaleGenderedWords) {
+        if (textCheck.includes(key) && key.match(female)) {
+          const femaleWord = wordMatcher(key, toChange, 'female');
+          toChange = femaleWord;
+        }
+      }
   }
   return toChange + '&#8203;';
 };
@@ -86,3 +216,93 @@ export const createSpan = ( elementTag: string, text: string, colour: string ) =
   element.style.color = colour;
   return element;
 };
+
+// export const genderedWords = () => {
+//   const maleGenderedWords =
+//   [
+//     'active',
+//     'adventurous',
+//     'aggress',
+//     'ambitio',
+//     'analy',
+//     'assert',
+//     'athlet',
+//     'autonom',
+//     'boast',
+//     'challeng',
+//     'compet',
+//     'confident',
+//     'courag',
+//     'decide',
+//     'decisive',
+//     'decision',
+//     'determin',
+//     'dominant',
+//     'domina',
+//     'force',
+//     'greedy',
+//     'headstrong',
+//     'hierarch',
+//     'hostil',
+//     'impulsive',
+//     'independent',
+//     'individual',
+//     'intellect',
+//     'lead',
+//     'logic',
+//     'masculine',
+//     'objective',
+//     'opinion',
+//     'outspoken',
+//     'persist',
+//     'principle',
+//     'reckless',
+//     'stubborn',
+//     'superior',
+//     'self-confiden',
+//     'self-sufficien',
+//     'self-relian',
+//   ];
+//   const femaleGenderedWords = [
+//     'affectionate',
+//     'child',
+//     'cheer',
+//     'commit',
+//     'communal',
+//     'compassion',
+//     'connect',
+//     'considerate',
+//     'cooperat',
+//     'depend',
+//     'emotiona',
+//     'empath',
+//     'feminine',
+//     'flatterable',
+//     'gentle',
+//     'honest',
+//     'interpersonal',
+//     'interdependen',
+//     'interpersona',
+//     'kind',
+//     'kinship',
+//     'loyal',
+//     'modesty',
+//     'nag',
+//     'nutur',
+//     'pleasant',
+//     'polite',
+//     'quiet',
+//     'respon',
+//     'sensitiv',
+//     'submissive',
+//     'support',
+//     'sympath',
+//     'tender',
+//     'together',
+//     'trust',
+//     'understand',
+//     'warm',
+//     'whin',
+//     'yield',
+//   ];
+// };
