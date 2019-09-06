@@ -147,8 +147,12 @@ export const Main: React.FunctionComponent = () => {
 
         // by keeping this here it does rerender everytime
         const textChange = validateWords(responseJSON, textAreaValue);
+        console.log(textChange.includes(`='male'`));
+        if ( !textChange.includes(`='male'`) && !textChange.includes(`='female'`)) {
+          setValidLength(true);
+        }
 
-        greenify(); // this is used to color the words;
+        // greenify(); // this is used to color the words;
 
         (document.getElementById('textarea') as HTMLDivElement).innerHTML = textChange;
 
@@ -291,7 +295,8 @@ export const Main: React.FunctionComponent = () => {
             <div className='col-4'>
             <button
               disabled={ validLength ? true : false }
-              onClick={ wordsResponse ? ( ) => submit() : (event) => submission(event)}
+              onClick={(event) => submission(event)}
+              // onClick={ wordsResponse ? ( ) => submit() : (event) => submission(event)}
               className='btn btn-primary'>
               { wordsResponse ? 'Submit' : 'Click me' }
             </button>
