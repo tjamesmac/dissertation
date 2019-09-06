@@ -19,12 +19,19 @@ export const Home: React.FunctionComponent = () => {
             <p>
               You will be able to copy and paste text into
               the input area. After doing so, any adjectives
-              that can be changed will be highlighted in green.
+              that can be changed will be highlighted
+              <span className='male'>male</span> or <span className='female'>female</span>.
               Hovering over them will allow you to change the word.
             </p>
             <p>
               When you have submitted the changes to your advert, you will
               be able to choose from two previous posted adverts.
+            </p>
+            <p>
+              Choosing one of the previous adverts will end the program.
+            </p>
+            <p>
+              Thank you for taking part!
             </p>
           </div>
         <Link to='/main' className='btn btn-primary'>Start</Link>
