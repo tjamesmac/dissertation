@@ -4,11 +4,18 @@ $font-size: 15px;
 $padding: 15px;
 
 // colours
-$colour-one: #124673;
-$colour-two: #0477BF;
+// $colour-one: #124673;
+// $colour-two: #0477BF;
+// $colour-three: #F2A444;
+// $colour-four: #F2DFCE;
+// $colour-five: #F24C27;
+$colour-one: #FFFCEF;
+$colour-two: #F2DFCE;
 $colour-three: #F2A444;
-$colour-four: #F2DFCE;
+$colour-four: #FFFCEF;
 $colour-five: #F24C27;
+$colour-male: #510E80;
+$colour-female: #40655C;
 
 // MIXINS
 // :state styling 
@@ -84,4 +91,5 @@ h6 {
 .info {
   @include margin-top;
   @include margin-bottom;
+  line-height: 2;
 }

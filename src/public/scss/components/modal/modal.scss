@@ -21,7 +21,7 @@ $modalSizing: 150px;
   position: absolute;
   height: $modalSizing;
   width: $modalSizing;
-  background-color: #124673;
+  background-color: $colour-one;
   @include border;
   @include boxShadow;
 

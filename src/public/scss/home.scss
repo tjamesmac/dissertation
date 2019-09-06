@@ -12,9 +12,12 @@ body {
 
 
 .male {
-  background-color: red;
-  
+  background-color: $colour-male;
+  padding: 2px;
+  color: white;
 }
 .female {
-  background-color: yellow;
+  background-color: $colour-female;
+  color: white;
+  padding: 2px;
 }

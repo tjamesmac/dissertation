@@ -1,7 +1,7 @@
 #textarea {
   background-color: #F2DFCE;
   border: 1px solid black;
-  height: 500px;
+  min-height: 500px;
   color: black;
   padding: 15px;
   @include margin-bottom;

@@ -18,7 +18,7 @@
 
 .btn-primary {
   background-color: $colour-two;
-  color: white;
+  color: black;
   font-size: $font-size;
 
   &:focus {
@@ -27,4 +27,7 @@
   &:hover {
     background-color: $colour-three;
   }
+}
+.btn-extra {
+  margin-left: $padding;
 }
