@@ -249,10 +249,7 @@ export const Main: React.FunctionComponent = () => {
       const stateCheck: any = submissionData;
       if (stateCheck.demographic) {
         setDemographicWarning(false);
-
-        const newGenderedWords = genderCheck(stateCheck.orderOfWords);
-        dispatch( { type: 'UPDATE_FINALGENDER', payload: newGenderedWords } );
-
+        
         const URL = '/data';
         const data = await fetch(URL, {
           method: 'POST',
