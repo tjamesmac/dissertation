@@ -1,6 +1,9 @@
 export interface IWordAndSynonym {
   word: string;
-  synonyms: string[];
+  adjectives?: string[];
+  adverbs?: string[];
+  nouns?: string[];
+  verbs?: string[];
 }
 
 export interface IDataPL {
@@ -14,8 +17,7 @@ export interface IResponse {
   [key: string]: string[];
 }
 
-// export interface IResponse {
-//   word: string;
-//   type: string;
-//   synonyms: string[];
-// }
+export interface IGenderedWords {
+  male: string[];
+  female: string[];
+}
