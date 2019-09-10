@@ -17,24 +17,24 @@ interface IModalProps {
 const Modal = ( prop: IModalProps ): JSX.Element => {
   const words: any = prop.words;
   const wordKeys = Object.keys(words);
-  const adverbs = [];
-  const adjectives = [];
-  const verbs = [];
-  const nouns = [];
+  let adverbs;
+  let adjectives;
+  let verbs;
+  let nouns;
   for ( const type of wordKeys ) {
     if (type !== 'word') {
 
       if (type === 'adjectives') {
-        adjectives.push(words[type]);
+        adjectives = words[type];
       }
       if (type === 'adverbs') {
-        adverbs.push(words[type]);
+        adverbs = words[type];
       }
       if (type === 'nouns') {
-        nouns.push(words[type]);
+        nouns = words[type];
       }
       if (type === 'verbs') {
-        verbs.push(words[type]);
+        verbs = words[type];
       }
     }
   }
@@ -47,9 +47,9 @@ const Modal = ( prop: IModalProps ): JSX.Element => {
   };
   let wordMapAdj;
   let adjType;
-  if (adjectives.length) {
+  if (adjectives) {
     adjType = <li className='synonyms-type'>Adjectives</li>;
-    const actualAdj = adjectives[0];
+    const actualAdj = adjectives;
     wordMapAdj = actualAdj.map(( word: string, index: number ) => {
       return <li
                 className='synonyms-item'
@@ -62,9 +62,12 @@ const Modal = ( prop: IModalProps ): JSX.Element => {
   }
   let wordMapAdverb;
   let adverbType;
-  if (adverbs.length) {
+  if (adverbs) {
+    console.log(adverbs, 'this is adverbs');
+    console.log(adverbs.length);
     adverbType = <li className='synonyms-type'>Adverbs</li>;
-    const actualAdverbs = adverbs[0];
+    const actualAdverbs = adverbs;
+    console.log(actualAdverbs, 'this just caused an error');
     wordMapAdverb = actualAdverbs.map(( word: string, index: number ) => {
     return <li
               className='synonyms-item'
@@ -77,9 +80,9 @@ const Modal = ( prop: IModalProps ): JSX.Element => {
   }
   let wordMapNouns;
   let nounType;
-  if (nouns.length) {
+  if (nouns) {
     nounType = <li className='synonyms-type'>Nouns</li>;
-    const actualNouns = nouns[0];
+    const actualNouns = nouns;
     wordMapNouns = actualNouns.map(( word: string, index: number ) => {
       return <li
                 className='synonyms-item'
@@ -92,9 +95,9 @@ const Modal = ( prop: IModalProps ): JSX.Element => {
   }
   let wordMapVerbs;
   let verbType;
-  if (verbs.length) {
+  if (verbs) {
     verbType = <li className='synonyms-type'>Verbs</li>;
-    const actualVerbs = verbs[0];
+    const actualVerbs = verbs;
     wordMapVerbs = actualVerbs.map(( word: string, index: number ) => {
       return <li
                 className='synonyms-item'
