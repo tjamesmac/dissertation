@@ -127,8 +127,6 @@ const Choice: React.FunctionComponent = () => {
           />
         );
       } );
-    } else {
-      // optionMap = <div>Not enough results yet. Thank you for participating.</div>;
     }
   } else {
     return (
@@ -144,9 +142,9 @@ const Choice: React.FunctionComponent = () => {
         <div className='col-12'>
           <h2 className='header'>Options!</h2>
           {choices ?
-            (<div>Not enough results yet. Thank you for participating.</div>)
-             :
             (<p>Please pick one of the two options below.</p>)
+             :
+             (<div>Not enough results yet. Thank you for participating.</div>)
           }
           <div className='option-container'>
             {optionMap}
