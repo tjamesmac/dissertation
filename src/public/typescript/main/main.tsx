@@ -141,30 +141,29 @@ export const Main: React.FunctionComponent = () => {
 
         // by keeping this here it does rerender everytime
         const validatedWords = validateWords(responseJSON, textAreaValue);
-        const textChange = validatedWords.textChange;
-
-        if ( !textChange.includes(`='male'`) && !textChange.includes(`='female'`)) {
-          setValidLength(true);
-        }
+        const textChange = validatedWords.updatedString;
+        greenify(); // used to colour the words;
+        setValidLength(true);
+        
 
         (document.getElementById('textarea') as HTMLDivElement).innerHTML = textChange;
 
         const checkForGender: any = document.querySelector('#textarea');
         const genderChildren = checkForGender.children;
 
-        let maleCheckCount = 0;
-        let femaleCheckCount = 0;
+        // let maleCheckCount = 0;
+        // let femaleCheckCount = 0;
 
-        for ( const element of genderChildren ) {
-          if (element.className === 'male') {
-            maleCheckCount++;
-          }
-          if (element.className === 'female') {
-            femaleCheckCount++;
-          }
-        }
-        setMaleWords(maleCheckCount);
-        setFemaleWords(femaleCheckCount);
+        // for ( const element of genderChildren ) {
+        //   if (element.className === 'male') {
+        //     maleCheckCount++;
+        //   }
+        //   if (element.className === 'female') {
+        //     femaleCheckCount++;
+        //   }
+        // }
+        // setMaleWords(maleCheckCount);
+        // setFemaleWords(femaleCheckCount);
 
         setWordsResponse(responseJSON);
 
