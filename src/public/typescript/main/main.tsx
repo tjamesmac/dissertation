@@ -1,3 +1,12 @@
+// 
+// 
+// I have got as far as being in the synonym setting array
+// 
+// 
+
+
+
+
 import * as React from 'react';
 import { Redirect } from 'react-router-dom';
 import Balance from '../balance/balance';
@@ -44,24 +53,61 @@ export const Main: React.FunctionComponent = () => {
     const rect = this.getBoundingClientRect();
     setModalPosition({ top: rect.top + 20, left: rect.left });
     if (wordsResponse) {
-      const keys: any = Object.keys(wordsResponse);
-      for (const value of keys) {
-        if (value === this.innerText) {
-          const syns = wordsResponse[value];
-          const rootAndSynonym = { word: value, synonyms: syns };
-          setSynonyms(rootAndSynonym);
-        }
-        if ( this.innerText !== value ) {
-          const syns = wordsResponse[value];
-          if ( syns.includes( this.innerText ) ) {
-            const newSynonyms = wordsResponse[value].filter( (item) => item !== this.innerText );
-            newSynonyms.push(value);
+      const posKeys: any = Object.keys(wordsResponse);
 
-            const rootAndSynonym = { word: this.innerText, synonyms: newSynonyms };
-            setSynonyms(rootAndSynonym);
+
+      const testObject: any = {};
+      for ( const partOfSpeech of posKeys ) {
+
+        const nounTest = wordsResponse[partOfSpeech];
+        const keys = Object.keys(nounTest);
+
+        if (keys.length !== 0) {
+
+          for (const word of keys) {
+            const value: any = word;
+
+            if (value === this.innerText) {
+              testObject.word = value;
+              const nestedWords: any = nounTest[value];
+
+              const syns = nestedWords;
+              
+
+              
+              testObject[partOfSpeech] = syns;
+            }
+            if ( this.innerText !== value ) {
+              
+              console.log(this.innerText, 'this is the innerText inside the swapper');
+              // console.log(value, 'this is the value inside the swapper');
+              const nestedWords: any = nounTest[value];
+              // console.log(nestedWords, 'these are the nested words within the swapper');
+              const syns = nestedWords;
+              if ( syns.includes( this.innerText ) ) {
+                const newSynonyms = nestedWords.filter( (item: any) => item !== this.innerText );
+                newSynonyms.push(value);
+  
+                // const rootAndSynonym = { word: this.innerText, synonyms: newSynonyms };
+                testObject.word = this.innerText;
+                testObject[partOfSpeech] = newSynonyms;
+  
+                setSynonyms(testObject);
+              }
+            }
           }
         }
+
       }
+      for ( const prop of Object.keys(testObject) ) {
+        if (!testObject[prop].length) {
+          delete testObject[prop];
+        }
+      }
+      // Need to change what setSynonyms accepts
+      console.log(testObject);
+      setSynonyms(testObject);
+
     }
     if (!modalState) {
       setModalState(true);
@@ -115,6 +161,10 @@ export const Main: React.FunctionComponent = () => {
       .innerText;
 
     dispatch( { type: 'UPDATE_ORIGINAL', payload: textAreaValue } );
+    // update gender here
+    // need to change models
+    // need to add a new reducer thing
+    // need to fix modal
 
     const bodyText: object = { value: textAreaValue };
     try {
@@ -131,7 +181,7 @@ export const Main: React.FunctionComponent = () => {
 
       if (response.status === 200) {
         const responseJSON: IResponse = await response.json();
-        console.log(responseJSON, 'response');
+
         const length = Object.keys(responseJSON).length;
         if ( length === 0 ) {
           console.log('oh no no results');
@@ -141,13 +191,17 @@ export const Main: React.FunctionComponent = () => {
 
         // by keeping this here it does rerender everytime
         const validatedWords = validateWords(responseJSON, textAreaValue);
+        console.log(validatedWords);
         const textChange = validatedWords.updatedString;
-        greenify(); // used to colour the words;
-        setValidLength(true);
-        
 
+        if (!validatedWords.valid.length) {
+          setValidLength(true); // uncomment this when I have a way to check
+        }
+
+        // (document.getElementById('textarea') as HTMLDivElement).innerHTML = '';
         (document.getElementById('textarea') as HTMLDivElement).innerHTML = textChange;
 
+        greenify(); // used to colour the words;
         const checkForGender: any = document.querySelector('#textarea');
         const genderChildren = checkForGender.children;
 
@@ -178,19 +232,48 @@ export const Main: React.FunctionComponent = () => {
     const children: any = original.children; // difficult to type HTML collection
     for (const element of children) {
       if (synonyms) {
-        if (synonyms.word === element.innerText || synonyms.synonyms.includes(element.innerText)) {
-
+        if ( synonyms.word === element.innerText ) {
+          const synonymsState: any = synonyms;
           const span = createSpan('span', value, 'blue');
           original.replaceChild(span, element);
 
-          const newSynonyms = synonyms.synonyms.filter( (item) => item !== value );
-          newSynonyms.push(element.innerText);
+          let newAdjectives = synonymsState.adjectives;
+          if (synonymsState.adjectives && synonymsState.adjectives.includes(value)) {
 
-          const rootAndSynonym = { word: value, synonyms: newSynonyms };
+            newAdjectives = synonymsState.adjectives.filter( ( item: string ) => item !== value );
+            newAdjectives.push(element.innerText);
+          }
+          let newAdverbs = synonymsState.adverbs;
+          if (synonymsState.adverbs && synonymsState.adverbs.includes(value) ) {
+
+            newAdverbs = synonymsState.adverbs.filter( ( item: string ) => item !== value );
+            newAdverbs.push(element.innerText);
+          }
+          let newVerbs = synonymsState.verbs;
+          if (synonymsState.verbs && synonymsState.verbs.includes(value)) {
+
+            newVerbs = synonymsState.verbs.filter( ( item: string ) => item !== value );
+            newVerbs.push(element.innerText);
+          }
+          let newNouns = synonymsState.nouns;
+          if (synonymsState.nouns && synonymsState.nouns.includes(value)) {
+
+            newNouns = synonymsState.nouns.filter( ( item: string ) => item !== value );
+            newNouns.push(element.innerText);
+          }
+
+          const rootAndSynonym = {
+            word: value,
+            adjectives: newAdjectives,
+            nouns: newNouns,
+            adverbs: newAdverbs,
+            verbs: newVerbs,
+          };
           setSynonyms(rootAndSynonym);
 
           dispatch( { type: 'UPDATE_ORDER', payload: value } );
           dispatch( { type: 'UPDATE_NEW', payload: original.innerText } );
+          // update gendered words here
 
         }
       }
@@ -265,7 +348,7 @@ export const Main: React.FunctionComponent = () => {
     validLengthWarning =
       <div>
         <div className='warning'>
-          <p>Sorry, none of the words you have chosen are gendered adjectives.
+          <p>Sorry, none of the words you have chosen are contain synonyms.
           Please type additional text and try again.</p>
         </div>
       </div>
