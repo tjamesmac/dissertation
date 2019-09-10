@@ -1,5 +1,5 @@
 
-import { IDataPL } from './main.interface';
+import { IDataPL, IGenderedWords } from './main.interface';
 
 const genderedWords = {
   maleGenderedWords:
@@ -121,6 +121,16 @@ export const dataReducer = ( state: IDataPL, action: any ) => {
         demographic: action.payload,
       };
     case 'UPDATE_LENGTH':
+      return {
+        ...state,
+        length: action.payload,
+      };
+    case 'UPDATE_INITIALGENDER':
+      return {
+        ...state,
+        initialGenderWords: action.payload,
+      };
+    case 'UPDATE_SOMETHINGELSE':
       return {
         ...state,
         length: action.payload,
@@ -317,7 +327,7 @@ export const genderCheck = ( wordsToCheck: string[] ) => {
     }
   }
   console.log(masculineWords, feminineWords, 'gendered arrays');
-  const genderWords = {
+  const genderWords: IGenderedWords = {
     male: masculineWords,
     female: feminineWords,
   };
