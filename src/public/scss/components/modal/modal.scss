@@ -19,8 +19,8 @@ $modalSizing: 150px;
 
 .synonyms {
   position: absolute;
-  height: $modalSizing;
-  width: $modalSizing;
+  min-height: $modalSizing;
+  min-width: $modalSizing;
   background-color: $colour-one;
   @include border;
   @include boxShadow;
@@ -44,5 +44,10 @@ $modalSizing: 150px;
     &:focus {
       @include focus;
     }
+  }
+  .synonyms-type {
+    padding: $padding - 10;
+    flex: 1 1 auto;
+    background-color: $colour-five;
   }
 }
