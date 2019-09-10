@@ -1,35 +1,38 @@
 import mongoose, { Schema } from 'mongoose';
 
-interface IFinalResult {
-  // what goes in here
+interface IGender {
+  male: string[];
+  female: string[];
+}
 
-  // demographic match;
+interface IFinalResult {
+
   demographicMatch: boolean;
   demographic: string;
-  // length of the submission
-  submissionLength: number;
-  // amount of words that can be changed
+  originalSubmissionLength: number;
+  finalSubmissionLength: number;
   lengthOfAdjectivesPossible: number;
-  // amount of words changed and in the order
   orderChangeLength: number;
-  // id of the corresponding document
   correspondingID: string;
+  initialGenderedWords: IGender;
+  finalGenderedWords: IGender;
+
 }
 
 interface IFinalResultModel extends IFinalResult, mongoose.Document {}
 
 const finalResultSchema: Schema = new mongoose.Schema({
-  // goes in here
+
   demographicMatch: Boolean,
   demographic: String,
-  // length of the submission
-  submissionLength: Number,
-  // amount of words that can be changed
+  originalSubmissionLength: Number,
+  finalSubmissionLength: Number,
   lengthOfAdjectivesPossible: Number,
-  // amount of words changed and in the order
   orderChangeLength: Number,
-  // id of the corresponding document
   correspondingID: String,
+  initialGenderedWords: Object,
+  finalGenderedWords: Object,
+
 });
 
 const FinalResult = mongoose.model<IFinalResultModel>('FinalResult', finalResultSchema);
