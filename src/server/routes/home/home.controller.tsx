@@ -5,7 +5,7 @@ import { StaticRouter } from 'react-router-dom';
 import App from '../../../public/typescript/app/app';
 import { overAll } from '../../helpers/wordnetTwo';
 import { htmlTemplate } from '../../htmlTemplate';
-// import { overAll } from '../../wordnet';
+
 
 const controller = {
   postHomeController: async ( req: Request, res: Response ) => {

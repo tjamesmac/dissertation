@@ -74,7 +74,6 @@ export async function overAll( inputString: string ) {
         }
       } );
     }
-    console.log(tempObject);
     return tempObject;
   };
 
@@ -94,6 +93,5 @@ export async function overAll( inputString: string ) {
       object[posKey] = await lookUpResult;
     }
   }
-  console.log(object, 'final object');
   return object;
 }
