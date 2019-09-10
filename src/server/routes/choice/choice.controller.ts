@@ -104,26 +104,29 @@ const controller = {
         const original = response.originalString;
         // length of the original string
         const lengthOfOriginal = original.length;
+        const lengthOfNewString = response.newString.length;
         // how many adjectives possible
         const lengthOfAdjectivesPossible = response.length;
         // how many adjectives can be changed
         const lengthOfChangedWords = response.orderOfWords.length;
+        const intitialGender = response.initialGenderedWords;
+        const finalGender = response.finalGenderedWords;
         if ( actualDemographic === chosenDemographic ) {
           // if the chosen demographic matches the users demographic
           dataObject.demographicMatch = true;
         } else {
           dataObject.demographicMatch = false;
         }
-        // length of advert
-        dataObject.submissionLength = lengthOfOriginal;
-        // the amount of words changed
+        dataObject.originalSubmissionLength = lengthOfOriginal;
+        dataObject.finalSubmissionLength = lengthOfNewString;
         dataObject.orderChangeLength = lengthOfChangedWords;
-        // the amount of words that can be changed
         dataObject.lengthOfAdjectivesPossible = lengthOfAdjectivesPossible;
-        // ID of the document that contained the original data in
         dataObject.correspondingID = response._id;
+        dataObject.initialGenderedWords = intitialGender;
+        dataObject.finalGenderedWords = finalGender;
 
         wordsObject.demographic = actualDemographic;
+        console.log(response.orderOfWords);
         wordsObject.words = response.orderOfWords;
         console.log(response.orderOfWords, 'this is the order of words insdie ');
 
