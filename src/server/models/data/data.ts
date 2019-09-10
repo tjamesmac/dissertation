@@ -1,9 +1,15 @@
 import mongoose, { Schema } from 'mongoose';
 
+interface IGender {
+  male: string[];
+  female: string[];
+}
 interface IData {
   originalString: string;
   newString: string;
   orderOfWords: string[];
+  initialGenderedWords: IGender;
+  finalGenderedWords: IGender;
   demographic: string;
   length: number;
 }
@@ -15,6 +21,8 @@ const dataSchema: Schema = new mongoose.Schema({
   newString: String,
   orderOfWords: Array,
   demographic: String,
+  initialGenderedWords: Object,
+  finalGenderedWords: Object,
   length: Number,
 });
 
