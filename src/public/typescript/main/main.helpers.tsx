@@ -130,10 +130,10 @@ export const dataReducer = ( state: IDataPL, action: any ) => {
         ...state,
         initialGenderWords: action.payload,
       };
-    case 'UPDATE_SOMETHINGELSE':
+    case 'UPDATE_FINALGENDER':
       return {
         ...state,
-        length: action.payload,
+        finalGenderWords: action.payload,
       };
       default:
         throw new Error();
