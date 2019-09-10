@@ -1,0 +1,16 @@
+.data-item {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  display: flex;
+  background-color: white;
+  box-shadow: 0 0 10px 0 rgba(0,0,0,0.1);
+  .data-title {
+    flex: 0 0 40%;
+  }
+  .data-result {
+    flex: 1 0 auto;
+  }
+  .data-result-shared {
+    flex: 0 0 30%;
+  }
+}
