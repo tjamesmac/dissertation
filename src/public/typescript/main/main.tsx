@@ -1,18 +1,8 @@
-// 
-// 
-// I have got as far as being in the synonym setting array
-// 
-// 
-
-
-
-
 import * as React from 'react';
 import { Redirect } from 'react-router-dom';
-import Balance from '../balance/balance';
 import Modal, { IModalPosition } from '../modal/modal';
 import TextArea from '../textArea/textArea';
-import { createSpan, dataReducer, greenify, validateWords } from './main.helpers';
+import { createSpan, dataReducer, genderCheck, greenify, validateWords } from './main.helpers';
 import { IResponse, IWordAndSynonym } from './main.interface';
 
 export const Main: React.FunctionComponent = () => {
@@ -35,16 +25,14 @@ export const Main: React.FunctionComponent = () => {
 
   const [ demographicWarning, setDemographicWarning ] = React.useState< false | true>(false);
 
-  const [ maleWords , setMaleWords ] = React.useState< number > (0);
-
-  const [ femaleWords , setFemaleWords ] = React.useState< number > (0);
-
   // store in the db
   const [ submissionData, dispatch ] =
     React.useReducer < any >( dataReducer, {
       originalString: '',
       newString: '',
       orderOfWords: [],
+      initialGenderWords: [],
+      finalGenderWords: [],
       demographic : '',
       length: 0,
   });
@@ -55,8 +43,7 @@ export const Main: React.FunctionComponent = () => {
     if (wordsResponse) {
       const posKeys: any = Object.keys(wordsResponse);
 
-
-      const testObject: any = {};
+      const synonymObject: any = {};
       for ( const partOfSpeech of posKeys ) {
 
         const nounTest = wordsResponse[partOfSpeech];
@@ -68,17 +55,15 @@ export const Main: React.FunctionComponent = () => {
             const value: any = word;
 
             if (value === this.innerText) {
-              testObject.word = value;
+              synonymObject.word = value;
               const nestedWords: any = nounTest[value];
 
               const syns = nestedWords;
-              
 
-              
-              testObject[partOfSpeech] = syns;
+              synonymObject[partOfSpeech] = syns;
             }
             if ( this.innerText !== value ) {
-              
+
               console.log(this.innerText, 'this is the innerText inside the swapper');
               // console.log(value, 'this is the value inside the swapper');
               const nestedWords: any = nounTest[value];
@@ -87,26 +72,25 @@ export const Main: React.FunctionComponent = () => {
               if ( syns.includes( this.innerText ) ) {
                 const newSynonyms = nestedWords.filter( (item: any) => item !== this.innerText );
                 newSynonyms.push(value);
-  
-                // const rootAndSynonym = { word: this.innerText, synonyms: newSynonyms };
-                testObject.word = this.innerText;
-                testObject[partOfSpeech] = newSynonyms;
-  
-                setSynonyms(testObject);
+
+                synonymObject.word = this.innerText;
+                synonymObject[partOfSpeech] = newSynonyms;
+
+                setSynonyms(synonymObject);
               }
             }
           }
         }
 
       }
-      for ( const prop of Object.keys(testObject) ) {
-        if (!testObject[prop].length) {
-          delete testObject[prop];
+      for ( const prop of Object.keys(synonymObject) ) {
+        if (!synonymObject[prop].length) {
+          delete synonymObject[prop];
         }
       }
       // Need to change what setSynonyms accepts
-      console.log(testObject);
-      setSynonyms(testObject);
+      console.log(synonymObject);
+      setSynonyms(synonymObject);
 
     }
     if (!modalState) {
@@ -161,10 +145,6 @@ export const Main: React.FunctionComponent = () => {
       .innerText;
 
     dispatch( { type: 'UPDATE_ORIGINAL', payload: textAreaValue } );
-    // update gender here
-    // need to change models
-    // need to add a new reducer thing
-    // need to fix modal
 
     const bodyText: object = { value: textAreaValue };
     try {
@@ -182,42 +162,26 @@ export const Main: React.FunctionComponent = () => {
       if (response.status === 200) {
         const responseJSON: IResponse = await response.json();
 
-        const length = Object.keys(responseJSON).length;
+        // by keeping this here it does rerender everytime
+        const validatedWords = validateWords(responseJSON, textAreaValue);
+        console.log(validatedWords);
+        const textChange = validatedWords.updatedString;
+        const length = validatedWords.valid.length;
+        dispatch( { type: 'UPDATE_INITIALGENDER', payload: validatedWords.initialGendered } );
+
         if ( length === 0 ) {
           console.log('oh no no results');
           setValidLength(true);
         }
         dispatch( { type: 'UPDATE_LENGTH', payload: length } );
 
-        // by keeping this here it does rerender everytime
-        const validatedWords = validateWords(responseJSON, textAreaValue);
-        console.log(validatedWords);
-        const textChange = validatedWords.updatedString;
-
         if (!validatedWords.valid.length) {
-          setValidLength(true); // uncomment this when I have a way to check
+          setValidLength(true);
         }
 
-        // (document.getElementById('textarea') as HTMLDivElement).innerHTML = '';
         (document.getElementById('textarea') as HTMLDivElement).innerHTML = textChange;
 
         greenify(); // used to colour the words;
-        const checkForGender: any = document.querySelector('#textarea');
-        const genderChildren = checkForGender.children;
-
-        // let maleCheckCount = 0;
-        // let femaleCheckCount = 0;
-
-        // for ( const element of genderChildren ) {
-        //   if (element.className === 'male') {
-        //     maleCheckCount++;
-        //   }
-        //   if (element.className === 'female') {
-        //     femaleCheckCount++;
-        //   }
-        // }
-        // setMaleWords(maleCheckCount);
-        // setFemaleWords(femaleCheckCount);
 
         setWordsResponse(responseJSON);
 
@@ -281,11 +245,13 @@ export const Main: React.FunctionComponent = () => {
   };
   const submit = async () => {
     try {
-      // this needs to be a process.env at some point
-      // just kidding can use a relative path
+
       const stateCheck: any = submissionData;
       if (stateCheck.demographic) {
         setDemographicWarning(false);
+
+        const newGenderedWords = genderCheck(stateCheck.orderOfWords);
+        dispatch( { type: 'UPDATE_FINALGENDER', payload: newGenderedWords } );
 
         const URL = '/data';
         const data = await fetch(URL, {
@@ -355,11 +321,7 @@ export const Main: React.FunctionComponent = () => {
       ;
   }
 
-  let showBalance;
-  if (maleWords || femaleWords) {
-    showBalance = <Balance male={maleWords} female={femaleWords} />;
-  }
-
+  console.log(submissionData);
   return (
       <div className='row'>
         <div className='col-12'>
@@ -378,7 +340,6 @@ export const Main: React.FunctionComponent = () => {
             <div className='col-12'>
               {warning}
               {validLengthWarning}
-              {showBalance}
               <TextArea response={wordsResponse}></TextArea>
             </div>
           </div>
