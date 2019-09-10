@@ -157,11 +157,10 @@ export const dataReducer = ( state: IDataPL, action: any ) => {
 //   return toChange + '&#8203;';
 // };
 const wordMatcher = (key: string, stringToChange: string) => {
-  console.log(key);
+
   const word = key;
   const regex = new RegExp('\\b' + key + '\\b', 'g');
   const newString = stringToChange.replace(regex, `<span class=''>${word}</span>`);
-  console.log(newString, 'newString');
   return newString;
 };
 
@@ -204,15 +203,21 @@ const wordMatcher = (key: string, stringToChange: string) => {
 // };
 
 export const validateWords = ( response: any, textCheck: string ): any => {
+  console.log(textCheck, 'this is my text check');
   const totalWords: any = [];
+  console.log(response, 'response inside valid')
   const keys = Object.keys(response);
 
   const availableWords = [];
+  const restOfWords = [];
   for ( const pos of keys ) {
 
     const wordKeys = Object.keys(response[pos]);
-
-    availableWords.push(wordKeys);
+    if (pos !== 'rest' ) {
+      availableWords.push(wordKeys);
+    } else {
+      restOfWords.push(wordKeys);
+    }
   }
 
   const flattened = availableWords
@@ -221,9 +226,12 @@ export const validateWords = ( response: any, textCheck: string ): any => {
   });
   const validWords: string[] = [];
   let toChange: string = textCheck;
+  
+  console.log(flattened, 'this is my flattened array');
   for (const word of flattened) {
 
-    if ( !validWords.includes( word ) ) {
+    if ( !validWords.includes( word ) && word !== '' ) {
+      console.log(word, 'this is for the valid words');
       validWords.push(word);
       const newWord = wordMatcher(word, toChange);
       toChange = newWord;
@@ -232,6 +240,8 @@ export const validateWords = ( response: any, textCheck: string ): any => {
 
   // THIS IS PART OF THE OBJECT I WANT TO SEND
   console.log(validWords);
+
+  const genderedWordObject = genderCheck(validWords);
 
   // for ( const key of keys ) {
   //   if (Object.entries(response[key]).length !== 0 ) {
@@ -252,19 +262,27 @@ export const validateWords = ( response: any, textCheck: string ): any => {
   //   }
   // }
   // console.log(totalWords);
-  toChange += '&#8203;';
-  const validObject = { updatedString: toChange };
-  
+
+  // THIS IS NOT COMPLETED YET. NEED TO VERIFY THE WORDS ARE GENDERED
+  // WORDS THAT ARE GENDERED WILL BE ADDED TO AN ARRAY AND ADDED TO THIS OBJECT
+  if (validWords.length) {
+    toChange += '&#8203;';
+  }
+  const validObject = {
+    updatedString: toChange,
+    valid: validWords,
+    initialGendered: genderedWordObject,
+  };
+
   return validObject;
 };
 
 
 export const greenify = async () => {
   const textarea = (document.getElementById('textarea') as HTMLDivElement);
-  const children: any = await textarea.children;
-  console.log(children);
+  const children: any = textarea.children;
+  
   if (children) {
-    console.log('hello');
     for ( const element of children ) {
       element.style.color = 'green';
     }
@@ -279,4 +297,29 @@ export const createSpan = ( elementTag: string, text: string, colour: string ) =
   element.appendChild(textNode);
   element.style.color = colour;
   return element;
+};
+
+export const genderCheck = ( wordsToCheck: string[] ) => {
+  const masculineWords = [];
+  const feminineWords = [];
+  for ( const word of wordsToCheck ) {
+    console.log(word, 'valid word loop');
+
+    for ( const male of genderedWords.maleGenderedWords ) {
+      if ( male === word ) {
+        masculineWords.push(word);
+      }
+    }
+    for ( const female of genderedWords.femaleGenderedWords ) {
+      if ( female === word ) {
+        feminineWords.push(word);
+      }
+    }
+  }
+  console.log(masculineWords, feminineWords, 'gendered arrays');
+  const genderWords = {
+    male: masculineWords,
+    female: feminineWords,
+  };
+  return genderWords;
 };
