@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Result, { ResultData, ResultFinal } from './result';
+import Result from './result';
 
 export const Admin = ( ): JSX.Element => {
   const [ words, setWords ] = React.useState();
@@ -29,23 +29,22 @@ export const Admin = ( ): JSX.Element => {
   }, []);
   let dataComp;
   if (data) {
-    
-    dataComp = <Result data={ data } component={ <ResultData/> } />;
-      
+  dataComp = <Result data={ data } />;
   } else {
     dataComp = <div>Loading data...</div>;
   }
   let finalComp;
   if (data) {
     
-    finalComp = <Result data={ data } component={ <ResultFinal/> } />;
+    finalComp = <Result data={ data } />;
   } else {
     finalComp = <div>Loading data...</div>;
   }
   return (
     <div className='info'>
       <h2>This is my admin page that will eventually reveal my results.</h2>
-      <Result></Result>
+      {dataComp}
+      {finalComp}
     </div>
   );
 };
