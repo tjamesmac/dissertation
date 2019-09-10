@@ -234,8 +234,11 @@ export const Main: React.FunctionComponent = () => {
             verbs: newVerbs,
           };
           setSynonyms(rootAndSynonym);
-
-          dispatch( { type: 'UPDATE_ORDER', payload: value } );
+          const orderState: any = submissionData;
+          const orderStateCheck: any = orderState.orderOfWords;
+          if (!orderStateCheck.orderOfWords.includes(value)) {
+            dispatch( { type: 'UPDATE_ORDER', payload: value } );
+          }
           dispatch( { type: 'UPDATE_NEW', payload: original.innerText } );
           // update gendered words here
 
