@@ -12,18 +12,9 @@ const controller = {
     const words = req.body;
     // this needs to be lowercased before going through the function
 
-    // overAll( words.value )
-    //   .then( ( answer ) => {
-    //     for ( const prop of Object.keys(answer) ) {
-    //       if (!answer[prop].length) {
-    //         delete answer[prop];
-    //       }
-    //     }
-    //     return res.send( answer );
-    //   } );
     overAll( words.value )
     .then( ( answer ) => {
-      // console.log(answer);
+
       return res.send( answer );
     } );
   },
