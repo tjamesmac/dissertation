@@ -16,17 +16,14 @@ interface IModalProps {
 
 const Modal = ( prop: IModalProps ): JSX.Element => {
   const words: any = prop.words;
-  console.log(words, 'words');
   const wordKeys = Object.keys(words);
-  console.log(wordKeys);
   const adverbs = [];
   const adjectives = [];
   const verbs = [];
   const nouns = [];
   for ( const type of wordKeys ) {
     if (type !== 'word') {
-      console.log(type);
-      console.log(words[type]);
+
       if (type === 'adjectives') {
         adjectives.push(words[type]);
       }
@@ -68,7 +65,6 @@ const Modal = ( prop: IModalProps ): JSX.Element => {
   if (adverbs.length) {
     adverbType = <li className='synonyms-type'>Adverbs</li>;
     const actualAdverbs = adverbs[0];
-    
     wordMapAdverb = actualAdverbs.map(( word: string, index: number ) => {
     return <li
               className='synonyms-item'
@@ -111,15 +107,20 @@ const Modal = ( prop: IModalProps ): JSX.Element => {
   }
 
   return (
-    <ul className='synonyms' style={positionCSS} onMouseEnter={hover} onMouseLeave={removeHover}>
-      {adjType}
-      {wordMapAdj}
-      {adverbType}
-      {wordMapAdverb}
-      {nounType}
-      {wordMapNouns}
-      {verbType}
-      {wordMapVerbs}
+    <ul
+      className='synonyms'
+      style={ positionCSS }
+      onMouseEnter={ hover }
+      onMouseLeave={ removeHover }
+      >
+        {adjType}
+        {wordMapAdj}
+        {adverbType}
+        {wordMapAdverb}
+        {nounType}
+        {wordMapNouns}
+        {verbType}
+        {wordMapVerbs}
     </ul>
   );
 
