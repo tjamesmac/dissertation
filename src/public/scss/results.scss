@@ -1,7 +1,9 @@
 .data-item {
   margin-top: 5px;
   margin-bottom: 5px;
+  padding: 5px;
   display: flex;
+  align-items: center;
   background-color: white;
   box-shadow: 0 0 10px 0 rgba(0,0,0,0.1);
   .data-title {
@@ -12,5 +14,8 @@
   }
   .data-result-shared {
     flex: 0 0 30%;
+  }
+  .data-result-list {
+    flex: 0 0 50%;
   }
 }
