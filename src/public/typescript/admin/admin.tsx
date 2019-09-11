@@ -29,22 +29,16 @@ export const Admin = ( ): JSX.Element => {
   }, []);
   let dataComp;
   if (data) {
-  dataComp = <Result data={ data } />;
+  dataComp = <Result data={ data }final={ final } words={ words }/>;
   } else {
     dataComp = <div>Loading data...</div>;
   }
-  let finalComp;
-  if (data) {
-    
-    finalComp = <Result data={ data } />;
-  } else {
-    finalComp = <div>Loading data...</div>;
-  }
+
   return (
     <div className='info'>
       <h2>This is my admin page that will eventually reveal my results.</h2>
       {dataComp}
-      {finalComp}
+      
     </div>
   );
 };
