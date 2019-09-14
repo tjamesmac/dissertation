@@ -328,12 +328,13 @@ export const Main: React.FunctionComponent = () => {
           {showModal}
           <div className='row'>
             <div className='col-12'>
-              <label className='label'>Please enter a gender:</label>
-              <select onChange={ ( event ) => updateDemographic( event ) }>
-                <option value=''>-- Please choose an option --</option>
-                <option value='male'>Male</option>
-                <option value='female'>Female</option>
-              </select>
+              <label className='label'>Please enter a gender:
+                <select id='select' onChange={ ( event ) => updateDemographic( event ) }>
+                  <option value=''>-- Please choose an option --</option>
+                  <option value='male'>Male</option>
+                  <option value='female'>Female</option>
+                </select>
+              </label>
             </div>
           </div>
           <div className='row'>
