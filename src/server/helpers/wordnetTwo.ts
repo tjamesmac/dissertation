@@ -93,5 +93,14 @@ export async function overAll( inputString: string ) {
       object[posKey] = await lookUpResult;
     }
   }
+  for ( const prop of Object.keys(object) ) {
+    const innerObject = object[prop];
+    const insideKeys: any = Object.keys(innerObject);
+    for ( const property of insideKeys ) {
+      if (!innerObject[property].length) {
+        delete innerObject[property];
+      }
+    }
+  }
   return object;
 }
