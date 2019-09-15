@@ -149,7 +149,6 @@ const Choice: React.FunctionComponent = () => {
           <div className='option-container'>
             {optionMap}
           </div>
-          <button className='btn btn-primary' onClick={() => fetchData()}>Click</button>
         </div>
       </div>
   );
