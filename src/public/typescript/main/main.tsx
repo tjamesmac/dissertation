@@ -42,7 +42,8 @@ export const Main: React.FunctionComponent = () => {
     setModalPosition({ top: rect.top + 20, left: rect.left });
     if (wordsResponse) {
       const posKeys: any = Object.keys(wordsResponse);
-
+      console.log(posKeys, 'here are my poskeys');
+      console.log(wordsResponse, 'here are my poskeys');
       const synonymObject: any = {};
       for ( const partOfSpeech of posKeys ) {
 
@@ -53,11 +54,12 @@ export const Main: React.FunctionComponent = () => {
 
           for (const word of keys) {
             const value: any = word;
+            console.log(word);
 
             if (value === this.innerText) {
               synonymObject.word = value;
               const nestedWords: any = nounTest[value];
-
+              console.log(nestedWords, 'these are words i should have');
               const syns = nestedWords;
 
               synonymObject[partOfSpeech] = syns;
@@ -75,7 +77,7 @@ export const Main: React.FunctionComponent = () => {
 
                 synonymObject.word = this.innerText;
                 synonymObject[partOfSpeech] = newSynonyms;
-
+                console.log(synonymObject, 'syn object');
                 setSynonyms(synonymObject);
               }
             }
@@ -89,7 +91,7 @@ export const Main: React.FunctionComponent = () => {
         }
       }
       // Need to change what setSynonyms accepts
-      console.log(synonymObject);
+      console.log(synonymObject, 'syn object');
       setSynonyms(synonymObject);
 
     }
@@ -226,6 +228,12 @@ export const Main: React.FunctionComponent = () => {
             newNouns.push(element.innerText);
           }
 
+          const orderState: any = submissionData;
+          const orderStateCheck: any = orderState.orderOfWords;
+          console.log(value);
+          if (!orderStateCheck.includes(value) ) {
+            dispatch( { type: 'UPDATE_ORDER', payload: value } );
+          }
           const rootAndSynonym = {
             word: value,
             adjectives: newAdjectives,
@@ -234,11 +242,7 @@ export const Main: React.FunctionComponent = () => {
             verbs: newVerbs,
           };
           setSynonyms(rootAndSynonym);
-          const orderState: any = submissionData;
-          const orderStateCheck: any = orderState.orderOfWords;
-          if (!orderStateCheck.orderOfWords.includes(value)) {
-            dispatch( { type: 'UPDATE_ORDER', payload: value } );
-          }
+       
           dispatch( { type: 'UPDATE_NEW', payload: original.innerText } );
           // update gendered words here
 
