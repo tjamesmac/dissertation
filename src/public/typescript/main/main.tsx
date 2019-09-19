@@ -42,8 +42,6 @@ export const Main: React.FunctionComponent = () => {
     setModalPosition({ top: rect.top + 20, left: rect.left });
     if (wordsResponse) {
       const posKeys: any = Object.keys(wordsResponse);
-      console.log(posKeys, 'here are my poskeys');
-      console.log(wordsResponse, 'here are my poskeys');
       const synonymObject: any = {};
       for ( const partOfSpeech of posKeys ) {
 
@@ -54,30 +52,21 @@ export const Main: React.FunctionComponent = () => {
 
           for (const word of keys) {
             const value: any = word;
-            console.log(word);
 
             if (value === this.innerText) {
               synonymObject.word = value;
               const nestedWords: any = nounTest[value];
-              console.log(nestedWords, 'these are words i should have');
               const syns = nestedWords;
-
               synonymObject[partOfSpeech] = syns;
             }
             if ( this.innerText !== value ) {
-
-              console.log(this.innerText, 'this is the innerText inside the swapper');
-              // console.log(value, 'this is the value inside the swapper');
               const nestedWords: any = nounTest[value];
-              // console.log(nestedWords, 'these are the nested words within the swapper');
               const syns = nestedWords;
               if ( syns.includes( this.innerText ) ) {
                 const newSynonyms = nestedWords.filter( (item: any) => item !== this.innerText );
                 newSynonyms.push(value);
-
                 synonymObject.word = this.innerText;
                 synonymObject[partOfSpeech] = newSynonyms;
-                console.log(synonymObject, 'syn object');
                 setSynonyms(synonymObject);
               }
             }
@@ -90,10 +79,7 @@ export const Main: React.FunctionComponent = () => {
           delete synonymObject[prop];
         }
       }
-      // Need to change what setSynonyms accepts
-      console.log(synonymObject, 'syn object');
       setSynonyms(synonymObject);
-
     }
     if (!modalState) {
       setModalState(true);
@@ -166,13 +152,11 @@ export const Main: React.FunctionComponent = () => {
 
         // by keeping this here it does rerender everytime
         const validatedWords = validateWords(responseJSON, textAreaValue);
-        console.log(validatedWords);
         const textChange = validatedWords.updatedString;
         const length = validatedWords.valid.length;
         dispatch( { type: 'UPDATE_INITIALGENDER', payload: validatedWords.initialGendered } );
 
         if ( length === 0 ) {
-          console.log('oh no no results');
           setValidLength(true);
         }
         dispatch( { type: 'UPDATE_LENGTH', payload: length } );
@@ -230,7 +214,6 @@ export const Main: React.FunctionComponent = () => {
 
           const orderState: any = submissionData;
           const orderStateCheck: any = orderState.orderOfWords;
-          console.log(value);
           if (!orderStateCheck.includes(value) ) {
             dispatch( { type: 'UPDATE_ORDER', payload: value } );
           }
@@ -314,7 +297,6 @@ export const Main: React.FunctionComponent = () => {
   }
 
   if (nextPage) {
-    console.log('here i go');
     return <Redirect to='/choice' />;
   }
   let validLengthWarning;
@@ -329,7 +311,7 @@ export const Main: React.FunctionComponent = () => {
       ;
   }
 
-  console.log(submissionData);
+
   return (
       <div className='row'>
         <div className='col-12'>
