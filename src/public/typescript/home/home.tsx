@@ -8,9 +8,8 @@ export const Home: React.FunctionComponent = () => {
           <h2>Welcome!</h2>
           <div className='info'>
             <p>
-              This little program has been built to
-              help see whether an advert is male or
-              female biased.
+              This program has been built to
+              help see whether a job advert contains male or female gendered words.
             </p>
             <p>
               After clicking on the start button below,
@@ -18,17 +17,21 @@ export const Home: React.FunctionComponent = () => {
             </p>
             <p>
               You will be able to copy and paste text into
-              the input area. After doing so, any adjectives
-              that can be changed will be highlighted
-              <span className='male'>male</span> or <span className='female'>female</span>.
-              Hovering over them will allow you to change the word.
+              the input area. After doing so, any words
+              that can be edited will be highlighted.
+              Hovering over them will allow you to change the word with a synonym that is available.
+            </p>
+            <p>
+              If you decided to modify any of the words manually,
+               you can press the check button again to see if there are
+               any available words for your edit.
             </p>
             <p>
               When you have submitted the changes to your advert, you will
               be able to choose from two previous posted adverts.
             </p>
             <p>
-              Choosing one of the previous adverts will end the program.
+              Choosing one of the previous adverts will present you with an end page.
             </p>
             <p>
               Thank you for taking part!
