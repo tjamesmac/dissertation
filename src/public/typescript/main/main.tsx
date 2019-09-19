@@ -234,6 +234,10 @@ export const Main: React.FunctionComponent = () => {
           if (!orderStateCheck.includes(value) ) {
             dispatch( { type: 'UPDATE_ORDER', payload: value } );
           }
+
+          // this is a revolving object
+          // by replacing the word prop there is no reference to the word
+          // making it hard to maintain
           const rootAndSynonym = {
             word: value,
             adjectives: newAdjectives,
