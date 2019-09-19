@@ -6,7 +6,7 @@ const NotFound: React.FunctionComponent = () => {
       <div className='row'>
         <div className='col-12'>
           <h2 className='header'>Oops!</h2>
-          <p className='info'>That page cannot be found.</p>
+          <p className='info'>This page cannot be found.</p>
           <Link to='/' className='btn btn-primary'>Back to the beginning</Link>
         </div>
       </div>
