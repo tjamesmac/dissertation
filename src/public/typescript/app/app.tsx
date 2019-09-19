@@ -16,14 +16,6 @@ const App = () => {
           <h1>Gender bias</h1>
         </div>
       </div>
-      {/* <div className='row'>
-        <div className='col-3'>
-          <Link className='link link-primary' to='/'>Home</Link>
-        </div>
-        <div className='col-3'>
-          <Link className='link link-primary' to='/choice'>Choice</Link>
-        </div>
-      </div> */}
       <Switch>
         <Route path='/' exact component={Home} />
         <Route path='/main' component={ Main } />
