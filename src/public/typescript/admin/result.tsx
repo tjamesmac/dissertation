@@ -111,15 +111,15 @@ export const ResultData = ( prop: any ): JSX.Element => {
       <div>
         <button
           className='btn btn-primary'
-          onClick={() => handlePositionIncrease(dataPosition)}
-          >
-            Increase
-        </button>
-        <button
-          className='btn btn-primary'
           onClick={() => handlePositionDecrease(dataPosition)}
           >
             Decrease
+        </button>
+        <button
+          className='btn btn-primary'
+          onClick={() => handlePositionIncrease(dataPosition)}
+          >
+            Increase
         </button>
       </div>
     </div>
@@ -220,15 +220,15 @@ export const ResultFinal = ( prop: any ): JSX.Element => {
       <div>
       <button
           className='btn btn-primary'
-          onClick={() => handlePositionIncrease(dataPosition)}
-          >
-            Increase
-        </button>
-        <button
-          className='btn btn-primary'
           onClick={() => handlePositionDecrease(dataPosition)}
           >
             Decrease
+        </button>
+      <button
+          className='btn btn-primary'
+          onClick={() => handlePositionIncrease(dataPosition)}
+          >
+            Increase
         </button>
       </div>
     </div>
