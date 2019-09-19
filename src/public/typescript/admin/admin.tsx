@@ -31,12 +31,10 @@ export const Admin = ( ): JSX.Element => {
   } else {
     dataComp = <div>Loading data...</div>;
   }
-
   return (
     <div className='info'>
       <h2>This is my admin page that will eventually reveal my results.</h2>
       {dataComp}
-      
     </div>
   );
 };
