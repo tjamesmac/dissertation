@@ -14,8 +14,8 @@ interface IResultWordComp {
 const genderedResultMaker = (array: string[]) => {
   let itemOfArray;
   if (array.length) {
-    return itemOfArray = array.map( (item: any) => {
-      return <div className='data-result'>{item}</div>;
+    return itemOfArray = array.map( (item: any, index: number) => {
+      return <div key={index} className='data-result'>{item}</div>;
     } );
   } else {
     return itemOfArray = <div className='data-result'>No results.</div>;
@@ -51,8 +51,8 @@ export const ResultData = ( prop: any ): JSX.Element => {
 
   let orderOfWords;
   if (data.orderOfWords.length) {
-    orderOfWords = data.orderOfWords.map( (item: any) => {
-      return <div className='data-result'>{item}</div>;
+    orderOfWords = data.orderOfWords.map( (item: any, index: number) => {
+      return <div key={index} className='data-result'>{item}</div>;
     } );
   } else {
     orderOfWords = <div className='data-result'>No results.</div>;
