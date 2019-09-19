@@ -13,9 +13,7 @@ export const Admin = ( ): JSX.Element => {
       const response = await data;
 
       if (response.status === 200) {
-        console.log('I have finally made it here');
         const responseJSON = await response.json();
-        console.log(responseJSON);
         setWords(responseJSON.words);
         setFinal(responseJSON.final);
         setData(responseJSON.data);
