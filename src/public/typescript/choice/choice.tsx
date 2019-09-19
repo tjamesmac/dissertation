@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 import { IPostObject } from './choice.interface';
 import Option from './option.extra';
@@ -19,11 +19,9 @@ const Choice: React.FunctionComponent = () => {
 
       if ( response.status === 200 ) {
         const responseJSON = await response.json();
-        console.log(responseJSON, 'choice response');
-
-        const keys = Object.keys(responseJSON);
-
-        if ( keys.length === 3 ) {
+        const maleLength = responseJSON.male.length;
+        const femaleLength = responseJSON.female.length;
+        if ( maleLength >= 3 && femaleLength >= 3 ) {
           const recentID = responseJSON.recent[0]._id;
           const male = responseJSON.male;
           const female = responseJSON.female;
@@ -48,7 +46,6 @@ const Choice: React.FunctionComponent = () => {
             }
           }
           const allAgain = [ ...femaleArr, ...maleArr ];
-          console.log(allAgain);
           setChoices(allAgain);
 
         } else {
@@ -115,7 +112,6 @@ const Choice: React.FunctionComponent = () => {
     // added 'error handling'
     const keys = Object.keys(choices);
     if (keys.length > 1) {
-      console.log(choices);
       optionMap = choices.map( ( options: any ) => {
         return (
           <Option
@@ -127,6 +123,15 @@ const Choice: React.FunctionComponent = () => {
           />
         );
       } );
+    } else {
+      return <div>
+                <div
+                  className='info'>
+                    Sorry there are not enough results to pick a choice yet.
+                    Please go back to the beginning and enter more data.
+                </div>
+                <Link to='/' className='btn btn-primary'>Back to the beginning</Link>
+              </div>;
     }
   } else {
     return (
