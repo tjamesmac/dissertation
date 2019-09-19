@@ -3,7 +3,6 @@
   margin-bottom: 5px;
   padding: 5px;
   display: flex;
-  align-items: center;
   background-color: white;
   box-shadow: 0 0 10px 0 rgba(0,0,0,0.1);
   .data-title {
@@ -11,6 +10,7 @@
   }
   .data-result {
     flex: 1 1 auto;
+    width: 50%;
   }
   .data-result-shared {
     flex: 0 0 30%;
