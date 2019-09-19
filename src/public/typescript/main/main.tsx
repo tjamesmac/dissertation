@@ -246,7 +246,7 @@ export const Main: React.FunctionComponent = () => {
             verbs: newVerbs,
           };
           setSynonyms(rootAndSynonym);
-       
+
           dispatch( { type: 'UPDATE_NEW', payload: original.innerText } );
           // update gendered words here
 
@@ -260,7 +260,7 @@ export const Main: React.FunctionComponent = () => {
       const stateCheck: any = submissionData;
       if (stateCheck.demographic) {
         setDemographicWarning(false);
-        
+
         const URL = '/data';
         const data = await fetch(URL, {
           method: 'POST',

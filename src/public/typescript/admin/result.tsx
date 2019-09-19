@@ -23,18 +23,16 @@ const genderedResultMaker = (array: string[]) => {
 };
 export const ResultData = ( prop: any ): JSX.Element => {
   const wholeData = prop.data;
-  
   const [ dataPosition, setDataPosition ] = React.useState(wholeData.length - 1);
   const data = wholeData[dataPosition];
   const keys = Object.keys(data);
-  
 
   const handlePositionIncrease = ( position: number ) => {
     const currentPosition = position;
-  
+
     if (currentPosition < wholeData.length - 1) {
       setDataPosition(currentPosition + 1);
-  
+
     }
 
   };
@@ -42,10 +40,10 @@ export const ResultData = ( prop: any ): JSX.Element => {
     const currentPosition = position;
     if (currentPosition >= 0 && currentPosition ) {
       setDataPosition(currentPosition - 1);
-  
+
     }
   };
-  
+
   const maleItemsIn = genderedResultMaker(data.initialGenderedWords.male);
   const femaleItemsIn = genderedResultMaker(data.initialGenderedWords.female);
   const maleItemsFi = genderedResultMaker(data.finalGenderedWords.male);
@@ -127,18 +125,15 @@ export const ResultData = ( prop: any ): JSX.Element => {
 };
 export const ResultFinal = ( prop: any ): JSX.Element => {
   const wholeData = prop.data;
-  
+
   const [ dataPosition, setDataPosition ] = React.useState(wholeData.length - 1);
   const data = wholeData[dataPosition];
-  
-
 
   const handlePositionIncrease = ( position: number ) => {
     const currentPosition = position;
-    
+
     if (currentPosition < wholeData.length - 1) {
       setDataPosition(currentPosition + 1);
-      
     }
 
   };
@@ -146,7 +141,6 @@ export const ResultFinal = ( prop: any ): JSX.Element => {
     const currentPosition = position;
     if (currentPosition >= 0 && currentPosition ) {
       setDataPosition(currentPosition - 1);
-      
     }
   };
 
@@ -212,7 +206,7 @@ export const ResultFinal = ( prop: any ): JSX.Element => {
       </li>
     </ul>
   </div>;
- 
+
   return (
     <div>
       {dataPosition}
@@ -236,7 +230,6 @@ export const ResultFinal = ( prop: any ): JSX.Element => {
 };
 export const ResultWords = ( prop: any ): JSX.Element => {
   const data = prop.data;
-  
   if (data) {
     console.log(data, 'words go here');
   }
@@ -261,7 +254,6 @@ export const ResultWords = ( prop: any ): JSX.Element => {
       } );
     } else {
       const words = Object.keys(element.words);
-      
       male = words.map((value: any, index: number ) => {
         const word = value;
         const num = element.words[word];
@@ -294,8 +286,6 @@ export const ResultWords = ( prop: any ): JSX.Element => {
     </div>
   );
 };
-
-
 
 export const Result = ( prop: any ): JSX.Element => {
   const data = prop.data;
