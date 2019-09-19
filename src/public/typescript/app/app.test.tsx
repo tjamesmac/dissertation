@@ -1,5 +1,6 @@
 import { shallow } from 'enzyme';
 import * as React from 'react';
+import { StaticRouter } from 'react-router';
 import renderer from 'react-test-renderer';
 import App from './app';
 
@@ -10,7 +11,10 @@ describe('App component renders correctly', () => {
   });
   it('matches snapshot', () => {
     const tree = renderer
-      .create(<App />)
+      .create(
+      <StaticRouter>
+      <App />
+      </StaticRouter>)
       .toJSON();
     expect(tree).toMatchSnapshot();
   });

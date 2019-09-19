@@ -4,6 +4,7 @@ import Server from './server';
 
 import React from 'react';
 import { renderToString } from 'react-dom/server';
+import { StaticRouter } from 'react-router';
 import { Home } from '../public/typescript/home/home';
 import { htmlTemplate } from './htmlTemplate';
 
@@ -22,15 +23,9 @@ describe('server template', () => {
     const html = htmlTemplate();
     expect(html).toMatch(htmlTemplate());
   });
-  it('prop should render with correct value', () => {
-    const props = {
-      name: 'Test',
-    };
-    const homeComponent = mount(<Home />);
-    expect(homeComponent.prop('name')).toEqual('Test');
-  });
   it('should match template', () => {
-    const home = <Home />;
+    const home = <StaticRouter><Home/></StaticRouter>
+    ;
     const reactDom = renderToString(home);
     const html = htmlTemplate(reactDom);
     expect(html).toMatch(htmlTemplate(reactDom));

@@ -25,6 +25,15 @@ describe('testing', () => {
       },
     ];
     expect(validateWords(dummyData, dummyString))
-      .toEqual(`this is my <span style='color: green'>testing</span> string&#8203;`);
+      .toEqual(
+        {
+          initialGendered: {
+            female: [],
+            male: [],
+          },
+          updatedString: 'this is my testing string&#8203;',
+          valid: ['word', 'type', 'synonyms'],
+        },
+      );
   });
 });

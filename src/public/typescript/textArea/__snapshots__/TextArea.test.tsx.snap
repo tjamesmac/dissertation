@@ -4,5 +4,6 @@ exports[`Main page component it renders correctly 1`] = `
 <div
   contentEditable={true}
   id="textarea"
+  placeholder="Please enter an advert here..."
 />
 `;

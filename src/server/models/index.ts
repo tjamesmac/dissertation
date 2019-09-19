@@ -3,7 +3,6 @@ import mongoose from 'mongoose';
 
 import Data from './data/data';
 import FinalResult from './finalResult/finalResult.model';
-import User from './user/user';
 import Words from './words/words.model';
 
 dotenv.config();
@@ -13,6 +12,6 @@ export const connectDb = () => {
   return mongoose.connect(dbURL, { useNewUrlParser: true });
 };
 
-const models = { User, Data, FinalResult, Words };
+const models = { Data, FinalResult, Words };
 
 export default models;

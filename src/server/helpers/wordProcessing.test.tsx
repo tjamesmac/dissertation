@@ -38,15 +38,3 @@ describe('Remove doubles', () => {
   });
 
 });
-
-// This test was working then starting returning 500
-describe('POST /', () => {
-  const app = new Server().app;
-  it('returns 200', (done) => {
-    request(app).post('/').then(( response: any ) => {
-      console.log(response.statusCode);
-      // expect(response.statusCode).toBe(200);
-      done();
-    });
-  });
-});

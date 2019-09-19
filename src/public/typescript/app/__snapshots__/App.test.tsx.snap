@@ -1,83 +1,61 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`App component renders correctly matches snapshot 1`] = `
-<div>
+<div
+  className="container"
+>
   <div
-    className="container"
+    className="row"
   >
     <div
-      className="row"
+      className="col-12"
     >
-      <div
-        className="col-12"
-      >
-        <h1>
-          Gender Neutral
-        </h1>
-      </div>
+      <h1>
+        Gender bias
+      </h1>
     </div>
   </div>
   <div
-    className="container"
+    className="row"
   >
     <div
-      className="row"
+      className="col-12"
     >
+      <h2>
+        Welcome!
+      </h2>
       <div
-        className="col-12"
+        className="info"
       >
-        <form
-          onSubmit={[Function]}
-        >
-          <div
-            className="row"
-          >
-            <div
-              className="col-12"
-            >
-              <label
-                className="label"
-              >
-                Please enter a gender
-              </label>
-              <input
-                className=""
-              />
-            </div>
-          </div>
-          <div
-            className="row"
-          >
-            <div
-              className="col-12"
-            >
-              <label
-                className="label"
-              >
-                Please enter an advert
-              </label>
-              <div
-                contentEditable={true}
-                id="textarea"
-              />
-            </div>
-          </div>
-          <div
-            className="row"
-          >
-            <div
-              className="col-4"
-            >
-              <button
-                className="btn btn-primary"
-                onClick={[Function]}
-              >
-                Click me
-              </button>
-            </div>
-          </div>
-        </form>
+        <p>
+          This program has been built to help see whether a job advert contains male or female gendered words.
+        </p>
+        <p>
+          After clicking on the start button below, you will be presented with a text input area.
+        </p>
+        <p>
+          You will be able to copy and paste text into the input area. After doing so, any words that can be edited will be highlighted. Hovering over them will allow you to change the word with a synonym that is available.
+        </p>
+        <p>
+          If you decided to modify any of the words manually, you can press the check button again to see if there are any available words for your edit.
+        </p>
+        <p>
+          When you have submitted the changes to your advert, you will be able to choose from two previous posted adverts.
+        </p>
+        <p>
+          Choosing one of the previous adverts will present you with an end page.
+        </p>
+        <p>
+          Thank you for taking part!
+        </p>
       </div>
+      <a
+        className="btn btn-primary"
+        href="/main"
+        onClick={[Function]}
+      >
+        Start
+      </a>
     </div>
   </div>
 </div>
