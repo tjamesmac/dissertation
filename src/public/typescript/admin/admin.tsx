@@ -25,12 +25,20 @@ export const Admin = ( ): JSX.Element => {
   React.useEffect( () => {
       fetchData();
   }, []);
+  let newDataArr;
   let dataComp;
   if (data) {
-  dataComp = <Result data={ data }final={ final } words={ words }/>;
+    const dataState = data;
+    newDataArr = dataState.filter( ( item: any, index: number ) => {
+      if ( index < dataState.length - 5 ) {
+        return item;
+      }
+    } );
+    dataComp = <Result data={ newDataArr }final={ final } words={ words }/>;
   } else {
     dataComp = <div>Loading data...</div>;
   }
+  console.log(data);
   return (
     <div className='info'>
       <h2>This is my admin page that will eventually reveal my results.</h2>
